@@ -3,7 +3,7 @@ package controllers;
 import play.*;
 import play.mvc.*;
 import views.html.*;
-import models.Country;
+import models.*;
 import java.util.*;
 
 public class Application extends Controller {
@@ -22,9 +22,9 @@ public class Application extends Controller {
         //c.region = "Northen Europe";
         //c.save();
 
-        List<Country> l = Country.find.all();
+        List<Countries> l = Countries.find.all();
         StringBuffer ret_val = new StringBuffer();
-	for (Country c2: l){
+	for (Countries c2: l){
 	    ret_val.append(c2.toString());
         }
         
