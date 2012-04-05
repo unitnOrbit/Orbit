@@ -7,7 +7,7 @@ GET     /                           controllers.Application.index()
 
 GET     /category/list              controllers.Category.list()
 GET     /category/:cat_id           controllers.Category.by_id(cat_id: Integer)
-#GET     /report/most-common         controllers.
+GET     /report/most-common         controllers.Report.most_common()
 #GET     /report/recent              controllers.
 
 GET     /report/:report_id          controllers.Report.by_id(report_id: Integer)
