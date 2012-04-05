@@ -6,7 +6,7 @@ import views.html.*;
 import models.*;
 import java.util.*;
 
-public class Categories extends Controller {
+public class Category extends Controller {
 
     public static Result list() {
         return ok(index.render("Your new application is ready."));
