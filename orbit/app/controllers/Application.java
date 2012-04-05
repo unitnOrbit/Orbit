@@ -13,7 +13,7 @@ public class Application extends Controller {
     }
    
     public static Result prova() {
-        return TODO;
+        return ok(prova.render("Ho vinto."));
     }
   
     public static Result dbtest() {

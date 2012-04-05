@@ -4,9 +4,19 @@
 
 # Home page
 GET     /                           controllers.Application.index()
-GET     /prova                      controllers.Application.prova()
+
+GET     /category/list              controllers.Categories.list()
+GET     /category/:cat_id           controllers.Categories.by_id(cat_id: Integer)
+#GET     /report/most-common         controllers.
+#GET     /report/recent              controllers.
+
+GET     /report/:report_id          controllers.Reports.by_id(report_id: Integer)
+
+
+
 
 # Some testing pages
+GET     /prova                      controllers.Application.prova()
 GET     /test/db                    controllers.Application.dbtest()
 
 # Map static resources from the /public folder to the /assets URL path
