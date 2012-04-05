@@ -22,13 +22,15 @@ public class Application extends Controller {
         //c.region = "Northen Europe";
         //c.save();
 
-        List<Countries> l = Countries.find.all();
+       /* List<Countries> l = Countries.find.all();
         StringBuffer ret_val = new StringBuffer();
 	for (Countries c2: l){
-	    ret_val.append(c2.toString());
+	   ret_val.append(c2.toString());
         }
         
         return ok(ret_val.toString());
-    }
+    */
+      return TODO;
+  }
   
 }
