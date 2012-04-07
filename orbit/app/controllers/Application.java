@@ -17,20 +17,14 @@ public class Application extends Controller {
     }
   
     public static Result dbtest() {
-        //Country c = new Country();
-	//c.name = "Vaffanculo";
-        //c.region = "Northen Europe";
-        //c.save();
-
-       /* List<Countries> l = Countries.find.all();
+        List<Country> l = Country.find.all();
         StringBuffer ret_val = new StringBuffer();
-	for (Countries c2: l){
-	   ret_val.append(c2.toString());
+        for (Country c2: l){
+            ret_val.append(c2.toString());
         }
         
         return ok(ret_val.toString());
-    */
-      return TODO;
-  }
+        
+    }
   
 }
