@@ -15,7 +15,7 @@ public class Application extends Controller {
     public static Result prova() {
         return ok(prova.render("Ho vinto."));
     }
-  
+
     public static Result dbtest() {
         List<Country> l = Country.find.all();
         StringBuffer ret_val = new StringBuffer();

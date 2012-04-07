@@ -2,39 +2,6 @@
 
 <!DOCTYPE html>
 <html>
-<<<<<<< HEAD
-    <head>
-        <meta charset="utf-8">
-        <title>@title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="">
-        <meta name="author" content="">
-
-        <link href="@routes.Assets.at("bootstrap/css/bootstrap.css")" rel="stylesheet">
-              <link href="@routes.Assets.at("stylesheets/custom.css")" rel="stylesheet">
-        <style type="text/css">
-            body { padding-top: 60px; padding-bottom: 40px;}
-            .sidebar-nav { padding: 9px 0; }
-
-            /* MOD: adatta la navbar alla pagina */
-            /* FIXME: capire perche' senza sgorilla */
-            .navbar .container { width: 100%;}
-        </style>
-        <link href="@routes.Assets.at("bootstrap/bootstrap-responsive.css")" rel="stylesheet">
-              <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-              <!--[if lt IE 9]>
-                  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-                  <![endif]-->
-              <link rel="shortcut icon" href="@routes.Assets.at("bootstrap/favicon.png")">
-              <link rel="apple-touch-icon-precomposed" sizes="114x114" href="@routes.Assets.at("bootstrap/ico/apple-touch-icon-114-precomposed.png")">
-              <link rel="apple-touch-icon-precomposed" sizes="72x72" href="@routes.Assets.at("bootstrap/ico/apple-touch-icon-72-precomposed.png")">
-              <link rel="apple-touch-icon-precomposed" href="@routes.Assets.at("bootstrap/ico/apple-touch-icon-57-precomposed.png")">
-
-    </head>
-
-    <body>
-        <!-- Navbar
-=======
   <head>
     <meta charset="utf-8">
     <title>@title</title>
@@ -42,30 +9,48 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <link href="@routes.Assets.at("bootstrap/css/bootstrap.css")" rel="stylesheet">
-    <link href="@routes.Assets.at("stylesheets/custom.css")" rel="stylesheet">
+    <!-- Le styles -->
+    <link href="@routes.Assets.at("bootstrap/css/bootstrap.css")"
+	  rel="stylesheet">
+    <link href="@routes.Assets.at("stylesheets/custom.css")"
+	rel="stylesheet">
     <style type="text/css">
-      body { padding-top: 60px; padding-bottom: 40px;}
-      .sidebar-nav { padding: 9px 0; }
+      body { 
+        padding-top: 60px; 
+        padding-bottom: 40px;
+      }
+      .sidebar-nav { 
+        padding: 9px 0;
+      }
 
       /* MOD: adatta la navbar alla pagina */
-      /* FIXME: capire peche' senza sgorilla */
-      .navbar .container { width: 100%;}
+      /* FIXME: capire perche' senza sgorilla */
+      /*.navbar .container { width: 100%;}*/
     </style>
-    <link href="@routes.Assets.at("bootstrap/bootstrap-responsive.css")" rel="stylesheet">
+    <link  rel="stylesheet"
+	   href="@routes.Assets.at("bootstrap/css/bootstrap-responsive.css")"
+	   >
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
-    <link rel="shortcut icon" href="@routes.Assets.at("bootstrap/favicon.png")">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="@routes.Assets.at("bootstrap/ico/apple-touch-icon-114-precomposed.png")">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="@routes.Assets.at("bootstrap/ico/apple-touch-icon-72-precomposed.png")">
-    <link rel="apple-touch-icon-precomposed" href="@routes.Assets.at("bootstrap/ico/apple-touch-icon-57-precomposed.png")">
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon"
+	  href="@routes.Assets.at("bootstrap/ico/favicon.png")">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114"
+	  href="@routes.Assets.at("bootstrap/ico/apple-touch-icon-114-precomposed.png")">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72"
+	  href="@routes.Assets.at("bootstrap/ico/apple-touch-icon-72-precomposed.png")">
+    <link rel="apple-touch-icon-precomposed"
+	  href="@routes.Assets.at("bootstrap/ico/apple-touch-icon-57-precomposed.png")">
+
     
     <!-- TEST: disegno grafico di prova -->
     <!--Load the AJAX API-->
-    @*<script type="text/javascript" src="https://www.google.com/jsapi"></script>*@
-    <script type="text/javascript" src="@routes.Assets.at("javascripts/google-jsapi.js")"></script>
+    <script type="text/javascript"
+	    src="@routes.Assets.at("javascripts/google-jsapi.js")">
+    </script>
     <script type="text/javascript">
       // Load the Visualization API and the piechart package.
       google.load('visualization', '1.0', {'packages':['corechart']});
@@ -104,7 +89,6 @@
 
   <body>
     <!-- Navbar
->>>>>>> 192b777a1c0c4a49c0c77c7e727ee0d5d19f1688
          ================================================== -->
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
@@ -340,8 +324,6 @@
     <script src="@routes.Assets.at("bootstrap/js/bootstrap-carousel.js")"></script>
     <script src="@routes.Assets.at("bootstrap/js/bootstrap-typeahead.js")"></script>
     
-    
-    
     <!-- TEST: prelevo dati con JSON -->
     <script type="text/javascript">      
       /**
@@ -389,9 +371,8 @@
       
       $(function () {        
 	getCategoryList("ajax");
-	getCategoryList("getJSON");
-	
-    });
+        getCategoryList("getJSON");
+      });
       
     </script>
 
