@@ -6,3 +6,8 @@
 *.swp
 
 .#*
+
+# Regole per Eclipse
+target
+test
+
