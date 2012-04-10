@@ -15,14 +15,7 @@ public class Report extends Controller {
     }
 
     public static Result most_common() {
-    	JSONObject json = new JSONObject();
-		
-    	
-    	
-    	
-    	
-    	
-     return TODO;
+      return TODO;
     }
 
 }
