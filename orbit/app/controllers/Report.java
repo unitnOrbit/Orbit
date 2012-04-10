@@ -5,7 +5,8 @@ import play.mvc.*;
 import views.html.*;
 import models.*;
 import java.util.*;
-import org.json;
+import org.json.*;
+
 
 public class Report extends Controller {
 
@@ -14,7 +15,16 @@ public class Report extends Controller {
     }
 
     public static Result most_common() {
-    	return TODO;
+    	JSONObject json = new JSONObject();
+		
+    	
+    	json.put("name","nome");
+    	json.put("title",2);
+    	json.put("url",3);
+    	
+    	
+    	
+     return json;
     }
 
 }
