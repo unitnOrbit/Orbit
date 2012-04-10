@@ -18,13 +18,11 @@ public class Report extends Controller {
     	JSONObject json = new JSONObject();
 		
     	
-    	json.put("name","nome");
-    	json.put("title",2);
-    	json.put("url",3);
     	
     	
     	
-     return json;
+    	
+     return TODO;
     }
 
 }
