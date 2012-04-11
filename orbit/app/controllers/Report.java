@@ -1,11 +1,8 @@
 package controllers;
 
-import play.*;
 import play.mvc.*;
-import views.html.*;
-import models.*;
+import static play.libs.Json.toJson;
 import java.util.*;
-
 
 
 public class Report extends Controller {
@@ -15,7 +12,11 @@ public class Report extends Controller {
     }
 
     public static Result most_common() {
-        return TODO;
+    	Map<String,String> stringMap = new HashMap<String,String>();
+    	stringMap.put("nome","paolo");
+    	stringMap.put("cognome","rossi");
+        return ok(toJson(stringMap));
+    	
     }
 
 }
