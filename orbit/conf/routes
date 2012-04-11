@@ -5,7 +5,7 @@
 # Home page
 GET     /                           controllers.Application.index()
 
-GET     /category/list.json         controllers.Category.list()
+GET     /category/list              controllers.Category.list()
 GET     /category/:cat_id           controllers.Category.by_id(cat_id: Integer)
 GET     /report/most-common         controllers.Report.most_common()
 #GET     /report/recent              controllers.
