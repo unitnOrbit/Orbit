@@ -1,0 +1,13 @@
+*#
+*~
+*.bak
+
+#vim
+*.swp
+
+.#*
+
+# Regole per Eclipse
+target
+test
+
