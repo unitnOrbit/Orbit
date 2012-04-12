@@ -7,7 +7,7 @@ import java.util.*;
 
 public class Report extends Controller {
 
-    public static Result by_id(Integer report_id) {
+    public static Result by_id(Long report_id) {
         return TODO;
     }
 
@@ -17,6 +17,10 @@ public class Report extends Controller {
     	stringMap.put("cognome","rossi");
         return ok(toJson(stringMap));
     	
+    }
+    
+    public static Result example() {
+	return ok("prova");
     }
 
 }

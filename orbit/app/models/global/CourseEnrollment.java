@@ -18,7 +18,6 @@ public class CourseEnrollment extends Model {
     public Date updatedAt;
     public static final long serialVersionUID = 1L;
     @Id
-    @NotNull
     @Column(name = "enrollment_ID")
     public Integer enrollmentID;
     @NotNull
@@ -36,20 +35,18 @@ public class CourseEnrollment extends Model {
     @ManyToOne(optional = false)
     public Course course;
 
-
     public static Finder<Long,CourseEnrollment> find = new Finder(
-      Long.class, CourseEnrollment.class
-    );
+Long.class, CourseEnrollment.class
+);
 
-    public static List<CourseEnrollment> all() {
-      return find.all();
-    }
-  
-    public static void create(CourseEnrollment courseenrollment) {
-      courseenrollment.save();
-    }
+public static List<CourseEnrollment> all() {
+return find.all();
+}
+public static void create(CourseEnrollment courseenrollment) {
+courseenrollment.save();
+}
 
-    public static void delete(Long id) {
-      find.ref(id).delete();
-    }    
+public static void delete(Long id) {
+find.ref(id).delete();
+}
 }

@@ -14,7 +14,6 @@ import play.data.validation.*;
 public class UserRole extends Model {
     public static final long serialVersionUID = 1L;
     @Id
-    @NotNull
     @Column(name = "user_rol_ID")
     public Integer userrolID;
     @NotNull
@@ -25,22 +24,20 @@ public class UserRole extends Model {
     @Column(name = "deleted")
     public boolean deleted;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userRol")
-    public Collection<UserCredentials> usersCredentialsCollection;
-
+    public Set<UserCredentials> usersCredentialsSet;
 
     public static Finder<Long,UserRole> find = new Finder(
-      Long.class, UserRole.class
-    );
+Long.class, UserRole.class
+);
 
-    public static List<UserRole> all() {
-      return find.all();
-    }
-  
-    public static void create(UserRole userrole) {
-      userrole.save();
-    }
+public static List<UserRole> all() {
+return find.all();
+}
+public static void create(UserRole userrole) {
+userrole.save();
+}
 
-    public static void delete(Long id) {
-      find.ref(id).delete();
-    }    
+public static void delete(Long id) {
+find.ref(id).delete();
+}
 }

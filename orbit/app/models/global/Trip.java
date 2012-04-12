@@ -34,7 +34,6 @@ public class Trip extends Model {
     public Date dateReimRequestSubmitted;
     public static final long serialVersionUID = 1L;
     @Id
-    @NotNull
     @Column(name = "trip_ID")
     public Integer tripID;
     @Column(name = "academic_year_id")
@@ -88,7 +87,7 @@ public class Trip extends Model {
     @NotNull
     @Column(name = "has_advisor_approved")
     public boolean hasAdvisorApproved;
-    // @Max(value=?) @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "foreseen_meals_cost")
     public Float foreseenMealsCost;
     @Column(name = "foreseen_lodging_cost")
@@ -174,20 +173,18 @@ public class Trip extends Model {
     @ManyToOne(optional = false)
     public Student student;
 
-
     public static Finder<Long,Trip> find = new Finder(
-      Long.class, Trip.class
-    );
+Long.class, Trip.class
+);
 
-    public static List<Trip> all() {
-      return find.all();
-    }
-  
-    public static void create(Trip trip) {
-      trip.save();
-    }
+public static List<Trip> all() {
+return find.all();
+}
+public static void create(Trip trip) {
+trip.save();
+}
 
-    public static void delete(Long id) {
-      find.ref(id).delete();
-    }
+public static void delete(Long id) {
+find.ref(id).delete();
+}
 }

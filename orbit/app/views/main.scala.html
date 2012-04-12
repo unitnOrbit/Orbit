@@ -23,9 +23,6 @@
                 padding: 9px 0;
             }
 
-            /* MOD: adatta la navbar alla pagina */
-            /* FIXME: capire perche' senza sgorilla */
-            /*.navbar .container { width: 100%;}*/
         </style>
         <link  rel="stylesheet"
                href="@routes.Assets.at("bootstrap/css/bootstrap-responsive.css")"
@@ -56,7 +53,7 @@
         google.load('visualization', '1.0', {'packages':['corechart']});
 
         // Set a callback to run when the Google Visualization API is loaded.
-        google.setOnLoadCallback(drawChart);
+        //google.setOnLoadCallback(drawChart);
 
         // Callback that creates and populates a data table,
         // instantiates the pie chart, passes in the data and
@@ -68,20 +65,22 @@
             data.addColumn('string', 'Stringa');
             data.addColumn('number', 'Numero');
             data.addRows([
-                ['Dato 1', 3],
-                ['Dato 2', 1],
-                ['Dato 3', 1],
-                ['Dato 4', 1],
-                ['Dato 5', 2]
+                ['Italy', 100],
+                ['Europe (not Italy)', 120],
+                ['North America', 70],
+                ['Asia', 50],
+                ['Africa', 45],
+		['Oceania', 6 ],
+		['Moon', 0],
             ]);
 
             // Set chart options
             var options = {'title':'Grafico di prova',
-                'width':250,
-                'height':250};
+                'width':'100%',
+                'height':300};
 
             // Instantiate and draw our chart, passing in some options.
-            var chart = new google.visualization.PieChart(document.getElementById('chart1'));
+            var chart = new google.visualization.PieChart(document.getElementById('middlechart'));
             chart.draw(data, options);
         }
     </script>
@@ -157,8 +156,8 @@
 
             <div class="span3">
 
-                <h3>Actions here</h3>
-                <p>"testo qui"</p>
+                <!--h3>Actions here</h3>
+                <p>"testo qui"</p-->
 
                 <div class="well sidebar-nav" style="padding: 8px 0;">
                     <!--                        <ul class="nav nav-list">
@@ -176,7 +175,7 @@
                                                 <li><a href="#"><i class="icon-flag"></i> Help</a></li>
                     </ul>-->
 
-                    <!-- Se e' stato selezionato un menu -->
+                    <!-- Se e` stato selezionato un menu -->
                     <ul class="nav nav-list">
                         <li class="nav-header">Fast menu</li>
                         <li><a href="#"><i class="icon-home"></i> Home</a></li>
@@ -199,10 +198,10 @@
 
                     <hr />
 
-                    <p>Inserisco un grafico qui per vedere se funziona</p>
+                    <!--p>Inserisco un grafico qui per vedere se funziona</p-->
                     <!-- test chart -->
-                    <div id="chart1"></div>
-
+                    <!-- div id="chart1"></div-->
+		    
 
 
                 </div>
@@ -236,32 +235,22 @@
                 <hr/>
 
                 <!-- Main row
-                     ================================================== -->    
+                     ================================================== -->  
+		<div id="main_container">
                 <div class="alert alert-info">Overview</div>
 
-                <div class="row-fluid">
-                    <div class="span4">      
-                        <h2>Current Students</h2>              
+                <div id="cat_list_container" class="row-fluid">
+                    <div id="cat_item_template" class="span4" style="display: none;">      
+                        <h2></h2>              
                         <!-- test ajax -->
-                        <p id="test_ajax">Faccio dei test qui per il caricamento dei dati in JSON, uso sia $.ajax che $.getJSON (vedi codice a fondo pagina)<p>
+                        <p class="cat_desc">Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. <p>
 
                         <p>
                             <a class="btn btn-small" title="Settings" href="#"><i class="icon-cog"></i></a>
-                            <a class="btn" href="#">View this chart &raquo;</a>
+                            <a class="btn" href="#">View &raquo;</a>
                         </p>
                     </div><!--/span-->
 
-                    <div class="span4">
-                        <h2>Student Application</h2>
-                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                        <p><a class="btn" href="#">View this chart &raquo;</a></p>
-                    </div><!--/span-->
-
-                    <div class="span4">
-                        <h2>Student marks</h2>
-                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                        <p><a class="btn" href="#">View this chart &raquo;</a></p>
-                    </div><!--/span-->
                 </div>
 
                 <hr/>
@@ -271,9 +260,37 @@
                 <div class="alert alert-info">Most visited</div>
                 <div class="row-fluid">
                     <div class="span4">
-                        <h2>Box</h2>
+                        <h2>Prova</h2>
                         <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                        <p><a class="btn" href="#">View this chart &raquo;</a></p>
+			<script type="text/javascript">
+	  function load_example_page(){
+            $.ajax({
+                url: "/report",
+                dataType: 'html',
+                data: '', // vuoto per il momento
+                success: function(data) {
+		  //$("#test_ajax").append('<div class="alert alert-success">' + 
+		  //			   msgSuccess + '<ul id="testList">');
+		    
+		  $("#main_container").empty();
+		  $("#main_container").append("<div id='middlechart'></div>");
+		  drawChart();
+		    
+                },
+                error: function() { 
+                    $("#test_ajax").append('<div class="alert alert-error">' + 
+                        msgError + '</div>');
+                },
+                complete: function() { 
+		  //$("#test_ajax").append('<div class="alert alert-info">' + 
+		  //    msgComplete + '</div>');
+                }
+            });
+
+	}
+	                </script>
+                        <p><a class="btn" onclick="load_example_page();">View this chart &raquo;</a></p>
+
                     </div><!--/span-->
                     <div class="span4">
                         <h2>Box</h2>
@@ -327,7 +344,7 @@
     <!-- TEST: prelevo dati con JSON -->
     <script type="text/javascript">      
         /**
-         * Carica la lista delle categorie con JSON
+        * Carica la lista delle categorie con JSON
          */
         function getCategoryList() {
             var url_category_list = "/category/list";
@@ -335,20 +352,6 @@
             var msgSuccess = "<b>Success from '" + url_category_list + "': </b>";
             var msgComplete = "<b>Complete: </b>eseguo altro. ";
 
-            // test con: $.getJSON
-
-            //            $.getJSON(url_category_list, function() {
-            //                $("#test_ajax").append('<div class="alert alert-success">' + msgSuccess + "Dati: " + list + '</div>');              
-            //            })
-            //            .success(function() { 
-            //                /* second success */ 
-            //            })
-            //            .error(function() { 
-            //                $("#test_ajax").append('<div class="alert alert-error">' + msgError + '</div>');
-            //            })
-            //            .complete(function() { 
-            //                $("#test_ajax").append('<div class="alert alert-info">' + msgComplete + '</div>');
-            //            });
 
             // test con: $.ajax
             $.ajax({
@@ -356,15 +359,23 @@
                 dataType: 'json',
                 data: '', // vuoto per il momento
                 success: function(data) {
-                    $("#test_ajax").append('<div class="alert alert-success">' + 
-                        msgSuccess + '<ul id="testList">');
-                        
-                    $.each(data, function(chiave, valore) {
-                        $("#testList").append('<li id="' + chiave + '">' + 
-                            chiave + ' => ' +  valore + '</li>');
-                    });
- 
-                    $("#test_ajax").append('</ul></div>');
+		  //$("#test_ajax").append('<div class="alert alert-success">' + 
+		  //			   msgSuccess + '<ul id="testList">');
+		    
+		    $.each(data['list'], function(index, val) {
+		      $("#cat_list_container").append( 
+		        $("#cat_item_template").clone().css('display','block').each(function (i,elem){
+			  $(this).removeAttr('id');
+			  $(this).find('h2').text(val);
+		        })
+		      );
+		    });
+		    
+		    $("#cat_item_template").remove(); // MOLTO SPORCO!! DA CAMBIARE
+                    //$.each(data, function(chiave, valore) {
+                    //    $("#testList").append('<li id="' + chiave + '">' + 
+                    //        chiave + ' => ' +  valore + '</li>');
+                    //});
                 },
                 error: function() { 
                     $("#test_ajax").append('<div class="alert alert-error">' + 
