@@ -19,7 +19,8 @@ pl2s = { "Students" : "Student",
          "Supervisors" : "Supervisor",
          "Users" : "User",
          "FundingInstitutions" : "FundingInstitution",
-         "Roles" : "Role" }
+         "Roles" : "Role",
+         "Collection" : "Set"}
 
 regexs = [re.compile(r'/\*.*?\*/', flags=re.DOTALL),
           re.compile(r'public [\w<>]* set[\w]*\([\w\s<>]*\) \{.*?\}[\s]+',
@@ -50,11 +51,11 @@ for filename in os.listdir('.'):
     stream.close()
 
     a="""(files[filename], n )= re.subn(#r'/\*[.\n\r]*?\*/',
-        r'/\*.*?\*/',
-        '',
-        files[filename],
-        flags=re.DOTALL
-        )"""
+r'/\*.*?\*/',
+'',
+files[filename],
+flags=re.DOTALL
+)"""
     for pattern in regexs:
         files[filename] = re.sub(pattern,
                                  '',
@@ -62,15 +63,18 @@ for filename in os.listdir('.'):
                                  )
     files[filename] = re.sub(r'private', 'public', files[filename])
     files[filename] = re.sub(r'implements Serializable', 'extends Model', files[filename])
-    files[filename] = re.sub(r'public %s\([\w\s,]*\) \{.*?\}[\s]+' % filename[:-5],  # .*?\}[\s]+' % filename[:-5],
+    files[filename] = re.sub(r'public %s\([\w\s,]*\) \{.*?\}[\s]+' % filename[:-5], # .*?\}[\s]+' % filename[:-5],
                              '',
                              files[filename],
                              flags=re.DOTALL)
-    files[filename] = re.sub(r'    @Override[\n\r\s]+public int hashCode.*$', #.*?\}[\s]+',
+    files[filename] = re.sub(r' @Override[\n\r\s]+public int hashCode.*$', #.*?\}[\s]+',
                              '',
                              files[filename],
                              flags=re.DOTALL)
-
+    files[filename] = re.sub(r' @Id[\n\r\s]+@NotNull',
+                             ' @Id',
+                             files[filename],
+                             flags=re.DOTALL)
     outputname = filename
     for pl in pl2s:
         files[filename] = files[filename].replace(pl,pl2s[pl])
@@ -78,7 +82,7 @@ for filename in os.listdir('.'):
 
     stream = open('../'+outputname, 'w')
     stream.write(
-"""package models;
+"""package models.global;
 
 import java.util.*;
 import javax.persistence.*;
@@ -91,28 +95,60 @@ import play.data.validation.*;\n
 """)
     stream.write(files[filename])
     stream.write(
-"""    public static Finder<Long,%s> find = new Finder(
-      Long.class, %s.class
-    );
+""" public static Finder<Long,%s> find = new Finder(
+Long.class, %s.class
+);
 
-    public static List<%s> all() {
-      return find.all();
-    }
-  
-    public static void create(%s %s) {
-      %s.save();
-    }
+public static List<%s> all() {
+return find.all();
+}
+public static void create(%s %s) {
+%s.save();
+}
 
-    public static void delete(Long id) {
-      find.ref(id).delete();
-    }    
+public static void delete(Long id) {
+find.ref(id).delete();
 }
 """ % (outputname[:-5],outputname[:-5],outputname[:-5],outputname[:-5],outputname[:-5].lower(),outputname[:-5].lower()))
+    if (filename == "Courses.java"):
+        stream.write(
+"""
+public static List<Course> findCourseEnrolled(Set<CourseEnrollment> enrollments) {
+List<Course> out = new ArrayList();
+for (Course c : Course.find.all())
+for (CourseEnrollment e : enrollments)
+{
+if (c.coursesEnrollmentSet.contains(e))
+out.add(c);
+}
+return out;
+}
+""")
+    if (filename == "Supervisors.java"):
+        stream.write(
+"""
+public static Map<String,String> options() {
+LinkedHashMap<String,String> options = new LinkedHashMap<String,String>();
+for(Supervisor s: Supervisor.find.orderBy("lastName").findList()) {
+options.put(s.supervisorID.toString(), s.lastName);
+}
+return options;
+}
+""")
+    if (filename == "UsersCredentials.java"):
+        stream.write(
+"""
+public static UserCredentials authenticate(String username, String password) {
+return find.where()
+.eq("username", username)
+.eq("password", password)
+.findUnique();
+}
+""")
+    stream.write("}\n")
     stream.close()
     #print(files[filename])
     
 
     
 #print([k for k in files])
-
-

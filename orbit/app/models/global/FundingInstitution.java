@@ -14,7 +14,6 @@ import play.data.validation.*;
 public class FundingInstitution extends Model {
     public static final long serialVersionUID = 1L;
     @Id
-    @NotNull
     @Column(name = "funding_institution_ID")
     public Integer fundinginstitutionID;
     @NotNull
@@ -29,22 +28,20 @@ public class FundingInstitution extends Model {
     @Column(name = "type")
     public String type;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "fundingInstitution")
-    public Collection<Student> studentsCollection;
-
+    public Set<Student> studentsSet;
 
     public static Finder<Long,FundingInstitution> find = new Finder(
-      Long.class, FundingInstitution.class
-    );
+Long.class, FundingInstitution.class
+);
 
-    public static List<FundingInstitution> all() {
-      return find.all();
-    }
-  
-    public static void create(FundingInstitution fundinginstitution) {
-      fundinginstitution.save();
-    }
+public static List<FundingInstitution> all() {
+return find.all();
+}
+public static void create(FundingInstitution fundinginstitution) {
+fundinginstitution.save();
+}
 
-    public static void delete(Long id) {
-      find.ref(id).delete();
-    }    
+public static void delete(Long id) {
+find.ref(id).delete();
+}
 }

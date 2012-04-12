@@ -14,7 +14,6 @@ import play.data.validation.*;
 public class Country extends Model {
     public static final long serialVersionUID = 1L;
     @Id
-    @NotNull
     @Column(name = "country_ID")
     public Integer countryID;
     @NotNull
@@ -30,33 +29,24 @@ public class Country extends Model {
     @Column(name = "deleted")
     public boolean deleted;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "countryOfProvenance")
-    public Collection<Student> studentsCollection;
+    public Set<Student> studentsSet;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "citizenship")
-    public Collection<Student> studentsCollection1;
+    public Set<Student> studentsSet1;
     @OneToMany(mappedBy = "country")
-    public Collection<University> universitiesCollection;
-
+    public Set<University> universitiesSet;
 
     public static Finder<Long,Country> find = new Finder(
-      Long.class, Country.class
-    );
+Long.class, Country.class
+);
 
+public static List<Country> all() {
+return find.all();
+}
+public static void create(Country country) {
+country.save();
+}
 
-    @Override
-    public String toString(){
-        return this.name;
-    }
-    /*
-    public static List<Country> all() {
-      return find.all();
-    }
-    
-    public static void create(Country country) {
-      country.save();
-    }
-
-    public static void delete(Long id) {
-      find.ref(id).delete();
-    } 
-    */
+public static void delete(Long id) {
+find.ref(id).delete();
+}
 }

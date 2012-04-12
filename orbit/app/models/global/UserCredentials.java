@@ -14,7 +14,6 @@ import play.data.validation.*;
 public class UserCredentials extends Model {
     public static final long serialVersionUID = 1L;
     @Id
-    @NotNull
     @Column(name = "user_credential_ID")
     public Integer usercredentialID;
     @NotNull
@@ -32,20 +31,25 @@ public class UserCredentials extends Model {
     @ManyToOne(optional = false)
     public Student user;
 
-
     public static Finder<Long,UserCredentials> find = new Finder(
-      Long.class, UserCredentials.class
-    );
+Long.class, UserCredentials.class
+);
 
-    public static List<UserCredentials> all() {
-      return find.all();
-    }
-  
-    public static void create(UserCredentials usercredentials) {
-      usercredentials.save();
-    }
+public static List<UserCredentials> all() {
+return find.all();
+}
+public static void create(UserCredentials usercredentials) {
+usercredentials.save();
+}
 
-    public static void delete(Long id) {
-      find.ref(id).delete();
-    }    
+public static void delete(Long id) {
+find.ref(id).delete();
+}
+
+public static UserCredentials authenticate(String username, String password) {
+return find.where()
+.eq("username", username)
+.eq("password", password)
+.findUnique();
+}
 }
