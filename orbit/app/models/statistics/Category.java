@@ -13,10 +13,11 @@ import play.data.validation.*;
 public class Category extends Model {
 
     @Id
-    @NotNull
     public Integer id;
     
     public String name;
+
+    public String description;
 
     public static Finder<Long,Category> find = new Finder(
       Long.class, Category.class
