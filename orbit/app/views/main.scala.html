@@ -1,10 +1,10 @@
-@(title: String)(content: Html)
+@(title: Html, nav: String = "", connected: String)(content: Html)
 
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
-        <title>@title</title>
+        <title>Statistics Portal</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
         <meta name="author" content="">
@@ -70,8 +70,8 @@
                 ['North America', 70],
                 ['Asia', 50],
                 ['Africa', 45],
-		['Oceania', 6 ],
-		['Moon', 0],
+                ['Oceania', 6 ],
+                ['Moon', 0],
             ]);
 
             // Set chart options
@@ -100,9 +100,15 @@
                 <a class="brand" href="@routes.Application.index">Statistics Portal</a>
                 <div class="nav-collapse">
                     <ul class="nav">
+<<<<<<< HEAD
                         <li class="active"><a href="@routes.Application.index">Home</a></li>
                         <li><a href="#">About</a></li>
                         <li><a href="#">School website</a></li>
+=======
+                        <li class="@("active".when(nav == "home"))"><a href="@routes.Application.index">Home</a></li>
+                        <li class="@("active".when(nav == "about"))"><a href="@routes.Application.aboutPage()">About</a></li>
+                        <li><a href="#">Shool website</a></li>
+>>>>>>> 34e5eb87cca8625d69a04d3f5e415107e16141a7
 
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
@@ -124,26 +130,29 @@
 
                     <ul class="nav pull-right">
                         <li class="divider-vertical"></li>
-			<!-- Lang images -->
+                        <!-- Lang images -->
                         <li><a href="#"><img src="@routes.Assets.at("images/flags/16/uk.png")" alt="It" title="Italian" /></a></li>
                         <li><a href="#"><img src="@routes.Assets.at("images/flags/16/it.png")" alt="En" title="English" /></a></li>
                         <li class="divider-vertical"></li>
 
 
                         <!-- se l'utente NON e' loggato -->
-                        <li><a href="#">Login</a></li>
-
+                    
                         <li class="divider-vertical"></li>
 
                         <!-- se l'utente e' loggato -->
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Settings</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Logout</a></li>
-                            </ul>
+			@if(connected != null) {
+                          <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">@connected <b class="caret"></b></a>
+                              <ul class="dropdown-menu">
+                                  <li><a href="#">Settings</a></li>
+                                  <li class="divider"></li>
+                                  <li><a href="#">Logout</a></li>
+                              </ul>
                         </li>
+			} else {
+                          <li><a href="#">Login</a></li>
+			}
                     </ul>
                 </div><!-- /.nav-collapse -->
             </div>
@@ -202,11 +211,12 @@
                     <!--p>Inserisco un grafico qui per vedere se funziona</p-->
                     <!-- test chart -->
                     <!-- div id="chart1"></div-->
-		    
+
 
 
                 </div>
             </div>
+            <!-- END span3 -->
 
             <div class="span9">
 
@@ -218,7 +228,7 @@
 
                     <!-- page TILE -->
                     <div class="span8">
-                        <h2>Statistics Portal</h2>
+                        <h2>@title</h2>
                         <ul class="breadcrumb">
                             <li>
                                 <a href="@routes.Application.index">Home</a> <span class="divider">/</span>
@@ -235,85 +245,24 @@
                 </div>
                 <hr/>
 
+
                 <!-- Main row
                      ================================================== -->  
-		<div id="main_container">
-                <div class="alert alert-info">Overview</div>
-
-                <div id="cat_list_container" class="row-fluid">
-                    <div id="cat_item_template" class="span4" style="display: none;">      
-                        <h2></h2>              
-                        <!-- test ajax -->
-                        <p class="cat_desc">Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. <p>
-
-                        <p>
-                            <a class="btn btn-small" title="Settings" href="#"><i class="icon-cog"></i></a>
-                            <a class="btn" href="#">View &raquo;</a>
-                        </p>
-                    </div><!--/span-->
-
+                <!-- main container -->
+                <div id="main_container">
+                    @content
                 </div>
+                <!-- END main container -->
 
-                <hr/>
+            </div><!-- end span 9 -->
+        </div>
 
-                <!-- Most visited row
-                     ================================================== -->    
-                <div class="alert alert-info">Most visited</div>
-                <div class="row-fluid">
-                    <div class="span4">
-                        <h2>Prova</h2>
-                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-			<script type="text/javascript">
-	  function load_example_page(){
-            $.ajax({
-                url: "/report",
-                dataType: 'html',
-                data: '', // vuoto per il momento
-                success: function(data) {
-		  //$("#test_ajax").append('<div class="alert alert-success">' + 
-		  //			   msgSuccess + '<ul id="testList">');
-		    
-		  $("#main_container").empty();
-		  $("#main_container").append("<div id='middlechart'></div>");
-		  drawChart();
-		    
-                },
-                error: function() { 
-                    $("#test_ajax").append('<div class="alert alert-error">' + 
-                        msgError + '</div>');
-                },
-                complete: function() { 
-		  //$("#test_ajax").append('<div class="alert alert-info">' + 
-		  //    msgComplete + '</div>');
-                }
-            });
-
-	}
-	                </script>
-                        <p><a class="btn" onclick="load_example_page();">View this chart &raquo;</a></p>
-
-                    </div><!--/span-->
-                    <div class="span4">
-                        <h2>Box</h2>
-                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                        <p><a class="btn" href="#">View this chart &raquo;</a></p>
-                    </div><!--/span-->
-                    <div class="span4">
-                        <h2>Box</h2>
-                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                        <p><a class="btn" href="#">View this chart &raquo;</a></p>
-                    </div><!--/span-->
-                </div><!--/span-->
-            </div>
-
-        </div><!-- END row-fluid -->
-
-        <hr />
 
 
         <!-- footer
              ================================================== -->    
-        <footer>
+        <hr />
+        <footer class="footer">
             <p class="pull-right">
                 <a href="#">Term fo Service</a> - <a href="#">Privacy Policy</a>
             </p>
@@ -323,7 +272,7 @@
             </p>
         </footer>
 
-    </div>
+    </div><!-- END container fluid -->
 
     <!-- javascript
          ================================================== -->
@@ -345,7 +294,7 @@
     <!-- TEST: prelevo dati con JSON -->
     <script type="text/javascript">      
         /**
-        * Carica la lista delle categorie con JSON
+         * Carica la lista delle categorie con JSON
          */
         function getCategoryList() {
             var url_category_list = "/category/list";
@@ -360,19 +309,19 @@
                 dataType: 'json',
                 data: '', // vuoto per il momento
                 success: function(data) {
-		  //$("#test_ajax").append('<div class="alert alert-success">' + 
-		  //			   msgSuccess + '<ul id="testList">');
+                    //$("#test_ajax").append('<div class="alert alert-success">' + 
+                    //			   msgSuccess + '<ul id="testList">');
 		    
-		    $.each(data['list'], function(index, val) {
-		      $("#cat_list_container").append( 
-		        $("#cat_item_template").clone().css('display','block').each(function (i,elem){
-			  $(this).removeAttr('id');
-			  $(this).find('h2').text(val);
-		        })
-		      );
-		    });
+                    $.each(data['list'], function(index, val) {
+                        $("#cat_list_container").append( 
+                        $("#cat_item_template").clone().css('display','block').each(function (i,elem){
+                            $(this).removeAttr('id');
+                            $(this).find('h2').text(val);
+                        })
+                    );
+                    });
 		    
-		    $("#cat_item_template").remove(); // MOLTO SPORCO!! DA CAMBIARE
+                    $("#cat_item_template").remove(); // MOLTO SPORCO!! DA CAMBIARE
                     //$.each(data, function(chiave, valore) {
                     //    $("#testList").append('<li id="' + chiave + '">' + 
                     //        chiave + ' => ' +  valore + '</li>');
