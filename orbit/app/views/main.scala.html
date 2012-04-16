@@ -97,10 +97,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </a>
-                <a class="brand" href="#">Statistics Portal</a>
+                <a class="brand" href="@routes.Application.index">Statistics Portal</a>
                 <div class="nav-collapse">
                     <ul class="nav">
-                        <li class="active"><a href="#">Home</a></li>
+                        <li class="active"><a href="@routes.Application.index">Home</a></li>
                         <li><a href="#">About</a></li>
                         <li><a href="#">School website</a></li>
 
@@ -124,8 +124,9 @@
 
                     <ul class="nav pull-right">
                         <li class="divider-vertical"></li>
-                        <li><a href="#">EN</a></li>
-                        <li><a href="#">IT</a></li>
+			<!-- Lang images -->
+                        <li><a href="#"><img src="@routes.Assets.at("images/flags/16/uk.png")" alt="It" title="Italian" /></a></li>
+                        <li><a href="#"><img src="@routes.Assets.at("images/flags/16/it.png")" alt="En" title="English" /></a></li>
                         <li class="divider-vertical"></li>
 
 
@@ -178,7 +179,7 @@
                     <!-- Se e` stato selezionato un menu -->
                     <ul class="nav nav-list">
                         <li class="nav-header">Fast menu</li>
-                        <li><a href="#"><i class="icon-home"></i> Home</a></li>
+                        <li><a href="@routes.Application.index"><i class="icon-home"></i> Home</a></li>
                         <li><a href="#"><i class="icon-pencil"></i> Create Report</a></li>
                         <li><a href="#"><i class="icon-print"></i> Print</a></li>
 
@@ -220,7 +221,7 @@
                         <h2>Statistics Portal</h2>
                         <ul class="breadcrumb">
                             <li>
-                                <a href="#">Home</a> <span class="divider">/</span>
+                                <a href="@routes.Application.index">Home</a> <span class="divider">/</span>
                             </li>
                             <li>
                                 <a href="#">Path</a> <span class="divider">/</span>
