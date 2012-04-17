@@ -10,10 +10,8 @@
         <meta name="author" content="">
 
         <!-- Le styles -->
-        <link href="@routes.Assets.at("bootstrap/css/bootstrap.css")"
-              rel="stylesheet">
-              <link href="@routes.Assets.at("stylesheets/custom.css")"
-              rel="stylesheet">
+        <link href="@routes.Assets.at("bootstrap/css/bootstrap.css")" rel="stylesheet">
+        <link href="@routes.Assets.at("stylesheets/custom.css")" rel="stylesheet">
         <style type="text/css">
             body { 
                 padding-top: 60px; 
@@ -24,31 +22,22 @@
             }
 
         </style>
-        <link  rel="stylesheet"
-               href="@routes.Assets.at("bootstrap/css/bootstrap-responsive.css")"
-               >
-               <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-               <!--[if lt IE 9]>
-                   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-               <![endif]-->
+        <link  rel="stylesheet" href="@routes.Assets.at("bootstrap/css/bootstrap-responsive.css")">
+        <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+            <![endif]-->
+		
+        <!-- Le fav and touch icons -->
+        <link rel="shortcut icon" href="@routes.Assets.at("bootstrap/ico/favicon.png")">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="@routes.Assets.at("bootstrap/ico/apple-touch-icon-114-precomposed.png")">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="@routes.Assets.at("bootstrap/ico/apple-touch-icon-72-precomposed.png")">
+        <link rel="apple-touch-icon-precomposed" href="@routes.Assets.at("bootstrap/ico/apple-touch-icon-57-precomposed.png")">
 
-               <!-- Le fav and touch icons -->
-               <link rel="shortcut icon"
-               href="@routes.Assets.at("bootstrap/ico/favicon.png")">
-               <link rel="apple-touch-icon-precomposed" sizes="114x114"
-               href="@routes.Assets.at("bootstrap/ico/apple-touch-icon-114-precomposed.png")">
-               <link rel="apple-touch-icon-precomposed" sizes="72x72"
-               href="@routes.Assets.at("bootstrap/ico/apple-touch-icon-72-precomposed.png")">
-               <link rel="apple-touch-icon-precomposed"
-               href="@routes.Assets.at("bootstrap/ico/apple-touch-icon-57-precomposed.png")">
-
-
-               <!-- TEST: disegno grafico di prova -->
-               <!--Load the AJAX API-->
-        <script type="text/javascript"
-                src="@routes.Assets.at("javascripts/google-jsapi.js")">
-    </script>
-    <script type="text/javascript">
+        <!-- TEST: disegno grafico di prova -->
+        <!--Load the AJAX API-->
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/google-jsapi.js")"></script>
+		<script type="text/javascript">
         // Load the Visualization API and the piechart package.
         google.load('visualization', '1.0', {'packages':['corechart']});
 
@@ -127,15 +116,11 @@
                         <!-- Lang images -->
                         <li><a href="#"><img src="@routes.Assets.at("images/flags/16/uk.png")" alt="It" title="Italian" /></a></li>
                         <li><a href="#"><img src="@routes.Assets.at("images/flags/16/it.png")" alt="En" title="English" /></a></li>
-                        <li class="divider-vertical"></li>
 
+                        <li class="divider-vertical"></li>                    
 
-                        <!-- se l'utente NON e' loggato -->
-                    
-                        <li class="divider-vertical"></li>
-
-                        <!-- se l'utente e' loggato -->
 			@if(connected != null) {
+                          <!-- se l'utente e' loggato -->
                           <li class="dropdown">
                               <a href="#" class="dropdown-toggle" data-toggle="dropdown">@connected <b class="caret"></b></a>
                               <ul class="dropdown-menu">
@@ -145,6 +130,7 @@
                               </ul>
                         </li>
 			} else {
+                          <!-- se l'utente NON e' loggato -->
                           <li><a href="#">Login</a></li>
 			}
                     </ul>
@@ -285,54 +271,11 @@
     <script src="@routes.Assets.at("bootstrap/js/bootstrap-carousel.js")"></script>
     <script src="@routes.Assets.at("bootstrap/js/bootstrap-typeahead.js")"></script>
 
-    <!-- TEST: prelevo dati con JSON -->
+	<!-- our js -->
+	<script type="text/javascript" src="@routes.Assets.at("javascripts/stats.js")"></script>
+    
+	<!-- TEST: prelevo dati con JSON -->
     <script type="text/javascript">      
-        /**
-         * Carica la lista delle categorie con JSON
-         */
-        function getCategoryList() {
-            var url_category_list = "/category/list";
-            var msgError = "<b>Error: </b> pagina o dati non trovati.\nUrl: " + url_category_list;
-            var msgSuccess = "<b>Success from '" + url_category_list + "': </b>";
-            var msgComplete = "<b>Complete: </b>eseguo altro. ";
-
-
-            // test con: $.ajax
-            $.ajax({
-                url: url_category_list,
-                dataType: 'json',
-                data: '', // vuoto per il momento
-                success: function(data) {
-                    //$("#test_ajax").append('<div class="alert alert-success">' + 
-                    //			   msgSuccess + '<ul id="testList">');
-		    
-                    $.each(data['list'], function(index, val) {
-                        $("#cat_list_container").append( 
-                        $("#cat_item_template").clone().css('display','block').each(function (i,elem){
-                            $(this).removeAttr('id');
-                            $(this).find('h2').text(val);
-                        })
-                    );
-                    });
-		    
-                    $("#cat_item_template").remove(); // MOLTO SPORCO!! DA CAMBIARE
-                    //$.each(data, function(chiave, valore) {
-                    //    $("#testList").append('<li id="' + chiave + '">' + 
-                    //        chiave + ' => ' +  valore + '</li>');
-                    //});
-                },
-                error: function() { 
-                    $("#test_ajax").append('<div class="alert alert-error">' + 
-                        msgError + '</div>');
-                },
-                complete: function() { 
-                    $("#test_ajax").append('<div class="alert alert-info">' + 
-                        msgComplete + '</div>');
-                }
-            });
-            
-        }
-      
         $(function () {        
             getCategoryList();
         });
