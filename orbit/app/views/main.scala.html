@@ -100,15 +100,9 @@
                 <a class="brand" href="@routes.Application.index">Statistics Portal</a>
                 <div class="nav-collapse">
                     <ul class="nav">
-<<<<<<< HEAD
-                        <li class="active"><a href="@routes.Application.index">Home</a></li>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">School website</a></li>
-=======
                         <li class="@("active".when(nav == "home"))"><a href="@routes.Application.index">Home</a></li>
                         <li class="@("active".when(nav == "about"))"><a href="@routes.Application.aboutPage()">About</a></li>
                         <li><a href="#">Shool website</a></li>
->>>>>>> 34e5eb87cca8625d69a04d3f5e415107e16141a7
 
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
@@ -311,7 +305,7 @@
                 success: function(data) {
                     //$("#test_ajax").append('<div class="alert alert-success">' + 
                     //			   msgSuccess + '<ul id="testList">');
-		    
+
                     $.each(data['list'], function(index, val) {
                         $("#cat_list_container").append( 
                         $("#cat_item_template").clone().css('display','block').each(function (i,elem){
@@ -320,7 +314,7 @@
                         })
                     );
                     });
-		    
+
                     $("#cat_item_template").remove(); // MOLTO SPORCO!! DA CAMBIARE
                     //$.each(data, function(chiave, valore) {
                     //    $("#testList").append('<li id="' + chiave + '">' + 
