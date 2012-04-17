@@ -17,6 +17,10 @@ public class Application extends Controller {
     public static Result aboutPage() {
         return ok(about.render());
     }    
+
+    public static Result testPage() {
+        return ok(test.render());
+    }
    
     public static Result prova() {
         return ok(prova.render("Ho vinto."));
