@@ -30,7 +30,8 @@ public class Category extends Controller {
     }
 
     public static Result by_id(Long cat_id) {
-        return ok(index.render("Your new application is ready."));
+        //return ok(index.render("Your new application is ready."));
+	return TODO;
     }
 
 

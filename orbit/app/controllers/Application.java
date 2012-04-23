@@ -10,7 +10,16 @@ import java.util.*;
 public class Application extends Controller {
 
     public static Result index() {
-        return ok(index.render("Your new application is ready."));
+        return ok(index.render());
+    }
+    
+    // test
+    public static Result aboutPage() {
+        return ok(about.render());
+    }    
+
+    public static Result testPage() {
+        return ok(test.render());
     }
    
     public static Result prova() {
