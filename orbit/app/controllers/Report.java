@@ -34,7 +34,7 @@ public class Report extends Controller {
     	cat_id_list.add("Grafico 1 [id: " + cat_id + "]");
     	cat_id_list.add("Grafico 2");
     	cat_id_list.add("Grafico 3");
-    	cat.put("list",cat_id_list);
+    	cat.put("chartsList",cat_id_list);
     	
     	return ok(toJson(cat));
     }
