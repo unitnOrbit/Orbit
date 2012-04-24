@@ -13,17 +13,24 @@ public class Application extends Controller {
         return ok(index.render());
     }
     
+
+
+
     // test
     public static Result aboutPage() {
         return ok(about.render());
     }    
 
-    public static Result testPage() {
-        return ok(test.render());
+    public static Result testPage(Long id_cat) {
+        return ok(test.render(id_cat));
+    }
+
+    public static Result testPage2(Long id_graph) {
+        return ok(test2.render (id_graph));
     }
    
     public static Result prova() {
-        return ok(prova.render("Ho vinto."));
+        return ok(prova.render("ho vinto"));
     }
 
     public static Result dbtest() {
