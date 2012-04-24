@@ -18,7 +18,7 @@ public class Data_Set extends Model {
 
     public String description;
 
-    public static Finder<Long,Data_Set> find = new Finder(
+    public static Finder<Long,Data_Set> find = new Finder<Long, Data_Set>(
       Long.class, Data_Set.class
     );
 

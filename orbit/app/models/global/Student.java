@@ -6,8 +6,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import play.db.ebean.*;
-import play.data.format.*;
-import play.data.validation.*;
 
 @Entity
 @Table(name = "students")
@@ -152,18 +150,18 @@ public class Student extends Model {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "student")
     public Set<CourseEnrollment> coursesEnrollmentSet;
 
-    public static Finder<Long,Student> find = new Finder(
-Long.class, Student.class
-);
+    public static Finder<Long,Student> find = new Finder<Long, Student>(
+    		Long.class, Student.class);
 
-public static List<Student> all() {
-return find.all();
-}
-public static void create(Student student) {
-student.save();
-}
+    public static List<Student> all() {
+    	return find.all();
+    }
+    
+    public static void create(Student student) {
+    	student.save();
+    }
 
-public static void delete(Long id) {
-find.ref(id).delete();
-}
+    public static void delete(Long id) {
+    	find.ref(id).delete();
+    }
 }

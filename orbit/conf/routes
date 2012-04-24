@@ -5,10 +5,11 @@
 # Home page
 GET     /                           controllers.Application.index()
 
-GET     /category/list              controllers.Category.list()
-GET     /category/:cat_id           controllers.Category.by_id(cat_id: Long)
-GET     /report/most-common         controllers.Report.most_common()
-#GET     /report/recent              controllers.
+GET     /category/list                      controllers.Category.list()
+GET     /category/:cat_id                   controllers.Category.by_id(cat_id: Long)
+GET     /report/most-common                 controllers.Report.most_common()
+GET     /report/get-charts-list/:cat_id     controllers.Report.getChartsList(cat_id: Long)
+#GET     /report/recent                     controllers.
 
 GET     /report/:report_id          controllers.Report.by_id(report_id: Long)
 GET     /report			    controllers.Report.example()
