@@ -1,18 +1,10 @@
 function createLoadingMsg(title, msg) {
-	    $('body').prepend('
-<div class="modal" id="load_div">
-  <div class="modal-header">
-    <h3>Loading... </h3>
-  </div>
-  <div class="modal-body">
-    <p>Please wait... </p>
-  </div>
-  <div class="modal-footer">
-    <a href="#" class="btn">Close</a>
-    <a href="#" class="btn btn-primary">Save changes</a>
-  </div>
-</div>');
+    $('#modalMsg').find('h3').text(title);
+    $('#modalMsg').find('p').text(msg);
+    $('#modalMsg').removeClass('modal-footer');
 
+    // mostra il messaggio di caricamento
+    $('#modalMsg').modal('show');    
 }
 
 
@@ -29,8 +21,7 @@ function getListOfCharts(category_id, main_container) {
         data: { cat_id: category_id }, // vuoto per il momento
 	beforeSend: function() {
 	    // test loading
-	    
-	    $('#myModal').modal('show');
+	    createLoadingMsg("Loading..", "Please wait..");
 	},
         success: function(data) {
             $.each(data['list'], function(index, val) {
