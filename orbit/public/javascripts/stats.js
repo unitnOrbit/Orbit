@@ -1,6 +1,6 @@
 function createLoadingMsg(title, msg) {
     $('#modalMsg').find('h3').text(title);
-    $('#modalMsg').find('p').text(msg);
+    $('#modalMsg').find('p span').text(msg); // empty: perche' uso append, vedi immagine caricamento in main
 
     $('button.close').hide();
     $('.modal-footer').find('a').hide();
