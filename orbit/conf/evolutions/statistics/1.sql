@@ -3,11 +3,11 @@
 
 # --- !Ups
 
-create table category (
+create table widget (
   id                        integer auto_increment not null,
   name                      varchar(255),
   description               varchar(255),
-  constraint pk_category primary key (id))
+  constraint pk_widget primary key (id))
 ;
 
 
@@ -17,7 +17,7 @@ create table category (
 
 SET FOREIGN_KEY_CHECKS=0;
 
-drop table category;
+drop table widget;
 
 SET FOREIGN_KEY_CHECKS=1;
 
