@@ -17,7 +17,7 @@ public class User_Group extends Model {
     public Integer id;
     
 	@Constraints.Required
-    public String tipe_user;
+    public String type_user;
 
 
     public static Finder<Long,User_Group> find = new Finder(
@@ -26,6 +26,6 @@ public class User_Group extends Model {
 
     @Override
     public String toString(){
-        return this.tipe_user;
+        return this.type_user;
     }
 }
