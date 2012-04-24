@@ -3,12 +3,27 @@
 
 
 @main(title, nav = "", null) {
-<h3>mostra gategoria e grafico</h3>
+<script type="text/javascript">
+getListOfCharts(1, "chart_list_container");
+</script>
 
-<div class="row-fluid">
-  <p>IDCategory= @IDCategory </br>
-     IDChart= @IDChart
-</p>
+<h3>Categoria:@IDCategory, Grafico: @IDChart</h3>
+
+<div id="chart_list_container" class="row-fluid">
+  <div class="span4" style="display: none;">      
+    <h2></h2>              
+    <!-- test ajax -->
+    <p class="cat_desc">Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. <p>
+      
+    <p>
+      <a class="btn btn-small" title="Settings" href="#"><i class="icon-cog"></i></a>
+      <a class="btn" href="#">View &raquo;</a>
+    </p>
+  </div><!--/span-->  
 </div>
+<!-- end container -->
+
+<hr/>
+
 
 }

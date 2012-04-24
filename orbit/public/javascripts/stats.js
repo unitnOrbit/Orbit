@@ -1,6 +1,6 @@
 function createLoadingMsg(title, msg) {
     $('#modalMsg').find('h3').text(title);
-    $('#modalMsg').find('p span').text(msg); // empty: perche' uso append, vedi immagine caricamento in main
+    $('#modalMsg').find('p span').text(msg); 
 
     $('button.close').hide();
     $('.modal-footer').find('a').hide();
@@ -15,12 +15,12 @@ function createLoadingMsg(title, msg) {
    elem: id elemento o classe in cui stampare le stringhe
 */
 function getListOfCharts(category_id, main_container) {
-    var url_chart_list = "/report/get-chart-list";
+    var url_chart_list = "/report/get-charts-list/" + category_id + ""
 
     $.ajax({
         url: url_chart_list,
         dataType: 'json',
-        data: { cat_id: category_id }, // vuoto per il momento
+        data: '', // vuoto per il momento
 	beforeSend: function() {
 	    // test loading
 	    createLoadingMsg("Loading..", "Please wait..");
