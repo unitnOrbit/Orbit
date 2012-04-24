@@ -26,7 +26,7 @@ public class UserRole extends Model {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userRol")
     public Set<UserCredentials> usersCredentialsSet;
 
-    public static Finder<Long,UserRole> find = new Finder(
+    public static Finder<Long,UserRole> find = new Finder<Long, UserRole>(
 Long.class, UserRole.class
 );
 

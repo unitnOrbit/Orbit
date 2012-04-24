@@ -30,7 +30,7 @@ public class FundingInstitution extends Model {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "fundingInstitution")
     public Set<Student> studentsSet;
 
-    public static Finder<Long,FundingInstitution> find = new Finder(
+    public static Finder<Long,FundingInstitution> find = new Finder<Long, FundingInstitution>(
 Long.class, FundingInstitution.class
 );
 

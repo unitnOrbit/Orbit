@@ -6,8 +6,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import play.db.ebean.*;
-import play.data.format.*;
-import play.data.validation.*;
 
 @Entity
 @Table(name = "trips")
@@ -173,7 +171,7 @@ public class Trip extends Model {
     @ManyToOne(optional = false)
     public Student student;
 
-    public static Finder<Long,Trip> find = new Finder(
+    public static Finder<Long,Trip> find = new Finder<Long, Trip>(
 Long.class, Trip.class
 );
 

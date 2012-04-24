@@ -21,7 +21,7 @@ public class Widget extends Model {
 
     public String description;
 
-    public static Finder<Long,Widget> find = new Finder(
+    public static Finder<Long,Widget> find = new Finder<Long, Widget>(
       Long.class, Widget.class
     );
 

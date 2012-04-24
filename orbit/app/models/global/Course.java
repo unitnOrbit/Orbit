@@ -76,7 +76,7 @@ public class Course extends Model {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "course")
     public Set<CourseEnrollment> coursesEnrollmentSet;
 
-    public static Finder<Long,Course> find = new Finder(
+    public static Finder<Long,Course> find = new Finder<Long, Course>(
 Long.class, Course.class
 );
 

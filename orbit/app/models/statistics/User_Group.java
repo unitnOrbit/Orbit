@@ -20,7 +20,7 @@ public class User_Group extends Model {
     public String type_user;
 
 
-    public static Finder<Long,User_Group> find = new Finder(
+    public static Finder<Long,User_Group> find = new Finder<Long, User_Group>(
       Long.class, User_Group.class
     );
 
