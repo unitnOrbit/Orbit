@@ -50,7 +50,7 @@ public class Supervisor extends Model {
     @OneToMany(mappedBy = "professor")
     public Set<Course> coursesSet;
 
-    public static Finder<Long,Supervisor> find = new Finder(
+    public static Finder<Long,Supervisor> find = new Finder<Long, Supervisor>(
 Long.class, Supervisor.class
 );
 

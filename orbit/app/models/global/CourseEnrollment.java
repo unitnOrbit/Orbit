@@ -35,7 +35,7 @@ public class CourseEnrollment extends Model {
     @ManyToOne(optional = false)
     public Course course;
 
-    public static Finder<Long,CourseEnrollment> find = new Finder(
+    public static Finder<Long,CourseEnrollment> find = new Finder<Long, CourseEnrollment>(
 Long.class, CourseEnrollment.class
 );
 

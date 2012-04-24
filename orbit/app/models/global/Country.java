@@ -35,7 +35,7 @@ public class Country extends Model {
     @OneToMany(mappedBy = "country")
     public Set<University> universitiesSet;
 
-    public static Finder<Long,Country> find = new Finder(
+    public static Finder<Long,Country> find = new Finder<Long, Country>(
 Long.class, Country.class
 );
 

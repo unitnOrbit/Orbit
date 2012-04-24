@@ -6,8 +6,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import play.db.ebean.*;
-import play.data.format.*;
-import play.data.validation.*;
 
 @Entity
 @Table(name = "universities")
@@ -35,18 +33,20 @@ public class University extends Model {
     @ManyToOne
     public Country country;
 
-    public static Finder<Long,University> find = new Finder(
-Long.class, University.class
-);
+    public static Finder<Long,University> find = new Finder<Long, University>(
+    		Long.class, University.class);
 
-public static List<University> all() {
-return find.all();
-}
-public static void create(University university) {
-university.save();
-}
+    public static List<University> all() {
+    	return find.all();
+	}
+    
+	public static void create(University university) {
+		university.save();
+	}
 
-public static void delete(Long id) {
-find.ref(id).delete();
-}
+	public static void delete(Long id) {
+		find.ref(id).delete();
+	}
+	
+	
 }
