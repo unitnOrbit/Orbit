@@ -26,12 +26,12 @@ public class Report extends Controller {
     	return ok(toJson(cat));
     }
     
-    public static Result getChartsList(){
+    public static Result getChartsList(Long cat_id){
     	
     	Map<String,Object> cat = new HashMap<String,Object>();
     	cat.put("ok","true");
     	List<String> cat_id_list = new LinkedList<String>();
-    	cat_id_list.add("Grafico 1");
+    	cat_id_list.add("Grafico 1 [id: " + cat_id + "]");
     	cat_id_list.add("Grafico 2");
     	cat_id_list.add("Grafico 3");
     	cat.put("list",cat_id_list);
