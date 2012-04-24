@@ -19,7 +19,7 @@ public class Statistics extends Model {
 	@Constraints.Required
     public String name;
 
-    public String description;
+     public String description;
 
     public Integer num_visits;
 
