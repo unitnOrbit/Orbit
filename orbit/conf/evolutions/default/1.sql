@@ -3,6 +3,13 @@
 
 # --- !Ups
 
+create table category (
+  id                        integer auto_increment not null,
+  name                      varchar(255),
+  description               varchar(255),
+  constraint pk_category primary key (id))
+;
+
 create table countries (
   country_ID                integer auto_increment not null,
   name                      varchar(255),
@@ -47,12 +54,26 @@ create table courses_enrollments (
   constraint pk_courses_enrollments primary key (enrollment_ID))
 ;
 
+create table data_set (
+  id                        bigint auto_increment not null,
+  description               varchar(255),
+  constraint pk_data_set primary key (id))
+;
+
 create table funding_institutions (
   funding_institution_ID    integer auto_increment not null,
   name                      varchar(255),
   deleted                   tinyint(1) default 0,
   type                      varchar(255),
   constraint pk_funding_institutions primary key (funding_institution_ID))
+;
+
+create table statistics (
+  id                        integer auto_increment not null,
+  name                      varchar(255),
+  description               varchar(255),
+  num_visits                integer,
+  constraint pk_statistics primary key (id))
 ;
 
 create table students (
@@ -204,6 +225,19 @@ create table users_roles (
   constraint pk_users_roles primary key (user_rol_ID))
 ;
 
+create table user_group (
+  id                        integer auto_increment not null,
+  type_user                 varchar(255),
+  constraint pk_user_group primary key (id))
+;
+
+create table widget (
+  id                        integer auto_increment not null,
+  name                      varchar(255),
+  description               varchar(255),
+  constraint pk_widget primary key (id))
+;
+
 alter table courses add constraint fk_courses_professor_1 foreign key (professor) references supervisors (supervisor_ID) on delete restrict on update restrict;
 create index ix_courses_professor_1 on courses (professor);
 alter table courses_enrollments add constraint fk_courses_enrollments_student_2 foreign key (student) references students (user_ID) on delete restrict on update restrict;
@@ -241,13 +275,19 @@ create index ix_users_credentials_user_15 on users_credentials (user);
 
 SET FOREIGN_KEY_CHECKS=0;
 
+drop table category;
+
 drop table countries;
 
 drop table courses;
 
 drop table courses_enrollments;
 
+drop table data_set;
+
 drop table funding_institutions;
+
+drop table statistics;
 
 drop table students;
 
@@ -260,6 +300,10 @@ drop table universities;
 drop table users_credentials;
 
 drop table users_roles;
+
+drop table user_group;
+
+drop table widget;
 
 SET FOREIGN_KEY_CHECKS=1;
 

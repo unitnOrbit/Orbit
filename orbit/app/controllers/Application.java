@@ -27,12 +27,19 @@ public class Application extends Controller {
     }
 
     public static Result dbtest() {
-        List<Country> l = Country.find.all();
         StringBuffer ret_val = new StringBuffer();
-        for (Country c2: l){
+	ret_val.append("Ciao\n");
+	
+	List<Data_Set> l = Data_Set.find.all();
+	for (Data_Set d:l){
+	    ret_val.append(l.toString());
+	}
+
+        List<Country> l2 = Country.find.all();
+        for (Country c2: l2){
             ret_val.append(c2.toString());
         }
-        
+
         return ok(ret_val.toString());
         
     }

@@ -13,13 +13,12 @@ import play.data.validation.*;
 public class Data_Set extends Model {
 
     @Id
-	@Constraints.Min(10)
-    public Integer id;
+    @Constraints.Min(10)
+    public Long id;
 
     public String description;
 
-    public static Finder<Long,Data_Set> find = new Finder(
-      Long.class, Data_Set.class
-    );
+    public static Finder<Long,Data_Set> find = 
+	new Finder<Long,Data_Set>(Long.class, Data_Set.class);
 
 }
