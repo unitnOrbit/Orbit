@@ -1,7 +1,9 @@
 function createLoadingMsg(title, msg) {
     $('#modalMsg').find('h3').text(title);
     $('#modalMsg').find('p').text(msg);
-    $('#modalMsg').removeClass('modal-footer');
+
+    $('button.close').hide();
+    $('.modal-footer').find('a').hide();
 
     // mostra il messaggio di caricamento
     $('#modalMsg').modal('show');    
@@ -13,7 +15,7 @@ function createLoadingMsg(title, msg) {
    elem: id elemento o classe in cui stampare le stringhe
 */
 function getListOfCharts(category_id, main_container) {
-    var url_chart_list = "";
+    var url_chart_list = "/report/get-chart-list";
 
     $.ajax({
         url: url_chart_list,
@@ -24,7 +26,7 @@ function getListOfCharts(category_id, main_container) {
 	    createLoadingMsg("Loading..", "Please wait..");
 	},
         success: function(data) {
-            $.each(data['list'], function(index, val) {
+            $.each(data['chartsList'], function(index, val) {
 		$("#" + main_container).append(
 		    $("#" + main_container).children().clone().css("display", "block").each(
 			function(k, val) {
