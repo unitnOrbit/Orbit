@@ -21,13 +21,14 @@ public class Application extends Controller {
         return ok(about.render());
     }    
 
-    public static Result testPage(Long id_cat) {
-        return ok(test.render(id_cat));
+    public static Result categoryPage(Long id_cat) {
+	return ok(category.render(id_cat));
     }
 
-    public static Result testPage2(Long id_graph) {
-        return ok(test2.render (id_graph));
+    public static Result chartPage(Long id_cat, Long id_chart) {
+	return ok(chart.render(id_cat, id_chart));
     }
+
    
     public static Result prova() {
         return ok(prova.render("ho vinto"));
