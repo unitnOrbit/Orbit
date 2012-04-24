@@ -21,7 +21,7 @@ public class Statistics extends Model {
 
     public String description;
 
-	public Integer num_visits;
+    public Integer num_visits;
 
     public static Finder<Long,Statistics> find = new Finder(
       Long.class, Statistics.class
