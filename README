@@ -1,3 +1,12 @@
 README
 
 Universita` di Trento, corso di Ingegneria del software, a.a. 2011/12, gruppo Orbit
+
+to run:
+- Install play (http://www.playframework.org/)
+- copy orbit/conf/application.conf.template to orbit/conf/application.conf
+- edit orbit/conf/application.conf to your needs
+
+for mysql
+- Put (or symlink) the java mysql connector in orbit/lib
+- create an empty database: CREATE DATABASE phdcoursedb CHARACTER SET utf8 COLLATE utf8_general_ci;
