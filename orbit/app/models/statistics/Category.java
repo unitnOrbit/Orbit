@@ -19,6 +19,9 @@ public class Category extends Model {
 
     public String description;
 
+    @ManyToMany()
+    public Set<Statistic> statistics;
+
     public static Finder<Long,Category> find = new Finder<Long, Category>(
       Long.class, Category.class
     );

@@ -49,8 +49,12 @@ public class Application extends Controller {
         }
 
 	Statistic s = Statistic.find.byId(1L);
-	Widget w = s.widget;
-	ret_val.append(s.widget.toString());
+	//Widget w = s.widget;
+        //DataSet ds = s.dataset;
+        //Category c = s.category
+	//ret_val.append(s.widget.toString());
+        //ret_val.append(s.dataset.toString()); 
+        //ret_val.append(s.category.toString());
         return ok(ret_val.toString());
         
     }

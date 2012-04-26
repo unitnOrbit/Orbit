@@ -19,6 +19,8 @@ public class UserGroup extends Model {
     @Constraints.Required
     public String type_user;
 
+    //@ManyToMany
+    //public Statistic statistic;
 
     public static Finder<Long,UserGroup> find = new Finder<Long, UserGroup>(
       Long.class, UserGroup.class

@@ -26,6 +26,16 @@ public class Statistic extends Model {
     @ManyToOne(optional=false)
     public Widget widget;
 
+    @ManyToOne(optional=false)
+    public DataSet dataset;
+
+    @ManyToMany(mappedBy="statistics")
+    public Set<Category> categories;
+
+    //@ManyToMany(mappedBy="usergroup")
+    //public UserGroup usergroup;
+
+
     public static Finder<Long,Statistic> find = new Finder<Long, Statistic>(
       Long.class, Statistic.class
     );
