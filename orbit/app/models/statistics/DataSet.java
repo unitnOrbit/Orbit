@@ -10,7 +10,7 @@ import play.data.format.*;
 import play.data.validation.*;
 
 @Entity
-public class Data_Set extends Model {
+public class DataSet extends Model {
 
     @Id
     @Constraints.Min(10)
@@ -18,7 +18,7 @@ public class Data_Set extends Model {
 
     public String description;
 
-    public static Finder<Long,Data_Set> find = 
-	new Finder<Long,Data_Set>(Long.class, Data_Set.class);
+    public static Finder<Long,DataSet> find = 
+	new Finder<Long,DataSet>(Long.class, DataSet.class);
 
 }

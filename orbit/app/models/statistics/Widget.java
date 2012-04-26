@@ -13,13 +13,16 @@ import play.data.validation.*;
 public class Widget extends Model {
 
     @Id
-	@Constraints.Min(10)
-    public Integer id;
+    @Constraints.Min(10)
+    public Long id;
     
-	@Constraints.Required
+    @Constraints.Required
     public String name;
 
     public String description;
+
+    //@OneToMany(mappedBy="widget")
+    //public Statistic statistic;
 
     public static Finder<Long,Widget> find = new Finder<Long, Widget>(
       Long.class, Widget.class

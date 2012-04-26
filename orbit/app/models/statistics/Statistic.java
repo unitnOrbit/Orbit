@@ -10,21 +10,24 @@ import play.data.format.*;
 import play.data.validation.*;
 
 @Entity
-public class Statistics extends Model {
+public class Statistic extends Model {
 
     @Id
-	@Constraints.Min(10)
-    public Integer id;
+    @Constraints.Min(10)
+    public Long id;
     
-	@Constraints.Required
+    @Constraints.Required
     public String name;
 
-     public String description;
+    public String description;
 
     public Integer num_visits;
 
-    public static Finder<Long,Statistics> find = new Finder<Long, Statistics>(
-      Long.class, Statistics.class
+    @ManyToOne(optional=false)
+    public Widget widget;
+
+    public static Finder<Long,Statistic> find = new Finder<Long, Statistic>(
+      Long.class, Statistic.class
     );
 
     @Override

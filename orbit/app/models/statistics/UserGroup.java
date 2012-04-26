@@ -10,18 +10,18 @@ import play.data.format.*;
 import play.data.validation.*;
 
 @Entity
-public class User_Group extends Model {
+public class UserGroup extends Model {
 
     @Id
-	@Constraints.Min(10)
-    public Integer id;
+    @Constraints.Min(10)
+    public Long id;
     
-	@Constraints.Required
+    @Constraints.Required
     public String type_user;
 
 
-    public static Finder<Long,User_Group> find = new Finder<Long, User_Group>(
-      Long.class, User_Group.class
+    public static Finder<Long,UserGroup> find = new Finder<Long, UserGroup>(
+      Long.class, UserGroup.class
     );
 
     @Override

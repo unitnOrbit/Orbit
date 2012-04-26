@@ -38,8 +38,8 @@ public class Application extends Controller {
         StringBuffer ret_val = new StringBuffer();
 	ret_val.append("Ciao\n");
 	
-	List<Data_Set> l = Data_Set.find.all();
-	for (Data_Set d:l){
+	List<DataSet> l = DataSet.find.all();
+	for (DataSet d:l){
 	    ret_val.append(l.toString());
 	}
 
@@ -48,6 +48,9 @@ public class Application extends Controller {
             ret_val.append(c2.toString());
         }
 
+	Statistic s = Statistic.find.byId(1L);
+	Widget w = s.widget;
+	ret_val.append(s.widget.toString());
         return ok(ret_val.toString());
         
     }
