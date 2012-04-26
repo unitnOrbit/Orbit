@@ -20,5 +20,8 @@ public class DataSet extends Model {
 
     public static Finder<Long,DataSet> find = 
 	new Finder<Long,DataSet>(Long.class, DataSet.class);
-
+ 
+    public String toString() {
+    	return "dataSet: " + this.description;
+    }
 }
