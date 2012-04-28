@@ -40,8 +40,8 @@ INSERT INTO `widget` (`id`, `name`, `description`) VALUES
 -- Dump dei dati per la tabella `category`
 --
 
-INSERT INTO `category` (`id`, `name`, `description`) VALUES
-(3, 'nome_category', NULL);
+-- INSERT INTO `category` (`id`, `name`, `description`) VALUES (3, 'nome_category', NULL);
+INSERT INTO `category` VALUES (3,'Current Students','Statistic reports about students\' marks, for current students'),(4,'Student applications','Statistic reports about student applications over the last years'),(5,'Student marks',NULL);
 
 --
 -- Dump dei dati per la tabella `statistic`

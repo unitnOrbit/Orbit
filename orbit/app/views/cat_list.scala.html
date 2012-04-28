@@ -1,0 +1,74 @@
+@(cats: List[models.statistics.Category])
+
+@main(Html("Statistics Portal"), nav = "home", null) {
+
+<div class="alert alert-info">Overview</div>
+
+<div id="cat_list_container" class="row-fluid">
+  @for(cat <- cats) {
+  <div class="span4">      
+    <h2>@cat.name</h2>              
+    <!-- test ajax -->
+    <p class="cat_desc">@cat.description<p>
+      
+    <p>
+      <a class="btn btn-small" title="Settings" href="#"><i class="icon-cog"></i></a>
+      <a class="btn" href="@(routes.Category.by_id(cat.id))">View &raquo;</a>
+    </p>
+  </div><!--/span-->
+  }
+  
+</div>
+
+<hr/>
+
+<!-- Most visited row
+     ================================================== -->    
+<div class="alert alert-info">Most visited</div>
+<div class="row-fluid">
+  <div class="span4">
+    <h2>Prova</h2>
+    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+    <script type="text/javascript">
+      function load_example_page(){
+      $.ajax({
+      url: "/report",
+      dataType: 'html',
+      data: '', // vuoto per il momento
+      success: function(data) {
+      //$("#test_ajax").append('<div class="alert alert-success">' + 
+        //			   msgSuccess + '<ul id="testList">');
+	  
+          $("#main_container").empty();
+          $("#main_container").append("<div id='middlechart'></div>");
+          drawChart();
+	  
+          },
+          error: function() { 
+          $("#test_ajax").append('<div class="alert alert-error">' + 
+            msgError + '</div>');
+          },
+          complete: function() { 
+          //$("#test_ajax").append('<div class="alert alert-info">' + 
+            //    msgComplete + '</div>');
+          }
+          });
+
+          }
+    </script>
+    <p><a class="btn" onclick="load_example_page();">View this chart &raquo;</a></p>
+
+    </div><!--/span-->
+    <div class="span4">
+      <h2>Box</h2>
+      <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+      <p><a class="btn" href="#">View this chart &raquo;</a></p>
+    </div><!--/span-->
+    <div class="span4">
+      <h2>Box</h2>
+      <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+      <p><a class="btn" href="#">View this chart &raquo;</a></p>
+    </div><!--/span-->
+  </div><!--/span-->
+
+}

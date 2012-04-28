@@ -10,7 +10,8 @@ import java.util.*;
 public class Application extends Controller {
 
     public static Result index() {
-        return ok(index.render());
+        //return ok(index.render());
+	return controllers.Category.list();
     }
     
     // test
