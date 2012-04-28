@@ -21,9 +21,15 @@ public class Application extends Controller {
         return ok(about.render());
     }    
 
-    public static Result categoryPage(Long id_cat) {
-	return ok(category.render(id_cat));
+    public static Result appendSlash(String path) {
+	char ending = path.charAt(path.length() -1);
+	if (ending != '/')
+	    return redirect('/' + path + '/');
+	else
+	    return notFound();
     }
+
+
 
     public static Result chartPage(Long id_cat, Long id_chart) {
 	return ok(chart.render(id_cat, id_chart));
