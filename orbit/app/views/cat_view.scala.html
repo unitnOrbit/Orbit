@@ -1,0 +1,21 @@
+@(cat: models.statistics.Category, reports: Collection[models.statistics.Statistic])
+
+@main(Html(cat.name), nav = "home", null) {
+
+<div class="alert alert-info">Overview</div>
+
+<div id="report_list_container" class="row-fluid">
+  @for(report <- reports) {
+  <div class="span4 btn disabled">      
+    <h3>@report.name</h3>
+    <p>@report.description<p>
+    <p>
+      <a class="btn btn-small" title="Settings" href="#"><i class="icon-cog"></i></a>
+      <a class="btn" href="@(routes.Report.by_id(report.id))">View &raquo;</a>
+    </p>
+  </div><!--/span-->
+  }
+  
+</div>
+
+}

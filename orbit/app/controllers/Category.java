@@ -31,8 +31,14 @@ public class Category extends Controller {
 	return ok(cat_list.render(cats));
     }
     public static Result by_id(Long cat_id) {
-        //return ok(index.render("Your new application is ready."));
-	return TODO;
+        models.statistics.Category cat =
+	    models.statistics.Category.find.byId(cat_id);
+
+	for (Statistic r:cat.statistics){
+	    String s = r.name; //does nothing, but forces fetching the database
+	}
+
+	return ok(cat_view.render(cat, cat.statistics));
     }
 
 
