@@ -10,12 +10,10 @@ import java.util.*;
 public class Application extends Controller {
 
     public static Result index() {
-        return ok(index.render());
+        //return ok(index.render());
+	return controllers.Category.list();
     }
     
-
-
-
     // test
     public static Result aboutPage() {
         return ok(about.render());
@@ -35,7 +33,6 @@ public class Application extends Controller {
 	return ok(chart.render(id_cat, id_chart));
     }
 
-   
     public static Result prova() {
         return ok(prova.render("ho vinto"));
     }
@@ -45,19 +42,31 @@ public class Application extends Controller {
 	ret_val.append("Ciao\n");
 	
 	List<DataSet> l = DataSet.find.all();
+	
 	for (DataSet d:l){
-	    ret_val.append(l.toString());
+	    //ret_val.append(l.toString());
 	}
 
-        List<Country> l2 = Country.find.all();
-        for (Country c2: l2){
-            ret_val.append(c2.toString());
-        }
+    List<Country> l2 = Country.find.all();
+    
+    for (Country c2: l2){
+            //ret_val.append(c2.toString());
+    }
 
 	Statistic s = Statistic.find.byId(1L);
 	Widget w = s.widget;
-	ret_val.append(s.widget.toString());
-        return ok(ret_val.toString());
+    DataSet ds = s.dataset;
+    Set<models.statistics.Category> cats = s.categories;
+    
+    for(models.statistics.Category cat: cats){
+    	   ret_val.append(cat.toString());
+    }
+	   
+    //ret_val.append(s.widget.toString());
+    //ret_val.append(s.dataset.toString()); 
+    //ret_val.append(s.categories.toString());
+
+    return ok(ret_val.toString());
         
     }
   

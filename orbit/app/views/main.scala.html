@@ -33,6 +33,11 @@
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="@routes.Assets.at("bootstrap/ico/apple-touch-icon-114-precomposed.png")">
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="@routes.Assets.at("bootstrap/ico/apple-touch-icon-72-precomposed.png")">
         <link rel="apple-touch-icon-precomposed" href="@routes.Assets.at("bootstrap/ico/apple-touch-icon-57-precomposed.png")">
+	
+	<!-- load jquery in header so I can use it in inline tags in the page -->
+	<script src="@routes.Assets.at("bootstrap/js/jquery.js")"></script>
+    
+
 
         <!-- TEST: disegno grafico di prova -->
         <!--Load the AJAX API-->
@@ -174,49 +179,36 @@
                 <p>"testo qui"</p-->
 
                 <div class="well sidebar-nav" style="padding: 8px 0;">
-                    <!--                        <ul class="nav nav-list">
-                                                <li class="nav-header">Fast menu</li>
-                                                <li class="active"><a href="#"><i class="icon-white icon-home"></i> Home</a></li>
-                                                <li><a href="#"><i class="icon-pencil"></i> Create Report</a></li>
-                                                <li><a href="#"><i class="icon-print"></i> Print</a></li>
-                                                
-                                                <li class="nav-header">Select report</li>
-                                                <li><a href="#"><i class="icon-list-alt"></i> Current Students</a></li>
-                                                <li><a href="#"><i class="icon-list-alt"></i> Student Application</a></li>
-                                                <li><a href="#"><i class="icon-list-alt"></i> Student marks</a></li>
-                                                
-                                                <li class="divider"></li>
-                                                <li><a href="#"><i class="icon-flag"></i> Help</a></li>
-                    </ul>-->
 
-                    <!-- Se e` stato selezionato un menu -->
                     <ul class="nav nav-list">
                         <li class="nav-header">Fast menu</li>
-                        <li><a href="@routes.Application.index"><i class="icon-home"></i> Home</a></li>
-                        <li><a href="#"><i class="icon-pencil"></i> Create Report</a></li>
-                        <li><a href="#"><i class="icon-print"></i> Print</a></li>
+                        <li class="sidebar-home"><a href="@routes.Application.index"><i class="icon-home"></i>Home</a></li>
+                        <li class="sidebar-createreport"><a href="#"><i class="icon-pencil"></i>Create Report</a></li>
+                        <li class="sidebar-print"><a href="#"><i class="icon-print"></i>Print</a></li>
 
-                        <li class="nav-header">Select report</li>
-                        <li class="active"><a href="#"><i class="icon-white icon-list-alt"></i> Current Students</a></li>
-                        <li><a href="#"><i class="icon-list-alt"></i> Student Application</a></li>
-                        <li><a href="#"><i class="icon-list-alt"></i> Student marks</a></li>
+			<!-- Questa parte andra` generata dinamicamente in base al db! -->
+                        <li class="nav-header">Categories</li>
+                        <li class="sidebar-currentstudents"><a href="#"><i class="icon-list-alt"></i> Current Students</a></li>
+                        <li class="sidebar-studentapplications"><a href="#"><i class="icon-list-alt"></i> Student Application</a></li>
+                        <li class="sidebar-studentmarks"><a href="#"><i class="icon-list-alt"></i> Student marks</a></li>
 
                         <li class="nav-header">Current Students</li>
                         <li><a href="#">- Distribution by nationality</a></li>
                         <li><a href="#">- Distribution of 1st year admitted</a></li>
 
+			<script type="text/javascript">
+			  $(function(){
+			    var selected_li = $(".sidebar-nav .nav-list li.sidebar-@nav")
+			    selected_li.addClass("active");
+			    selected_li.find("i").addClass("icon-white");
+			  });
+			</script>
 
-                        <li class="divider"></li>
-                        <li><a href="#"><i class="icon-flag"></i> Help</a></li>
+                        <!--li class="divider"></li>
+                        <li><a href="#"><i class="icon-flag"></i> Help</a></li-->
                     </ul>
 
-                    <hr />
-
-                    <!--p>Inserisco un grafico qui per vedere se funziona</p-->
-                    <!-- test chart -->
-                    <!-- div id="chart1"></div-->
-
-
+                    <!--hr /-->
 
                 </div>
             </div>
@@ -272,7 +264,7 @@
             </p>
 
             <p class="">
-                &copy; 2012 University of Trento - <a href="#">Statistics Portal</a>
+                &copy; 2012 University of Trento - <a href="/">Statistics Portal</a>
             </p>
         </footer>
 
@@ -281,7 +273,6 @@
     <!-- javascript
          ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="@routes.Assets.at("bootstrap/js/jquery.js")"></script>
     <script src="@routes.Assets.at("bootstrap/js/bootstrap-transition.js")"></script>
     <script src="@routes.Assets.at("bootstrap/js/bootstrap-alert.js")"></script>
     <script src="@routes.Assets.at("bootstrap/js/bootstrap-modal.js")"></script>
@@ -297,14 +288,6 @@
     
     <!-- our js -->
     <script type="text/javascript" src="@routes.Assets.at("javascripts/stats.js")"></script>
-
-    <!-- TEST: prelevo dati con JSON -->
-    <script type="text/javascript">      
-        $(function () {        
-            getCategoryList();
-        });
-      
-    </script>
 
 </body>
 </html>

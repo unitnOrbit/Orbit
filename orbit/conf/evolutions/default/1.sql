@@ -74,6 +74,7 @@ create table statistic (
   description               varchar(255),
   num_visits                integer,
   widget_id                 bigint not null,
+  dataset_id                bigint not null,
   constraint pk_statistic primary key (id))
 ;
 
@@ -239,6 +240,12 @@ create table widget (
   constraint pk_widget primary key (id))
 ;
 
+
+create table category_statistic (
+  category_id                    bigint not null,
+  statistic_id                   bigint not null,
+  constraint pk_category_statistic primary key (category_id, statistic_id))
+;
 alter table courses add constraint fk_courses_professor_1 foreign key (professor) references supervisors (supervisor_ID) on delete restrict on update restrict;
 create index ix_courses_professor_1 on courses (professor);
 alter table courses_enrollments add constraint fk_courses_enrollments_student_2 foreign key (student) references students (user_ID) on delete restrict on update restrict;
@@ -247,38 +254,46 @@ alter table courses_enrollments add constraint fk_courses_enrollments_course_3 f
 create index ix_courses_enrollments_course_3 on courses_enrollments (course);
 alter table statistic add constraint fk_statistic_widget_4 foreign key (widget_id) references widget (id) on delete restrict on update restrict;
 create index ix_statistic_widget_4 on statistic (widget_id);
-alter table students add constraint fk_students_universityOfProven_5 foreign key (university_of_provenance) references universities (university_ID) on delete restrict on update restrict;
-create index ix_students_universityOfProven_5 on students (university_of_provenance);
-alter table students add constraint fk_students_university_6 foreign key (university) references universities (university_ID) on delete restrict on update restrict;
-create index ix_students_university_6 on students (university);
-alter table students add constraint fk_students_fundingInstitution_7 foreign key (funding_institution) references funding_institutions (funding_institution_ID) on delete restrict on update restrict;
-create index ix_students_fundingInstitution_7 on students (funding_institution);
-alter table students add constraint fk_students_countryOfProvenanc_8 foreign key (country_of_provenance) references countries (country_ID) on delete restrict on update restrict;
-create index ix_students_countryOfProvenanc_8 on students (country_of_provenance);
-alter table students add constraint fk_students_citizenship_9 foreign key (citizenship) references countries (country_ID) on delete restrict on update restrict;
-create index ix_students_citizenship_9 on students (citizenship);
-alter table students add constraint fk_students_fundsOwner_10 foreign key (funds_owner) references supervisors (supervisor_ID) on delete restrict on update restrict;
-create index ix_students_fundsOwner_10 on students (funds_owner);
-alter table students add constraint fk_students_tutor_11 foreign key (tutor) references supervisors (supervisor_ID) on delete restrict on update restrict;
-create index ix_students_tutor_11 on students (tutor);
-alter table students add constraint fk_students_currentAdvisor_12 foreign key (current_advisor) references supervisors (supervisor_ID) on delete restrict on update restrict;
-create index ix_students_currentAdvisor_12 on students (current_advisor);
-alter table trips add constraint fk_trips_student_13 foreign key (student) references students (user_ID) on delete restrict on update restrict;
-create index ix_trips_student_13 on trips (student);
-alter table universities add constraint fk_universities_country_14 foreign key (country) references countries (country_ID) on delete restrict on update restrict;
-create index ix_universities_country_14 on universities (country);
-alter table users_credentials add constraint fk_users_credentials_userRol_15 foreign key (user_rol) references users_roles (user_rol_ID) on delete restrict on update restrict;
-create index ix_users_credentials_userRol_15 on users_credentials (user_rol);
-alter table users_credentials add constraint fk_users_credentials_user_16 foreign key (user) references students (user_ID) on delete restrict on update restrict;
-create index ix_users_credentials_user_16 on users_credentials (user);
+alter table statistic add constraint fk_statistic_dataset_5 foreign key (dataset_id) references data_set (id) on delete restrict on update restrict;
+create index ix_statistic_dataset_5 on statistic (dataset_id);
+alter table students add constraint fk_students_universityOfProven_6 foreign key (university_of_provenance) references universities (university_ID) on delete restrict on update restrict;
+create index ix_students_universityOfProven_6 on students (university_of_provenance);
+alter table students add constraint fk_students_university_7 foreign key (university) references universities (university_ID) on delete restrict on update restrict;
+create index ix_students_university_7 on students (university);
+alter table students add constraint fk_students_fundingInstitution_8 foreign key (funding_institution) references funding_institutions (funding_institution_ID) on delete restrict on update restrict;
+create index ix_students_fundingInstitution_8 on students (funding_institution);
+alter table students add constraint fk_students_countryOfProvenanc_9 foreign key (country_of_provenance) references countries (country_ID) on delete restrict on update restrict;
+create index ix_students_countryOfProvenanc_9 on students (country_of_provenance);
+alter table students add constraint fk_students_citizenship_10 foreign key (citizenship) references countries (country_ID) on delete restrict on update restrict;
+create index ix_students_citizenship_10 on students (citizenship);
+alter table students add constraint fk_students_fundsOwner_11 foreign key (funds_owner) references supervisors (supervisor_ID) on delete restrict on update restrict;
+create index ix_students_fundsOwner_11 on students (funds_owner);
+alter table students add constraint fk_students_tutor_12 foreign key (tutor) references supervisors (supervisor_ID) on delete restrict on update restrict;
+create index ix_students_tutor_12 on students (tutor);
+alter table students add constraint fk_students_currentAdvisor_13 foreign key (current_advisor) references supervisors (supervisor_ID) on delete restrict on update restrict;
+create index ix_students_currentAdvisor_13 on students (current_advisor);
+alter table trips add constraint fk_trips_student_14 foreign key (student) references students (user_ID) on delete restrict on update restrict;
+create index ix_trips_student_14 on trips (student);
+alter table universities add constraint fk_universities_country_15 foreign key (country) references countries (country_ID) on delete restrict on update restrict;
+create index ix_universities_country_15 on universities (country);
+alter table users_credentials add constraint fk_users_credentials_userRol_16 foreign key (user_rol) references users_roles (user_rol_ID) on delete restrict on update restrict;
+create index ix_users_credentials_userRol_16 on users_credentials (user_rol);
+alter table users_credentials add constraint fk_users_credentials_user_17 foreign key (user) references students (user_ID) on delete restrict on update restrict;
+create index ix_users_credentials_user_17 on users_credentials (user);
 
 
+
+alter table category_statistic add constraint fk_category_statistic_categor_01 foreign key (category_id) references category (id) on delete restrict on update restrict;
+
+alter table category_statistic add constraint fk_category_statistic_statist_02 foreign key (statistic_id) references statistic (id) on delete restrict on update restrict;
 
 # --- !Downs
 
 SET FOREIGN_KEY_CHECKS=0;
 
 drop table category;
+
+drop table category_statistic;
 
 drop table countries;
 

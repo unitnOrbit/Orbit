@@ -6,3 +6,4 @@ tmp
 .history
 dist
 lib
+conf/application.conf
