@@ -196,9 +196,11 @@
                         <li><a href="#">- Distribution of 1st year admitted</a></li>
 
                         <script type="text/javascript">
-                            var selected_li = $(".sidebar-nav .nav-list li.sidebar-@nav")
-                            selected_li.addClass("active");
-                            selected_li.find("i").addClass("icon-white");
+                            $(function() {
+                                var selected_li = $(".sidebar-nav .nav-list li.sidebar-@nav")
+                                selected_li.addClass("active");
+                                selected_li.find("i").addClass("icon-white");
+                            });
                         
                         </script>
 
