@@ -5,14 +5,19 @@
 # Home page
 GET     /                           controllers.Application.index()
 
-GET     /category/list/                      controllers.Category.list()
-GET     /category/:cat_id/                   controllers.Category.by_id(cat_id: Long)
-GET     /report/most-common/                 controllers.Report.most_common()
+# Authentication
+GET     /login/                     controllers.Authentication.login()
+POST    /login/                     controllers.Authentication.authenticate()
+GET     /logout/                    controllers.Authentication.logout()
 
-#GET     /report/get-charts-list/:cat_id     controllers.Report.getChartsList(cat_id: Long) // è la stessa cosa di /category/:cat_id/
-#GET     /report/recent                     controllers.
-GET     /report/:report_id/          controllers.Report.by_id(report_id: Long)
+# Categories and report visualization and management
+GET     /category/list/             controllers.Category.list()
+GET     /category/:cat_id/          controllers.Category.by_id(cat_id: Long)
+GET     /report/most-common/        controllers.Report.most_common()
+GET     /report/:report_id/         controllers.Report.by_id(report_id: Long)
 GET     /report			    controllers.Report.example()
+
+
 
 
 
