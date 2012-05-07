@@ -29,7 +29,7 @@ public class Category extends Controller {
 	    models.statistics.Category.find.all();
 	return ok(cat_list.render(cats));
     }
-    public static List getMainCategory() {
+    public static List<models.statistics.Category> getMainCategory() {
         List<models.statistics.Category> cats = models.statistics.Category.find.all();
         return cats;
     }

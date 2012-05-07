@@ -185,12 +185,11 @@
                         <li class="sidebar-createreport"><a href="#"><i class="icon-pencil"></i>Create Report</a></li>
                         <li class="sidebar-print"><a href="#"><i class="icon-print"></i>Print</a></li>
 
-			<!-- Questa parte andra` generata dinamicamente in base al db! -->
                         <li id="cats-side-nav" class="nav-header">Categories</li>
                         
-                        @for(cat_name <- controllers.Category.getMainCategory() ) {
+                        @for(cat <- controllers.Category.getMainCategory() ) {
                                 <li class="sidebar">
-                                    <a href="#"><i class="icon-list-alt"></i> @cat_name</a>
+                                    <a href="@routes.Category.by_id(cat.id)"><i class="icon-list-alt"></i> @cat.name</a>
                                 </li>
                             }
 
