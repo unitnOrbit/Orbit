@@ -29,6 +29,10 @@ public class Category extends Controller {
 	    models.statistics.Category.find.all();
 	return ok(cat_list.render(cats));
     }
+    public static List getMainCategory() {
+        List<models.statistics.Category> cats = models.statistics.Category.find.all();
+        return cats;
+    }
     public static Result by_id(Long cat_id) {
 
         models.statistics.Category cat =

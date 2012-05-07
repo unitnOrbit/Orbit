@@ -1,5 +1,4 @@
-@(title: Html, nav: String = "", connected: String)(content: Html)
-
+@(title: Html, nav: String, connected: String)(content: Html)
 <!DOCTYPE html>
 <html>
     <head>
@@ -187,22 +186,26 @@
                         <li class="sidebar-print"><a href="#"><i class="icon-print"></i>Print</a></li>
 
 			<!-- Questa parte andra` generata dinamicamente in base al db! -->
-                        <li class="nav-header">Categories</li>
-                        <li class="sidebar-currentstudents"><a href="#"><i class="icon-list-alt"></i> Current Students</a></li>
-                        <li class="sidebar-studentapplications"><a href="#"><i class="icon-list-alt"></i> Student Application</a></li>
-                        <li class="sidebar-studentmarks"><a href="#"><i class="icon-list-alt"></i> Student marks</a></li>
+                        <li id="cats-side-nav" class="nav-header">Categories</li>
+                        
+                        @for(cat_name <- controllers.Category.getMainCategory() ) {
+                                <li class="sidebar">
+                                    <a href="#"><i class="icon-list-alt"></i> @cat_name</a>
+                                </li>
+                            }
 
                         <li class="nav-header">Current Students</li>
                         <li><a href="#">- Distribution by nationality</a></li>
                         <li><a href="#">- Distribution of 1st year admitted</a></li>
-
-			<script type="text/javascript">
-			  $(function(){
-			    var selected_li = $(".sidebar-nav .nav-list li.sidebar-@nav")
-			    selected_li.addClass("active");
-			    selected_li.find("i").addClass("icon-white");
-			  });
-			</script>
+                        
+                        <script type="text/javascript">
+                            $(function() {
+                                var selected_li = $(".sidebar-nav .nav-list li.sidebar-@nav")
+                                selected_li.addClass("active");
+                                selected_li.find("i").addClass("icon-white");
+                            });
+                        
+                        </script>
 
                         <!--li class="divider"></li>
                         <li><a href="#"><i class="icon-flag"></i> Help</a></li-->
