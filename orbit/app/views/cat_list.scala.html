@@ -2,6 +2,12 @@
 
 @main(Html("Statistics Portal"), nav = "home", null) {
 
+<script>
+    $(function() { // adds tooltip to the buttons
+        $('a.btn[rel=tooltip]').tooltip();
+    });
+</script>
+
 <div class="alert alert-info">Overview</div>
 
 <div id="cat_list_container" class="row-fluid">
@@ -13,7 +19,7 @@
       
     <p>
       <a class="btn btn-small" title="Settings" href="#"><i class="icon-cog"></i></a>
-      <a class="btn" href="@(routes.Category.by_id(cat.id))">View &raquo;</a>
+      <a class="btn" rel="tooltip" title="View @cat.name" href="@(routes.Category.by_id(cat.id))">View &raquo;</a>
     </p>
   </div><!--/span-->
   }
