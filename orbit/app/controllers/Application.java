@@ -18,7 +18,7 @@ public class Application extends Controller {
      * category list page
      */
     public static Result index() {
-	return controllers.Category.list();
+	return controllers.Browsing.cat_list();
     }
     
     /**

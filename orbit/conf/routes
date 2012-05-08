@@ -11,11 +11,11 @@ POST    /login/                     controllers.Authentication.authenticate()
 GET     /logout/                    controllers.Authentication.logout()
 
 # Categories and report visualization and management
-GET     /category/list/             controllers.Category.list()
-GET     /category/:cat_id/          controllers.Category.by_id(cat_id: Long)
-GET     /report/most-common/        controllers.Report.most_common()
-GET     /report/:report_id/         controllers.Report.by_id(report_id: Long)
-GET     /report			    controllers.Report.example()
+#GET     /category/list/             	controllers.Category.list()
+GET     /browsing/:cat_id/          	controllers.Browsing.cat_by_id(cat_id: Long)
+#GET     /report/most-common/        	controllers.Browsing.most_common()
+GET     /browsing/:report_id/         	controllers.Browsing.report_by_id(report_id: Long)
+#GET     /browsing		        controllers.Browsing.example()
 
 
 
