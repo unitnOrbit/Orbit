@@ -187,9 +187,9 @@
 
                         <li id="cats-side-nav" class="nav-header">Categories</li>
                         
-                        @for(cat <- controllers.Category.getMainCategory() ) {
+                        @for(cat <- controllers.Browsing.getMainCategory() ) {
                                 <li class="sidebar sidebar-cat-@cat.id">
-                                    <a href="@routes.Category.by_id(cat.id)"><i class="icon-list-alt"></i> @cat.name</a>
+                                    <a href="@routes.Browsing.cat_by_id(cat.id)"><i class="icon-list-alt"></i> @cat.name</a>
                                 </li>
                             }
 

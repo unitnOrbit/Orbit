@@ -36,11 +36,11 @@ public class Browsing extends Controller {
     	models.statistics.Category cat =
     		models.statistics.Category.find.byId(cat_id);
 
-    	for (Statistic 	r:cat.statistics){
+    	for (Report	r:cat.reports){
     		String s = r.name; //does nothing, but forces fetching the database
     	}
 
-    	return ok(cat_view.render(cat, cat.statistics));
+    	return ok(cat_view.render(cat, cat.reports));
     }
     
     public static Result report_by_id(Long report_id) {
