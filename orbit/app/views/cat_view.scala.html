@@ -1,6 +1,6 @@
 @(cat: models.statistics.Category, reports: Collection[models.statistics.Statistic])
 
-@main(Html(cat.name), nav = "home", null) {
+@main(Html(cat.name), nav = "cat-"+cat.id, null) {
 
 <div class="alert alert-info">Overview</div>
 
