@@ -188,14 +188,14 @@
                         <li id="cats-side-nav" class="nav-header">Categories</li>
                         
                         @for(cat <- controllers.Category.getMainCategory() ) {
-                                <li class="sidebar">
+                                <li class="sidebar sidebar-cat-@cat.id">
                                     <a href="@routes.Category.by_id(cat.id)"><i class="icon-list-alt"></i> @cat.name</a>
                                 </li>
                             }
 
                         <li class="nav-header">Current Students</li>
                         <li><a href="#">- Distribution by nationality</a></li>
-                        <li><a href="#">- Distribution of 1st year admitted</a></li>
+                        <li><a href="#">- Distribution of 1st year admitted @nav</a></li>
                         
                         <script type="text/javascript">
                             $(function() {
