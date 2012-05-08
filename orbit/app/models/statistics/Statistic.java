@@ -13,13 +13,14 @@ import play.data.validation.*;
 public class Statistic extends Model {
 
     @Id
-    @Constraints.Min(10)
     public Long id;
     
     @Constraints.Required
     public String name;
 
     public String description;
+
+    public String format;
 
     public Integer num_visits;
 
@@ -31,10 +32,6 @@ public class Statistic extends Model {
 
     @ManyToMany(mappedBy="statistics")
     public Set<Report> reports;
-
-    //@ManyToMany(mappedBy="usergroup")
-    //public UserGroup usergroup;
-
 
     public static Finder<Long,Statistic> find = new Finder<Long, Statistic>(
       Long.class, Statistic.class

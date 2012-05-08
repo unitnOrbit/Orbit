@@ -13,7 +13,6 @@ import play.data.validation.*;
 public class Report extends Model {
 
     @Id
-    @Constraints.Min(10)
     public Long id;
     
     @Constraints.Required
@@ -29,7 +28,6 @@ public class Report extends Model {
 
     //@ManyToMany(mappedBy="usergroup")
     //public UserGroup usergroup;
-
 
     public static Finder<Long,Report> find = new Finder<Long, Report>(
       Long.class, Report.class
