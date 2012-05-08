@@ -30,7 +30,7 @@ public class Statistic extends Model {
     public DataSet dataset;
 
     @ManyToMany(mappedBy="statistics")
-    public Set<Category> categories;
+    public Set<Report> reports;
 
     //@ManyToMany(mappedBy="usergroup")
     //public UserGroup usergroup;
