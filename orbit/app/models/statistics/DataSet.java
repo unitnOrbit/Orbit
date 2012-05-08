@@ -13,7 +13,6 @@ import play.data.validation.*;
 public class DataSet extends Model {
 
     @Id
-    @Constraints.Min(10)
     public Long id;
 
     public String description;

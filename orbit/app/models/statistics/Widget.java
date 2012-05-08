@@ -13,7 +13,6 @@ import play.data.validation.*;
 public class Widget extends Model {
 
     @Id
-    @Constraints.Min(10)
     public Long id;
     
     @Constraints.Required
