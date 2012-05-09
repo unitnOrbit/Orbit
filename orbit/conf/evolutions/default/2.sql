@@ -85,7 +85,3 @@ DELETE FROM `widget`;
 DELETE FROM `report_statistic`;
 DELETE FROM `report`;
 
-
-
-
-
