@@ -54,21 +54,21 @@ INSERT INTO `category` VALUES (3,'Current Students','Statistic reports about stu
 -- Dump dei dati per la tabella `statistic`
 --
 
-INSERT INTO `statistic` (`id`, `name`, `description`, `num_visits`, `widget_id`, `dataset_id`, `report_id`) VALUES
+INSERT INTO `statistic` (`id`, `name`, `description`, `num_visits`, `widget_id`, `dataset_id`) VALUES
 (1, 'prova', NULL, NULL, 1, 2);
 
 --
--- Dump dei dati per la tabella `category_report`
+-- Dump dei dati per la tabella `report_category`
 --
 
-INSERT INTO `category_report` (`category_id`,  `report_id`) VALUES
+INSERT INTO `report_category` (`category_id`,  `report_id`) VALUES
 (3, 1);
 
 --
--- Dump dei dati per la tabella `statistic_report`
+-- Dump dei dati per la tabella `report_statistic`
 --
 
-INSERT INTO `statistic_report` (`statistic_id`,  `report_id`) VALUES
+INSERT INTO `report_statistic` (`statistic_id`,  `report_id`) VALUES
 (1, 1);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
@@ -77,12 +77,12 @@ INSERT INTO `statistic_report` (`statistic_id`,  `report_id`) VALUES
 
 # --- !Downs
 
-DELETE FROM `category_report`;
+DELETE FROM `report_category`;
 DELETE FROM `category`;
 DELETE FROM `statistic`;
 DELETE FROM `data_set`;
 DELETE FROM `widget`;
-DELETE FROM `statistic_report`;
+DELETE FROM `report_statistic`;
 DELETE FROM `report`;
 
 
