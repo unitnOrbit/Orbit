@@ -63,26 +63,31 @@ INSERT INTO `category` VALUES (3,'Current Students','Statistic reports about stu
 -- Dump dei dati per la tabella `statistic`
 --
 
+
 INSERT INTO `statistic` (`id`, `name`, `description`, `format`, `num_visits`, `widget_id`, `dataset_id`) VALUES
 (100, 'distribution of 1st year admitted students by nationality for the current year ', 'The output should be the list of countries, each one with the % of students from that country admitted to the 1st year ', NULL, NULL, 1, 2),
 (200, 'distribution of current students by nationality ', 'The output should be the list of countries, each one with the % of students from that country currently enrolled ', NULL, NULL, 1, 20),
 (300, 'distribution of 1st year admitted students by nationality, over the last 5 years ', 'The output should be the list of countries, each one with the % of students from that country admitted to the 1st year, over the last 5 years ', NULL, NULL, 1, 30);
 
 --
--- Dump dei dati per la tabella `category_report`
+-- Dump dei dati per la tabella `report_category`
 --
+
 
 INSERT INTO `report_category` (`report_id`, `category_id`) VALUES
 (1000, 3),
 (2000, 4);
 
+
 --
--- Dump dei dati per la tabella `statistic_report`
+-- Dump dei dati per la tabella `report_statistic`
 --
+
 
 INSERT INTO `report_statistic` (`report_id`, `statistic_id`) VALUES
 (3000, 100),
 (4000, 200);
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
