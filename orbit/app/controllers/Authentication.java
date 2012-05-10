@@ -64,7 +64,8 @@ public class Authentication extends Controller {
 	    System.out.println(loginForm.get());
 	    System.out.println(loginForm.get().username);
 	    System.out.println(loginForm.data().get("username"));
-            session("username", loginForm.data().get("username"));
+            //session("username", loginForm.data().get("username"));
+	    Secured.login(loginForm.data().get("username"));
             return redirect(
                 routes.Application.index()
             ); 

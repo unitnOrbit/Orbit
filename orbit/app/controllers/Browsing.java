@@ -20,17 +20,27 @@ public class Browsing extends Controller {
     }
     */
 
+    /**
+     * Returns a page for navigating across categories.
+     */
     public static Result cat_list() {
-    	
+	System.out.println(request().username());
+	System.out.println(Secured.username());
     	List<models.statistics.Category> cats = models.statistics.Category.find.all();
-    	
     	return ok(cat_list.render(cats));
     }
     
+    /**
+     * Return the list of categories. Useful for building the sidebar.
+     */
     public static List<models.statistics.Category> getMainCategory() {
         List<models.statistics.Category> cats = models.statistics.Category.find.all();
         return cats;
     }
+
+    /**
+     * Returns a page for navigating across reports in the given category.
+     */
     public static Result cat_by_id(Long cat_id) {
 
     	models.statistics.Category cat =
@@ -43,6 +53,9 @@ public class Browsing extends Controller {
     	return ok(cat_view.render(cat, cat.reports));
     }
     
+    /**
+     * Returns a page displaying the given category.
+     */
     public static Result report_by_id(Long report_id) {
         return TODO;
     }

@@ -21,7 +21,20 @@ public class Secured extends Security.Authenticator {
         return redirect(routes.Authentication.login());
     }
     
+    ////// Utilities to be called from controllers //////
+
+    /**
+     * Logs <code>username</code> in. 
+     * This function does NOT check authentication.
+     */
+    public static void login(String username) {
+	Context.current().session().put("username", username);
+    }
     
+    public static String username() {
+	return Context.current().session().get("username");
+    }
+
     ////// Access rights //////
     
     /**
