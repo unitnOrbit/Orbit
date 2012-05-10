@@ -18,6 +18,7 @@ public class Widget extends Model {
     @Constraints.Required
     public String name;
 
+    @Constraints.Required
     public String description;
 
     //@OneToMany(mappedBy="widget")

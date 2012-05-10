@@ -2,8 +2,9 @@ package controllers;
 import views.html.*;
 import play.mvc.*;
 import java.util.*;
-import models.statistics.*;
+import static play.libs.Json.toJson;
 
+import models.statistics.*;
 
 public class Browsing extends Controller {
 
@@ -57,9 +58,29 @@ public class Browsing extends Controller {
      * Returns a page displaying the given category.
      */
     public static Result report_by_id(Long report_id) {
-        return TODO;
+	List<Long> stats = new LinkedList<Long>();
+	Report report = Report.find.byId(report_id);
+	for (Statistic stat: report.statistics) {
+	    stats.add(stat.id);
+	}
+	return ok(stats.toString());
+        //return ok(someview.render(report, stats)); // TODO: @Luigi come si chiama la view?
     }
     
+    /**
+     * Returns a json with information about the statistic and 
+     * how to display/plot it
+     */
+    public static Result statistic_by_id(Long stat_id) {
+	Statistic stat = Statistic.find.byId(stat_id);
+	Map res = new HashMap();
+	res.put("title", stat.name);
+	res.put("description", stat.description);
+	res.put("type", stat.widget.description);
+	// TODO: put column and 
+	return ok(toJson(res));
+    }
+
     /*
     public static Result most_common() {
     	
