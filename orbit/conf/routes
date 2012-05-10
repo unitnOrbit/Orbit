@@ -24,7 +24,7 @@ GET     /statistic/:stat_id/        controllers.Browsing.statistic_by_id(stat_id
 GET     /prova                      controllers.Application.prova()
 GET     /test/db                    controllers.Application.dbtest()
 #GET     /category/:IDCategory/	    controllers.Application.categoryPage(IDCategory: Long)
-GET     /chart/:IDCategory/:IDChart/ controllers.Application.chartPage(IDCategory: Long, IDChart: Long)
+#GET     /chart/:IDCategory/:IDChart/ controllers.Application.chartPage(IDCategory: Long, IDChart: Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
