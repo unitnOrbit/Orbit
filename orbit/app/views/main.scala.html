@@ -188,15 +188,17 @@
                         <li id="cats-side-nav" class="nav-header">Categories</li>
                         
                         @for(cat <- controllers.Browsing.getMainCategory() ) {
+
                                 <li class="sidebar sidebar-cat-@cat.id">
                                     <a href="@routes.Browsing.cat_by_id(cat.id)"><i class="icon-list-alt"></i> @cat.name</a>
                                 </li>
+			  @if(cat.name == "Current Students" && nav == "cat-3"){
+			      <li><a href="#">- Distribution by nationality</a></li>
+			      <li><a href="#">- Distribution of 1st year admitted @nav</a></li>
+							      }
                             }
 
-                        <li class="nav-header">Current Students</li>
-                        <li><a href="#">- Distribution by nationality</a></li>
-                        <li><a href="#">- Distribution of 1st year admitted @nav</a></li>
-                        
+
                         <script type="text/javascript">
                             $(function() {
                                 var selected_li = $(".sidebar-nav .nav-list li.sidebar-@nav")
