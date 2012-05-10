@@ -1,0 +1,26 @@
+@(report: models.statistics.Report, stats: List[Long])
+@main(Html(report.name), nav = "report-" + report.id, null) {
+
+<script>
+    $.ajax({
+           url: '/',
+           dataType: 'json',
+           data: '',
+           success: function(statistic) {
+                $('h3.stat-title').html(statistic.title);
+                $('h4.stat-descr').html(statistic.desctiption);
+           },
+           error: function() {
+                alert('Errore! Sei stupido!!!');
+           }
+    });
+</script>
+    
+<div class="alert alert-info">Overview</div>
+
+<script class="row-fluid">
+    <h3 class="stat-title"></h3>
+    <h4 class="stat-descr"></h4>
+</div>
+
+}
