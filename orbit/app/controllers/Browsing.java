@@ -63,8 +63,8 @@ public class Browsing extends Controller {
 	for (Statistic stat: report.statistics) {
 	    stats.add(stat.id);
 	}
-	return ok(stats.toString());
-        //return ok(someview.render(report, stats)); // TODO: @Luigi come si chiama la view?
+	//return ok(stats.toString());
+        return ok(reports.render(report, stats));
     }
     
     /**

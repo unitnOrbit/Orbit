@@ -1,26 +1,73 @@
-@(report: models.statistics.Report, stats: List[Long])
+@(report: models.statistics.Report, statsList: List[Long])
 @main(Html(report.name), nav = "report-" + report.id, null) {
 
+<!-- 
+ TODO:  
+ - creazione e / o clonazione template
+ - inserimento valori liste
+ - controllo valori errati
+ - pulizia!
+-->
 <script>
-    $.ajax({
-           url: '/',
-           dataType: 'json',
-           data: '',
-           success: function(statistic) {
-                $('h3.stat-title').html(statistic.title);
-                $('h4.stat-descr').html(statistic.desctiption);
-           },
-           error: function() {
-                alert('Errore! Sei stupido!!!');
-           }
+    function drawVisualization(chartDiv, chartType, title) {
+        if(chartType == null || chartType == "") // check if chart type = NULL
+            chartType = "PieChart";
+            
+        var wrapper = new google.visualization.ChartWrapper({
+            chartType: chartType,
+            dataTable: [[''], ['']],
+            options: {'title': title},
+            containerId: chartDiv
+        });
+        wrapper.draw();
+    }
+    
+    $.each(@statsList, function(i, statID) { 
+        $.ajax({
+            url: '/statistic/' + statID,
+            dataType: 'json',
+            data: '',
+            success: function(stat) {
+               var chartDIv = "";
+               // TODO: clone template here
+               
+               google.load('visualization', '1');   // Don't need to specify chart libraries!
+               google.setOnLoadCallback(drawVisualization(chartDiv, stat.type, stat.title));
+            },
+            error: function() { // TODO: gestione errori
+               alert('Errore! Sei stupido!!!');
+            }
+        });
     });
+    
 </script>
     
 <div class="alert alert-info">Overview</div>
+<div class="alert alert-warning">Debug: statsList [ @statsList ]</div>
 
-<script class="row-fluid">
-    <h3 class="stat-title"></h3>
-    <h4 class="stat-descr"></h4>
-</div>
+<!-- test chart -->
+<div id="test_chart"></div>
+
+<!-- full size chart -->
+<script class="full-stat-cont">
+    <div class="row-fluid">
+        <h3 class="stat-title"></h3>
+        <h4 class="stat-descr"></h4>
+        
+        <div class="chart"></div>
+    </div>
+</script>
+    
+<!-- half size chart -->
+<script class="half-stat-cont">
+    <div class="row-fluid">
+        <div class="span6">
+            <h3 class="stat-title"></h3>
+            <h4 class="stat-descr"></h4>
+            
+            <div class="chart"></div>
+        </div>
+    </div>
+</script>
 
 }
