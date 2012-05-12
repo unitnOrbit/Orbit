@@ -38,7 +38,27 @@ public class Statistic extends Model {
     );
 
     @Override
-    public String toString(){
+    public String toString() {
         return this.name;
+    }
+
+    
+    /**
+     * Serializes the object into a JSON string suitable for
+     * being interpreted by the displaying/plotting engine.
+     * Useful if the plotting is done at client-side.
+     */
+    public String toJson()
+	throws models.statistics.DataSet.InvalidClassNameException {
+	
+	Map res = new HashMap();
+	res.put("title", this.name);
+	res.put("description", this.description);
+	res.put("type", this.widget.description);
+	datasets.DataSet dataset = this.dataset.getDataSetInstance();
+	res.put("columns", dataset.getColumns());
+	res.put("data", dataset.getData());
+	// TODO: support widget options and dataset options
+	return play.libs.Json.toJson(res).toString();
     }
 }

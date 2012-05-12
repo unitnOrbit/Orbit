@@ -2,7 +2,6 @@ package controllers;
 import views.html.*;
 import play.mvc.*;
 import java.util.*;
-import static play.libs.Json.toJson;
 
 import models.statistics.*;
 
@@ -73,52 +72,13 @@ public class Browsing extends Controller {
      */
     public static Result statistic_by_id(Long stat_id) {
 	Statistic stat = Statistic.find.byId(stat_id);
-	Map res = new HashMap();
-	res.put("title", stat.name);
-	res.put("description", stat.description);
-	res.put("type", stat.widget.description);
-	Class ds_class = null;
-	datasets.DataSet ds = null;
+	String res;
 	try {
-	    ds_class = Class.forName(stat.dataset.description);
-	    ds = (datasets.DataSet) ds_class.newInstance();
+	    return ok(stat.toJson());
 	}
-	catch (ClassNotFoundException e) {
-	    return internalServerError(
-                String.format("The DataSet \"%s\" references a non-existing "
-			      + "java class. Note that nested classes are "
-			      + "not allowed.",
-			      stat.dataset.description)
-	    );
+	catch (DataSet.InvalidClassNameException e) {
+	    return internalServerError(e.getMessage());
 	}
-	catch (IllegalAccessException e) {
-	    return internalServerError(
-                String.format("The DataSet \"%s\" references an unaccessible "
-			      + "java class. Both the class and its nullary "
-			      + "contructor must be accessable.",
-			      stat.dataset.description)
-	    );
-	}
-	catch (InstantiationException e) {
-	    return internalServerError(
-                String.format("The DataSet \"%s\" references a java class "
-			      + "which is not instantiable. The class must be "
-			      + "instantiable (not abstract, not an interface) "
-			      + "and have a nullary constructor.",
-			      ds_class.getName())
-	    );
-	}
-	catch (ClassCastException e) {
-	    return internalServerError(
-                String.format("The DataSet \"%s\" references a java class "
-			      + "which does not implement %s.",
-			      ds_class.getName(),
-			      datasets.DataSet.class.getName())
-	    );
-	}
-	res.put("columns", ds.getColumns());
-	res.put("data", ds.getData());
-	return ok(toJson(res));
     }
 
     /*
