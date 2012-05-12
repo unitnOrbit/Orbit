@@ -77,7 +77,47 @@ public class Browsing extends Controller {
 	res.put("title", stat.name);
 	res.put("description", stat.description);
 	res.put("type", stat.widget.description);
-	// TODO: put column and 
+	Class ds_class = null;
+	datasets.DataSet ds = null;
+	try {
+	    ds_class = Class.forName(stat.dataset.description);
+	    ds = (datasets.DataSet) ds_class.newInstance();
+	}
+	catch (ClassNotFoundException e) {
+	    return internalServerError(
+                String.format("The DataSet \"%s\" references a non-existing "
+			      + "java class. Note that nested classes are "
+			      + "not allowed.",
+			      stat.dataset.description)
+	    );
+	}
+	catch (IllegalAccessException e) {
+	    return internalServerError(
+                String.format("The DataSet \"%s\" references an unaccessible "
+			      + "java class. Both the class and its nullary "
+			      + "contructor must be accessable.",
+			      stat.dataset.description)
+	    );
+	}
+	catch (InstantiationException e) {
+	    return internalServerError(
+                String.format("The DataSet \"%s\" references a java class "
+			      + "which is not instantiable. The class must be "
+			      + "instantiable (not abstract, not an interface) "
+			      + "and have a nullary constructor.",
+			      ds_class.getName())
+	    );
+	}
+	catch (ClassCastException e) {
+	    return internalServerError(
+                String.format("The DataSet \"%s\" references a java class "
+			      + "which does not implement %s.",
+			      ds_class.getName(),
+			      datasets.DataSet.class.getName())
+	    );
+	}
+	res.put("columns", ds.getColumns());
+	res.put("data", ds.getData());
 	return ok(toJson(res));
     }
 

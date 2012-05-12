@@ -55,7 +55,7 @@ INSERT INTO `phdcoursedb`.`users_credentials` VALUES  (1,'demo','12345',1,1);
 
 INSERT INTO `data_set` (`id`, `description`) VALUES
 (1, 'description'),
-(2, 'prova'),
+(2, 'datasets.StudentsByNationality'),
 (3, NULL),
 (4, NULL);
 
