@@ -1,5 +1,5 @@
 @(report: models.statistics.Report, statsList: List[Long])
-@main(Html(report.name), nav = "report-" + report.id, null) {
+@main(Html(report.name + ""), nav = "report-" + report.id, null) {
 
 <!-- 
  TODO:  
@@ -8,11 +8,9 @@
  - controllo valori errati
  - pulizia!
 -->
+<script src="@routes.Assets.at("/javascript/jquery.templ.js")"></script>
 <script>
-    function drawVisualization(chartDiv, chartType, title) {
-        if(chartType == null || chartType == "") // check if chart type = NULL
-            chartType = "PieChart";
-            
+    function drawVisualization(chartDiv, chartType, title) {            
         var wrapper = new google.visualization.ChartWrapper({
             chartType: chartType,
             dataTable: [[''], ['']],
@@ -22,12 +20,23 @@
         wrapper.draw();
     }
     
-    $.each(@statsList, function(i, statID) { 
+    $.each(@statsList, function(i, statID) {
         $.ajax({
             url: '/statistic/' + statID,
             dataType: 'json',
             data: '',
             success: function(stat) {
+               var title = stat.title;
+               var descr = stat.description;
+               var type = stat.type;
+               
+               if(type == null || type == "") // check if chart type = NULL
+                    type = "PieChart";
+               
+               $("body").append("title: " + title + "<br/>");
+               $("body").append("type: " + type + "<br/>");
+               $("body").append("description: " + descr + "<br/>");
+               
                var chartDIv = "";
                // TODO: clone template here
                
@@ -36,38 +45,41 @@
             },
             error: function() { // TODO: gestione errori
                alert('Errore! Sei stupido!!!');
+               $('body').append('<div class="alert error-warning">Error: cannot connect to url.</div>');
+               
             }
         });
     });
     
 </script>
     
-<div class="alert alert-info">Overview</div>
-<div class="alert alert-warning">Debug: statsList [ @statsList ]</div>
-
-<!-- test chart -->
-<div id="test_chart"></div>
-
 <!-- full size chart -->
 <script class="full-stat-cont">
-    <div class="row-fluid">
-        <h3 class="stat-title"></h3>
-        <h4 class="stat-descr"></h4>
-        
-        <div class="chart"></div>
-    </div>
+<div class="row-fluid">
+<h3 class="stat-title"></h3>
+<h4 class="stat-descr"></h4>
+
+<div class="chart"></div>
+</div>
 </script>
-    
+
 <!-- half size chart -->
 <script class="half-stat-cont">
-    <div class="row-fluid">
-        <div class="span6">
-            <h3 class="stat-title"></h3>
-            <h4 class="stat-descr"></h4>
-            
-            <div class="chart"></div>
-        </div>
-    </div>
+<div class="row-fluid">
+<div class="span6">
+<h3 class="stat-title"></h3>
+<h4 class="stat-descr"></h4>
+
+<div class="chart"></div>
+</div>
+</div>
 </script>
+
+<div class="alert alert-info">Overview - nav = report-@report.id</div>
+<div class="alert alert-warning">Debug: statsList @statsList</div>
+
+
+
+
 
 }
