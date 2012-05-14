@@ -188,15 +188,16 @@
                         <li id="cats-side-nav" class="nav-header">Categories</li>
                         
                         @for(cat <- controllers.Browsing.getMainCategory() ) {
-
-                                <li class="sidebar sidebar-cat-@cat.id">
-                                    <a href="@routes.Browsing.cat_by_id(cat.id)"><i class="icon-list-alt"></i> @cat.name</a>
-                                </li>
-			  @if(cat.name == "Current Students" && nav == "cat-1"){
-			      <li><a href="#">- Distribution by nationality</a></li>
-			      <li><a href="#">- Distribution of 1st year admitted @nav</a></li>
-							      }
-                            }
+                             <li class="sidebar sidebar-cat-@cat.id">
+                             <a href="@routes.Browsing.cat_by_id(cat.id)"><i class="icon-list-alt"></i> @cat.name</a>
+                             </li>
+			      <!--@if(cat.name == "Current Students" && nav == "cat-1"){/-->
+				  @for(repo <- cat.reports){
+				<li><a href="@routes.Browsing.report_by_id(repo.id)"> report_id: @repo.id, report_name:@repo.name</a></li>
+				<!--<li><a href="#">	- Distribution of 1st year admitted @nav</a></li>/-->
+				    }
+				<!--}/-->
+                           }
 
 
                         <script type="text/javascript">
