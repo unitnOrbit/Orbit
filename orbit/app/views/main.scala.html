@@ -234,17 +234,14 @@
                                 <a href="@routes.Application.index">Home</a> <span class="divider">/</span>
                             </li>
 		@if(nav != "home"){
-		   @if(nav == "cat-1"){
-                            <li><a href="@routes.Browsing.cat_by_id(1)">Current Students</a> <span class="divider">/</span></li> 
-				      }
-		   @if(nav == "cat-2"){
-                            <li><a href="@routes.Browsing.cat_by_id(2)">Student application</a> <span class="divider">/</span></li> 
-				      }
-		   @if(nav == "cat-3"){
-                            <li><a href="@routes.Browsing.cat_by_id(3)">Student marks</a> <span class="divider">/</span></li> 
-				      }
-                            <li class="active">Report</li>
-		      }
+                        @for(cat <- controllers.Browsing.getMainCategory() ) {
+			    @if(nav == ("cat-" + cat.id)){
+			      <li><a href="@routes.Browsing.cat_by_id(cat.id)">@cat.name</a> <span class="divider">/</span></li>
+			      <li class="active">Report</li>
+			    }									      
+			}
+				  
+		}
                         </ul>
                     </div>
                 </div>
