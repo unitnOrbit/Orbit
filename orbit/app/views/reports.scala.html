@@ -8,7 +8,7 @@
  - controllo valori errati
  - pulizia!
 -->
-<script src="@routes.Assets.at("/javascript/jquery.templ.js")"></script>
+<script src="@routes.Assets.at("javascripts/jquery.templ.js")"></script>
 <script>
     function drawVisualization(chartDiv, chartType, title) {            
         var wrapper = new google.visualization.ChartWrapper({
@@ -19,34 +19,77 @@
         });
         wrapper.draw();
     }
+ 
     
+    function selectHandler() {
+        var selectedItem = chart.getSelection()[0];
+        var value = data.getValue(selectedItem.row, 0);
+        alert('The user selected ' + value);
+    }
+
     $.each(@statsList, function(i, statID) {
+        var getStatsUrl = '/statistic/' + statID;
+           
         $.ajax({
-            url: '/statistic/' + statID,
+            url: getStatsUrl,
             dataType: 'json',
             data: '',
-            success: function(stat) {
-               var title = stat.title;
-               var descr = stat.description;
-               var type = stat.type;
+            success: function(stat_data) {
+               // The tile of current chart
+               var chart_title = stat_data.title;
                
-               if(type == null || type == "") // check if chart type = NULL
-                    type = "PieChart";
+               // The descrption of current chart
+               var chart_descr = stat_data.description;
                
-               $("body").append("title: " + title + "<br/>");
-               $("body").append("type: " + type + "<br/>");
-               $("body").append("description: " + descr + "<br/>");
+               // The type of current chart
+               var chart_type = stat_data.type;
                
-               var chartDIv = "";
-               // TODO: clone template here
                
-               google.load('visualization', '1');   // Don't need to specify chart libraries!
-               google.setOnLoadCallback(drawVisualization(chartDiv, stat.type, stat.title));
+               chart_type = "PieChart"; // FIX: errore nel tipo di grafico (pieChart > PieChart)
+               
+               var chart_columns = stat_data.columns;
+               var chart_data = stat_data.data;
+               var chart_templ_data = [ 
+                                  { title: chart_title }, 
+                                  { description: chart_descr },
+                                  { type: chart_type }
+                                 ];
+               
+               // TEMPLATE
+               $("#full-report-cont").tmpl(chart_templ_data).appendTo("#report-container");
+               
+               var data; 
+               var chart;
+               
+               /* Loading chart here */
+               google.load("visualization", "1", {packages:["corechart"]}); // FIXME: considerare se spostarlo fuori dal for each
+               //google.setOnLoadCallback(drawChart);
+               
+               //$("body").append("chart_columns: " + chart_columns + "<br/> chart_data: " + chart_data + "<br />");
+               
+               data = new google.visualization.DataTable();               
+               
+               // columns
+               $.each(chart_columns, function(i, columns) {
+                      data.addColumn(columns.toString());
+                      //$("body").append($.trim(columns));
+               });
+               // rows - data
+               $.each(chart_data, function(i, val) {
+                      data.addRow(val.toString());
+                      //$("body").append("DATA: " + val);
+               });
+                        
+               //var options = {'title':'How Much Pizza I Ate Last Night', 'width':400, 'height':300};
+               var options = {'':''};
+               
+               // Instantiate and draw our chart, passing in some options.
+               chart = new google.visualization.PieChart(document.getElementById('chart-full-report'));
+               chart.draw(data, options);
+               
             },
             error: function() { // TODO: gestione errori
-               //alert('Errore! Sei stupido!!!');
-               $('body').append('<div class="alert error-warning">Error: cannot connect to url.</div>');
-               
+               $('body').append('<div class="alert alert-error">Error: ajax call (url: ' + getStatsUrl + ' )</div>');
             }
         });
     });
@@ -54,32 +97,20 @@
 </script>
     
 <!-- full size chart -->
-<script class="full-stat-cont">
+<script id="full-report-cont" class="full-stat-cont" type="text/html">
 <div class="row-fluid">
-<h3 class="stat-title"></h3>
-<h4 class="stat-descr"></h4>
+    <h3 class="stat-title">${title}</h3>
+    <h4 class="stat-descr">${description}</h4>
 
-<div class="chart"></div>
+    <div id="chart-full-report" style="height: 200px; width: 200px; border: 1px solid #ccc">${type}</div>
 </div>
 </script>
 
 <!-- half size chart -->
 <script class="half-stat-cont">
-<div class="row-fluid">
-<div class="span6">
-<h3 class="stat-title"></h3>
-<h4 class="stat-descr"></h4>
-
-<div class="chart"></div>
-</div>
-</div>
 </script>
 
-<div class="alert alert-info">Overview - nav = report-@report.id</div>
 <div class="alert alert-warning">Debug: statsList @statsList</div>
-
-
-
-
+<div id="report-container"></div>
 
 }
