@@ -35,6 +35,11 @@ public class Browsing extends Controller {
      */
     public static List<models.statistics.Category> getMainCategory() {
         List<models.statistics.Category> cats = models.statistics.Category.find.all();
+	for (Category cat: cats) {
+	  for (Report r: cat.reports) {
+	      String s = r.name;  // does nothing, forces fetching from db
+	  }
+	}
         return cats;
     }
 

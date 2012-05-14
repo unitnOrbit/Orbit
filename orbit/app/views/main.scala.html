@@ -191,13 +191,12 @@
                              <li class="sidebar sidebar-cat-@cat.id">
                              <a href="@routes.Browsing.cat_by_id(cat.id)"><i class="icon-list-alt"></i> @cat.name</a>
                              </li>
-			      <!--@if(cat.name == "Current Students" && nav == "cat-1"){/-->
+				@if(nav == ("cat-" + cat.id)){
 				  @for(repo <- cat.reports){
-				<li><a href="@routes.Browsing.report_by_id(repo.id)"> report_id: @repo.id, report_name:@repo.name</a></li>
-				<!--<li><a href="#">	- Distribution of 1st year admitted @nav</a></li>/-->
-				    }
-				<!--}/-->
-                           }
+				<li><a href="@routes.Browsing.report_by_id(repo.id)">@repo.name</a></li>
+				      }
+				  }
+			      }
 
 
                         <script type="text/javascript">
