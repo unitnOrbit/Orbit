@@ -40,8 +40,18 @@ INSERT INTO `phdcoursedb`.`supervisors` VALUES  (1,'Joe','Doe',1,1,1,'joe.doe@gm
 
 
 INSERT INTO `students` (`user_ID`, `date_of_birth`, `graduation_date`, `first_name`, `last_name`, `full_name`, `phd_cycle`, `is_suspended`, `course_year`, `admitted_conditionally`, `legal_residence`, `current_domicile`, `place_of_birth`, `office_phone`, `mobile_phone`, `office_working_place`, `locker_number`, `phd_scholarship`, `scholarship_type`, `yearly_fee_to_center`, `yearly_fee_to_school`, `has_pc_rights`, `pre_doctoral_scholarship`, `months_predoc_scholarship`, `year_extension_scholarship`, `months`, `personal_funds_available`, `is_graduated`, `commitee_members`, `email`, `deleted`, `Italian_Taxpayer_Code`, `university_of_provenance`, `university`, `funding_institution`, `country_of_provenance`, `citizenship`, `funds_owner`, `tutor`, `current_advisor`) VALUES
-(1,'John Erik','Smith','John E. Smith','28',0,2,0,'via manci 27, Trento','','0000-00-00','New York, NY, USA','123-456789','1231-23456','P1-S5-14','27-A',0,'UNKNOWN',0,0,0,NULL,0,'0',0,0,0,NULL,'UNKNOWN','joe.doe@domain.com',0,1,1,1,1,1,1,1,1,1),
-(2,'Davide','Kirchner','Davide Kirchner','28',0,2,0,'via manci 27, Trento','','0000-00-00','New York, NY, USA','123-456789','1231-23456','P1-S5-14','27-A',0,'UNKNOWN',0,0,0,NULL,0,'0',0,0,0,NULL,'UNKNOWN','dk@example.com',0,1,1,1,1,1,1,1,1,1);
+(1,'John Erik','Smith','John E. Smith','28',0,2,0,'via manci 27, Trento','','0000-00-00','New York, NY, USA','123-456789','1231-23456','P1-S5-14','27-A',0,'UNKNOWN',0,0,0,NULL,0,'0',0,0,0,NULL,'UNKNOWN','joe.doe@domain.com',0,1,1,1,1,1,4,1,1,1),
+(2,'John Erik','Smith','John E. Smith','28',0,2,0,'via manci 27, Trento','','0000-00-00','New York, NY, USA','123-456789','1231-23456','P1-S5-14','27-A',0,'UNKNOWN',0,0,0,NULL,0,'0',0,0,0,NULL,'UNKNOWN','joe.doe@domain.com',0,1,1,1,1,1,4,1,1,1),
+(3,'Davide','Kirchner','Davide Kirchner','28',0,2,0,'via manci 27, Trento','','0000-00-00','New York, NY, USA','123-456789','1231-23456','P1-S5-14','27-A',0,'UNKNOWN',0,0,0,NULL,0,'0',0,0,0,NULL,'UNKNOWN','dk@example.com',0,1,1,1,1,1,1,1,1,1),
+(4,'Some Guy','Smith','John E. Smith','28',0,2,0,'via manci 27, Trento','','0000-00-00','New York, NY, USA','123-456789','1231-23456','P1-S5-14','27-A',0,'UNKNOWN',0,0,0,NULL,0,'0',0,0,0,NULL,'UNKNOWN','joe.doe@domain.com',0,1,1,1,1,1,3,1,1,1),
+(5,'Some Guy','Smith','John E. Smith','28',0,2,0,'via manci 27, Trento','','0000-00-00','New York, NY, USA','123-456789','1231-23456','P1-S5-14','27-A',0,'UNKNOWN',0,0,0,NULL,0,'0',0,0,0,NULL,'UNKNOWN','joe.doe@domain.com',0,1,1,1,1,1,4,1,1,1),
+(6,'Some Guy','Smith','John E. Smith','28',0,2,0,'via manci 27, Trento','','0000-00-00','New York, NY, USA','123-456789','1231-23456','P1-S5-14','27-A',0,'UNKNOWN',0,0,0,NULL,0,'0',0,0,0,NULL,'UNKNOWN','joe.doe@domain.com',0,1,1,1,1,1,3,1,1,1),
+(7,'Some Other Guy','Smith','John E. Smith','28',0,2,0,'via manci 27, Trento','','0000-00-00','New York, NY, USA','123-456789','1231-23456','P1-S5-14','27-A',0,'UNKNOWN',0,0,0,NULL,0,'0',0,0,0,NULL,'UNKNOWN','joe.doe@domain.com',0,1,1,1,1,1,4,1,1,1);
+UPDATE students SET
+       graduation_date = NULL,
+       date_of_birth = '1991-12-22',
+       has_pc_rights = True,
+       is_graduated = True;
 
 
 INSERT INTO `phdcoursedb`.`users_roles` VALUES  (1,'admin',0);
@@ -89,13 +99,12 @@ INSERT INTO `statistic` (`id`, `name`, `description`, `format`, `num_visits`, `w
 (7, 'avg number of months spent abroad, by cycle and by funding institution, historically (for 5 cycles) ', 'Area chart', NULL, NULL, 1, 3),
 (8, 'avg mark in courses by funding institution, over the past 5 yrs. Possibility to focus (select) specific institutions ', 'clustered bar chart', NULL, NULL, 1, 4);
 
+
 INSERT INTO `report_category` (`report_id`, `category_id`) VALUES
 (1, 1),
 (2, 1),
 (3, 3),
 (4, 2);
-
-
 
 
 INSERT INTO `report_statistic` (`report_id`, `statistic_id`) VALUES
