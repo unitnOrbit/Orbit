@@ -54,41 +54,48 @@ INSERT INTO `phdcoursedb`.`users_credentials` VALUES  (1,'demo','12345',1,1);
 
 
 INSERT INTO `data_set` (`id`, `description`) VALUES
-(1, 'description'),
+(1, 'datasets.StudentsByNationality'),
 (2, 'datasets.StudentsByNationality'),
-(3, NULL),
-(4, NULL);
+(3, 'datasets.StudentsByNationality'),
+(4, 'datasets.StudentsByNationality');
 
 
 INSERT INTO `widget` (`id`, `name`, `description`) VALUES
-(1, 'nome_widget', 'pieChart'),
-(2, 'widget_name', 'pieChart');
+(1, 'nome_widget', 'PieChart'),
+(2, 'widget_name', 'PieChart');
 
 
 INSERT INTO `report` (`id`, `name`, `description`) VALUES
-(1, 'nome_report', 'distribution of 1st year admitt'),
-(2, 'report_name', 'fdsnjakfl fsdjkj llksd jfsjdk lkhfsda fkljdf kjfdskl skldjfk jsdkf hkjdsf jhdfsjd f h sdkf kjsdf asiehtfvknudisf'),
-(3, 'altro', 'eruowpirueoovboe be bouw beou pwoe oe mnvcmx, nmcvnx nc cx uvxciuvxicp ivc');
+(1, 'Distribution Of 1st Year Admitted Students By Nationality', 'distribution of 1st year admitted'),
+(2, 'Distribution Of Current Students By Nationality', 'distribution of current students'),
+(3, 'Average Mark In Courses By Funding Institution', 'number of months spent abroad'),
+(4, 'Number Of Application', 'average marks');
+
 
 
 INSERT INTO `category` (`id`, `name`, `description`) VALUES
 (1, 'Current Students', 'Statistic reports about students'' marks, for current students'),
 (2, 'Student applications', 'Statistic reports about student applications over the last years'),
-(3, 'Student marks', NULL);
+(3, 'Student marks', 'Students marks');
 
 
 INSERT INTO `statistic` (`id`, `name`, `description`, `format`, `num_visits`, `widget_id`, `dataset_id`) VALUES
 (1, 'distribution of 1st year admitted students by nationality for the current year ', 'The output should be the list of countries, each one with the % of students from that country admitted to the 1st year ', NULL, NULL, 1, 2),
-(2, 'distribution of current students by nationality ', 'The output should be the list of countries, each one with the % of students from that country currently enrolled ', NULL, NULL, 1, 3),
-(3, 'distribution of 1st year admitted students by nationality, over the last 5 years ', 'The output should be the list of countries, each one with the % of students from that country admitted to the 1st year, over the last 5 years ', NULL, NULL, 1, 4);
-
+(2, 'distribution of current students by nationality ', 'The output should be the list of countries, each one with the % of students from that country currently enrolled ', NULL, NULL, 1, 2),
+(3, 'distribution of 1st year admitted students by nationality, over the last 5 years ', 'The output should be the list of countries, each one with the % of students from that country admitted to the 1st year, over the last 5 years ', NULL, NULL, 1, 2),
+(4, 'Number of applications', 'Number of applications over the last 5 years', NULL, NULL, 1, 1),
+(5, 'number of scholarships over the last 5 years, classified by source (UNITN, DISI, Research center, Company, Other) ', 'area chart', NULL, NULL, 1, 3),
+(6, 'avg number of months spent abroad, by cycle, historically (for 5 cycles) ', 'Bar chart', NULL, NULL, 1, 4),
+(7, 'avg number of months spent abroad, by cycle and by funding institution, historically (for 5 cycles) ', 'Area chart', NULL, NULL, 1, 3),
+(8, 'avg mark in courses by funding institution, over the past 5 yrs. Possibility to focus (select) specific institutions ', 'clustered bar chart', NULL, NULL, 1, 4);
 
 INSERT INTO `report_category` (`report_id`, `category_id`) VALUES
-(1, 2),
-(2, 3),
 (1, 1),
 (2, 1),
-(3, 1);
+(3, 3),
+(4, 2);
+
+
 
 
 INSERT INTO `report_statistic` (`report_id`, `statistic_id`) VALUES
@@ -96,7 +103,10 @@ INSERT INTO `report_statistic` (`report_id`, `statistic_id`) VALUES
 (2, 2),
 (3, 3),
 (3, 2),
-(3, 1);
+(3, 1),
+(2, 4),
+(3, 5),
+(3, 6);
 
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
