@@ -1,4 +1,4 @@
-@(title: Html, nav: String, connected: String)(content: Html)
+@(title: Html, nav: String, nav2: String, connected: String)(content: Html)
 <!DOCTYPE html>
 <html>
     <head>
@@ -193,6 +193,7 @@
                              </li>
 				@if(nav == ("cat-" + cat.id)){
 				  @for(repo <- cat.reports){
+				    
 				<li><a href="@routes.Browsing.report_by_id(repo.id)">@repo.name</a></li>
 				      }
 				  }

@@ -20,7 +20,7 @@ public class Category extends Model {
     public String description;
 
     @ManyToMany(mappedBy="categories")
-    public Set<Report> reports;
+    public List<Report> reports;
 
     public static Finder<Long,Category> find = new Finder<Long, Category>(
       Long.class, Category.class
@@ -30,4 +30,8 @@ public class Category extends Model {
     public String toString(){
         return this.name;
     }
+
+    //public List<Report> report_list() {
+    //    Report.find.where().eq("id", this.id)
+    //}
 }
