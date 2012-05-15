@@ -1,116 +1,115 @@
 @(report: models.statistics.Report, statsList: List[Long])
-@main(Html(report.name + ""), nav = "report-" + report.id, null) {
+@main(Html(report.name + ""), nav = "report-" + report.id, nav2 = "", null) {
 
-<!-- 
- TODO:  
- - creazione e / o clonazione template
- - inserimento valori liste
- - controllo valori errati
- - pulizia!
--->
+<style type="text/css">
+    .chart {
+        height: 400px;
+    }
+    .chart-headers { height: 100px;}
+</style>
+
 <script src="@routes.Assets.at("javascripts/jquery.templ.js")"></script>
 <script>
-    function drawVisualization(chartDiv, chartType, title) {            
-        var wrapper = new google.visualization.ChartWrapper({
-            chartType: chartType,
-            dataTable: [[''], ['']],
-            options: {'title': title},
-            containerId: chartDiv
-        });
-        wrapper.draw();
-    }
- 
-    
-    function selectHandler() {
-        var selectedItem = chart.getSelection()[0];
-        var value = data.getValue(selectedItem.row, 0);
-        alert('The user selected ' + value);
-    }
+    google.load("visualization", "1", {packages:["corechart"]}); // FIXME: considerare se spostarlo fuori dal for each
 
     $.each(@statsList, function(i, statID) {
-        var getStatsUrl = '/statistic/' + statID;
+        var getStatsUrl = '/statistic/' + statID + '/';
            
         $.ajax({
             url: getStatsUrl,
             dataType: 'json',
             data: '',
             success: function(stat_data) {
-               // The tile of current chart
-               var chart_title = stat_data.title;
+               var chart_title = stat_data.title;           // The tile of current chart
+               var chart_descr = stat_data.description;     // The descrption of current chart
+               var chart_type = stat_data.type;             // The type of current chart
+               var chart_columns = stat_data.columns;       // The columns to be used
+               var chart_data = stat_data.data;             // The rows to be used
                
-               // The descrption of current chart
-               var chart_descr = stat_data.description;
-               
-               // The type of current chart
-               var chart_type = stat_data.type;
-               
-               
-               chart_type = "PieChart"; // FIX: errore nel tipo di grafico (pieChart > PieChart)
-               
-               var chart_columns = stat_data.columns;
-               var chart_data = stat_data.data;
-               var chart_templ_data = [ 
-                                  { title: chart_title }, 
-                                  { description: chart_descr },
-                                  { type: chart_type }
-                                 ];
-               
-               // TEMPLATE
-               $("#full-report-cont").tmpl(chart_templ_data).appendTo("#report-container");
-               
+               var chart_templ_data;
                var data; 
                var chart;
+               var report_container;
+               var type_report_container = "half";          // Define the type of box (ie. full, half, etc..)
+               
+               /* CHECKS */
+               if(chart_title == "" || chart_title == null) {
+                    chart_title = "No title.";
+               }
+               if(chart_descr == "" || chart_descr == null) {
+                    chart_descr = "No description.";
+               }
+               if(chart_type == "" || chart_type == null) {
+                    chart_type = "PieChart";
+               }
+               
+               /* Creating the template */
+               chart_templ_data = [ { 
+                                   title: chart_title,
+                                   description: chart_descr,
+                                   type: chart_type 
+                                   } ];
+               // Apply the template to container
+               if(type_report_container == "" || type_report_container == null) {
+                    type_report_container = "full";
+               }               
+               report_container = $("#" + type_report_container + "-report-templ").tmpl(chart_templ_data).appendTo("#report-container");
+               
                
                /* Loading chart here */
-               google.load("visualization", "1", {packages:["corechart"]}); // FIXME: considerare se spostarlo fuori dal for each
+               data = new google.visualization.DataTable();
                //google.setOnLoadCallback(drawChart);
                
-               //$("body").append("chart_columns: " + chart_columns + "<br/> chart_data: " + chart_data + "<br />");
-               
-               data = new google.visualization.DataTable();               
-               
-               // columns
-               $.each(chart_columns, function(i, columns) {
-                      data.addColumn(columns.toString());
-                      //$("body").append($.trim(columns));
+               // Adds columns to Data Table
+               $.each(chart_columns, function(i, column) {
+                      var type = column[0];
+                      var name = column[1];
+
+                      data.addColumn(column[0], column[1]);
                });
-               // rows - data
-               $.each(chart_data, function(i, val) {
-                      data.addRow(val.toString());
-                      //$("body").append("DATA: " + val);
-               });
+               
+               // Adds rows to Data Table
+               data.addRows(chart_data);
                         
                //var options = {'title':'How Much Pizza I Ate Last Night', 'width':400, 'height':300};
                var options = {'':''};
                
                // Instantiate and draw our chart, passing in some options.
-               chart = new google.visualization.PieChart(document.getElementById('chart-full-report'));
-               chart.draw(data, options);
                
+               //chart = new google.visualization.PieChart(document.getElementById('chart-full-report'));
+               chart = new google.visualization.PieChart(report_container.find(".chart").get(0));
+               chart.draw(data, options);
             },
             error: function() { // TODO: gestione errori
-               $('body').append('<div class="alert alert-error">Error: ajax call (url: ' + getStatsUrl + ' )</div>');
+               $('#report-container').append('<div class="alert alert-error">Error: ajax call (url: ' + getStatsUrl + ' )</div>');
             }
         });
     });
-    
 </script>
     
 <!-- full size chart -->
-<script id="full-report-cont" class="full-stat-cont" type="text/html">
-<div class="row-fluid">
-    <h3 class="stat-title">${title}</h3>
-    <h4 class="stat-descr">${description}</h4>
+<script id="full-report-templ" class="full-stat-cont" type="text/html">
+    <div class="span12 report-inner-container">
+        <div class="chart-headers well">
+            <h3 class="stat-title">${title}</h3>
+            <p class="stat-descr">${description}</p>
+        </div>
 
-    <div id="chart-full-report" style="height: 200px; width: 200px; border: 1px solid #ccc">${type}</div>
-</div>
+        <div class="chart"></div>
+    </div>
 </script>
 
 <!-- half size chart -->
-<script class="half-stat-cont">
+<script id="half-report-templ" class="half-report-cont" type="text/html">
+    <div class="span6 report-inner-container">
+        <div class="chart-headers well">
+            <h3 class="stat-title">${title}</h3>
+            <p class="stat-descr">${description}</p>
+        </div>
+        <div class="chart"></div>
+    </div>    
 </script>
 
-<div class="alert alert-warning">Debug: statsList @statsList</div>
-<div id="report-container"></div>
+<div id="report-container" class="row-fluid"></div>
 
 }

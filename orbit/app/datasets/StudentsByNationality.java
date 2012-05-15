@@ -26,7 +26,7 @@ public class StudentsByNationality
 	cols.add(col);
 	    
 	col = new LinkedList<String>();
-	col.add("integer");
+	col.add("number");
 	col.add("Number of enrolled students");
 	cols.add(col);
 	return cols;
@@ -55,8 +55,9 @@ public class StudentsByNationality
 	List<List> data = new ArrayList<List>();
 	/*
 	List row = new LinkedList();
-	row.add("Italiani");
-	row.add(new Integer(1));
+	row.add("Italy");
+	row.add(new Integer(123));
+    
 	data.add(row);
 	*/
 	/*
