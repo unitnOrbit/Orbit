@@ -44,11 +44,11 @@ public class Statistic extends Model {
 
     
     /**
-     * Serializes the object into a JSON string suitable for
+     * Serializes the object into a JSON, suitable for
      * being interpreted by the displaying/plotting engine.
      * Useful if the plotting is done at client-side.
      */
-    public String toJson()
+    public org.codehaus.jackson.JsonNode toJson()
 	throws models.statistics.DataSet.InvalidClassNameException {
 	
 	Map res = new HashMap();
@@ -59,6 +59,6 @@ public class Statistic extends Model {
 	res.put("columns", dataset.getColumns());
 	res.put("data", dataset.getData());
 	// TODO: support widget options and dataset options
-	return play.libs.Json.toJson(res).toString();
+	return play.libs.Json.toJson(res);
     }
 }
