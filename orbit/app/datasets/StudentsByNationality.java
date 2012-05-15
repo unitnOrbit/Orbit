@@ -19,7 +19,7 @@ public class StudentsByNationality
 	cols.add(col);
 	    
 	col = new LinkedList<String>();
-	col.add("integer");
+	col.add("number");
 	col.add("Number of enrolled students");
 	cols.add(col);
 	return cols;
