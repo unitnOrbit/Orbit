@@ -21,7 +21,7 @@ public class Report extends Model {
     public String description;
 
     @ManyToMany()
-    public Set<Statistic> statistics;
+    public List<Statistic> statistics;
 
     @ManyToMany()
     public Set<Category> categories;
