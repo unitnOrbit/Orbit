@@ -28,8 +28,9 @@ public class StudentsByNationality
     public List<List> getData() {
 	List<List> data = new LinkedList<List>();
 	List row = new LinkedList();
-	row.add("Italiani");
-	row.add(new Integer(1));
+	row.add("Italy");
+	row.add(new Integer(123));
+    
 	data.add(row);
 	return data;
     }
