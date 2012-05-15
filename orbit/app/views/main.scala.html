@@ -193,6 +193,7 @@
                              </li>
 				@if(nav == ("cat-" + cat.id)){
 				  @for(repo <- cat.reports){
+				    
 				<li><a href="@routes.Browsing.report_by_id(repo.id)">@repo.name</a></li>
 				      }
 				  }

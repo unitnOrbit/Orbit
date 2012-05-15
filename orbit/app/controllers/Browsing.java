@@ -62,16 +62,16 @@ public class Browsing extends Controller {
      * Returns a page displaying the given category.
      */
     public static Result report_by_id(Long report_id) {
-	List<Long> stats = new LinkedList<Long>();
+    List<Long> stats = new LinkedList<Long>();
 	Report report = Report.find.byId(report_id);
 	for (Statistic stat: report.statistics) {
 	    stats.add(stat.id);
 	}
 	//return ok(stats.toString());
         return ok(reports.render(report, stats));
-    }
+      }
     
-    /**
+     /**
      * Returns a json with information about the statistic and 
      * how to display/plot it
      */
