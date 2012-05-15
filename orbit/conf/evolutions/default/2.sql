@@ -69,7 +69,7 @@ INSERT INTO `report` (`id`, `name`, `description`) VALUES
 (1, 'Distribution Of 1st Year Admitted Students By Nationality', 'distribution of 1st year admitted'),
 (2, 'Distribution Of Current Students By Nationality', 'distribution of current students'),
 (3, 'Average Mark In Courses By Funding Institution', 'number of months spent abroad'),
-(4, 'Number Of Application', 'average marks');
+(4, 'Number Of Application', 'applications');
 
 
 
@@ -100,13 +100,10 @@ INSERT INTO `report_category` (`report_id`, `category_id`) VALUES
 
 INSERT INTO `report_statistic` (`report_id`, `statistic_id`) VALUES
 (1, 1),
+(1, 2),
 (2, 2),
-(3, 3),
-(3, 2),
-(3, 1),
-(2, 4),
-(3, 5),
-(3, 6);
+(3, 8),
+(4, 4);
 
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
