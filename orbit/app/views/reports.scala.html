@@ -5,7 +5,7 @@
     .chart {
         height: 400px;
     }
-    .chart-headers { height: 100px;}
+    .chart-headers { height: auto;}
 </style>
 
 <script src="@routes.Assets.at("javascripts/jquery.templ.js")"></script>
@@ -75,7 +75,7 @@
                data.addRows(chart_data);
                         
                //var options = {'title':'How Much Pizza I Ate Last Night', 'width':400, 'height':300};
-               var options = {'':''};
+               var options = {'title': chart_title, 'is3D': 'true'};
                
                // Instantiate and draw our chart, passing in some options.
                
@@ -92,14 +92,16 @@
     
 <!-- full size chart -->
 <script id="full-report-templ" class="full-stat-cont" type="text/html">
-    <div class="span12 report-inner-container">
+    <div class="report-inner-container">
         <div class="chart-headers well">
-            <h3 class="stat-title">${title}</h3>
-            <p class="stat-descr">${description}</p>
+            <div class="chart"></div>
+            <p class="stat-descr"><br/><b>Description:</b> ${description}</p>
+            
+            <!-- <h3 class="stat-title">${title}</h3> -->
+            </div>
         </div>
-
-        <div class="chart"></div>
     </div>
+    <div styel="clear: both;"></div>
 </script>
 
 <!-- half size chart -->
@@ -107,7 +109,7 @@
     <div class="span6 report-inner-container">
         <div class="chart-headers well">
             <h3 class="stat-title">${title}</h3>
-            <p class="stat-descr">${description}</p>
+            <p class="stat-descr"><b>Description:</b> ${description}</p>
         </div>
         <div class="chart"></div>
     </div>    
