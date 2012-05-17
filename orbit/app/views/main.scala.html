@@ -192,15 +192,22 @@
                         
                         @for(cat <- controllers.Browsing.getMainCategory() ) {
                              <li class="sidebar sidebar-cat-@cat.id">
-                             <a href="@routes.Browsing.cat_by_id(cat.id)"><i class="icon-list-alt"></i> @cat.name</a>
-                             </li>
-				@if(nav == ("cat-" + cat.id)){
-			            <ul>
+                                <a href="@routes.Browsing.cat_by_id(cat.id)"><i class="icon-list-alt"></i> @cat.name</a>
+				@if(nav == ("cat-" + cat.id) || nav2 == ("cat-" + cat.id)){
+			            <ul class="">
 				    @for(repo <- cat.reports){
-			                <li><a href="@routes.Browsing.report_by_id(repo.id)">@repo.name</a></li>
+			                <li class="sidebar-report-@repo.id"><a href="@routes.Browsing.report_by_id(repo.id)">@repo.name</a></li>
 			            }
+					<script type="text/javascript">
+					    $(function() {
+						var selected_li = $(".sidebar-nav .nav-list li.sidebar-@nav ul li.sidebar-@nav2")
+						selected_li.addClass("active").css("font-weight","bold");
+						selected_li.find("i").addClass("icon-white");
+					    });
+					</script>
 				    </ul>
 			        }
+                             </li>
 			}
 
 

@@ -79,7 +79,7 @@ public class Application extends Controller {
     Report r = Report.find.byId(1L);
 	//Widget w = s.widget;
 	//DataSet ds = s.dataset;
-	Set<models.statistics.Category> cats = r.categories;
+	List<models.statistics.Category> cats = r.categories;
 	
 	for(models.statistics.Category cat: cats){
 	    ret_val.append(cat.toString());

@@ -67,8 +67,17 @@ public class Browsing extends Controller {
 	for (Statistic stat: report.statistics) {
 	    stats.add(stat.id);
 	}
-	//return ok(stats.toString());
-        return ok(reports.render(report, stats));
+	Category cat = null;
+	try {
+	    cat = Category.find.byId(
+		      Long.parseLong(request().queryString().get("category")[0])
+		  );
+	}
+	catch (NullPointerException e) {
+	    cat = report.categories.get(0);
+	}
+
+        return ok(reports.render(cat, report, stats));
       }
     
      /**
