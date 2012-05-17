@@ -1,5 +1,5 @@
-@(report: models.statistics.Report, statsList: List[Long])
-@main(Html(report.name + ""), nav = "report-" + report.id, nav2 = "", null) {
+@(cat: models.statistics.Category, report: models.statistics.Report, statsList: List[Long])
+@main(Html(report.name + ""), nav = "cat-" + cat.id, nav2 = "report-" + report.id, null) {
 
 <style type="text/css">
     .chart {

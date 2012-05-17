@@ -24,7 +24,7 @@ public class Report extends Model {
     public List<Statistic> statistics;
 
     @ManyToMany()
-    public Set<Category> categories;
+    public List<Category> categories;
 
     //@ManyToMany(mappedBy="usergroup")
     //public UserGroup usergroup;
