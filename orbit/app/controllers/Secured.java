@@ -1,5 +1,8 @@
 package controllers;
 
+import models.global.AnonymousUser;
+import models.global.UserCredentials;
+import models.statistics.User;
 import play.*;
 import play.mvc.*;
 import play.mvc.Http.*;
@@ -30,9 +33,19 @@ public class Secured extends Security.Authenticator {
     public static void login(String username) {
 	Context.current().session().put("username", username);
     }
-    
+
     public static String username() {
 	return Context.current().session().get("username");
+    }
+
+    public static User user() {
+    	String u_name = username();
+    	if (u_name == null) {
+    		return new AnonymousUser();
+    	}	
+        else {
+        	return UserCredentials.find.where().eq("username", u_name).findUnique();
+        }
     }
 
     ////// Access rights //////
