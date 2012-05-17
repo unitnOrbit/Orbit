@@ -7,3 +7,6 @@ tmp
 dist
 lib
 conf/application.conf
+.classpath
+.project
+.settings/
