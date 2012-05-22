@@ -44,7 +44,7 @@ public class Secured extends Security.Authenticator {
     		return new AnonymousUser();
     	}	
         else {
-        	return UserCredentials.find.where().eq("username", u_name).findUnique();
+        	return UserCredentials.find.where().eq("user_name", u_name).findUnique();
         }
     }
 
