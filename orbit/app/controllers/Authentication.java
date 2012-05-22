@@ -50,22 +50,10 @@ public class Authentication extends Controller {
 	
         Form<Login> loginForm = form(Login.class).bindFromRequest();
         if(loginForm.hasErrors()) {
-	    // should never happen with fake authentication
-	    return badRequest(loginForm.toString());
+            // should never happen with fake authentication
+            return badRequest(loginForm.toString());
         } else {
-	    //System.out.println(loginForm.get());
-	    //System.out.println(loginForm.data());
-	    //System.out.println(loginForm.get().getClass());
-	    //System.out.println(loginForm.get().username);
-	    System.out.println(request());
-	    System.out.println(request().getClass());
-	    System.out.println("");
-	    System.out.println(loginForm);
-	    System.out.println(loginForm.get());
-	    System.out.println(loginForm.get().username);
-	    System.out.println(loginForm.data().get("username"));
-            //session("username", loginForm.data().get("username"));
-	    Secured.login(loginForm.data().get("username"));
+            Secured.login(loginForm.data().get("username"));
             return redirect(
                 routes.Application.index()
             ); 

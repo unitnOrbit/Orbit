@@ -18,7 +18,9 @@
     <p class="cat_desc">@cat.description<p>
       
     <p>
-      <a class="btn btn-small" title="Settings" href="#"><i class="icon-cog"></i></a>
+      @if(controllers.Secured.user().isAdmin()) {
+        <a class="btn btn-small" title="Settings" href="#"><i class="icon-cog"></i></a>
+      }
       <a class="btn" rel="tooltip" title="View @cat.name" href="@(routes.Browsing.cat_by_id(cat.id))">View &raquo;</a>
     </p>
   </div><!--/span-->

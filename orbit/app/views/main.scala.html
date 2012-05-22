@@ -150,19 +150,20 @@
 
                         <li class="divider-vertical"></li>                    
 		        *@
-			@if(connected != null) {
+                        
+			@if(controllers.Secured.user().getUsername() != null) {
                           <!-- se l'utente e' loggato -->
                           <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">@connected <b class="caret"></b></a>
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">@controllers.Secured.user().getUsername() <b class="caret"></b></a>
                               <ul class="dropdown-menu">
                                   <li><a href="#">Settings</a></li>
                                   <li class="divider"></li>
-                                  <li><a href="#">Logout</a></li>
+                                  <li><a href="@routes.Authentication.logout()">Logout</a></li>
                               </ul>
                         </li>
 			} else {
                           <!-- se l'utente NON e' loggato -->
-                          <li><a href="#">@controllers.Secured.user().getUsername()</a></li>
+                          <li><a href="@routes.Authentication.login()">Login</a></li>
                         
 			}
                     </ul>
@@ -186,9 +187,15 @@
                     <ul class="nav nav-list">
                         <li class="nav-header">Fast menu</li>
                         <li class="sidebar-home"><a href="@routes.Application.index"><i class="icon-home"></i>Home</a></li>
-                        <li class="sidebar-createreport"><a href="#"><i class="icon-pencil"></i>Create Report</a></li>
-                        <li class="sidebar-print"><a href="#"><i class="icon-print"></i>Print</a></li>
 
+                        @* Check if user is ADMIN *@
+                        @if(controllers.Secured.user().isAdmin()) {
+                            <li class="sidebar-createreport"><a href="#"><i class="icon-pencil"></i>Create Report</a></li>
+                        }
+                        
+                        <li class="sidebar-print"><a href="#"><i class="icon-print"></i>Print</a></li>
+                        
+                        <!-- categories block -->
                         <li id="cats-side-nav" class="nav-header">Categories</li>
                         
                         @for(cat <- controllers.Browsing.getMainCategory() ) {
@@ -201,9 +208,9 @@
 			            }
 					<script type="text/javascript">
 					    $(function() {
-						var selected_li = $(".sidebar-nav .nav-list li.sidebar-@nav ul li.sidebar-@nav2")
-						selected_li.addClass("active").css("font-weight","bold");
-						selected_li.find("i").addClass("icon-white");
+                            var selected_li = $(".sidebar-nav .nav-list li.sidebar-@nav ul li.sidebar-@nav2")
+                            selected_li.addClass("active").css("font-weight","bold");
+                            selected_li.find("i").addClass("icon-white");
 					    });
 					</script>
 				    </ul>
