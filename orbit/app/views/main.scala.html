@@ -248,7 +248,7 @@
 		@if(nav != "home"){
                         @for(cat <- controllers.Browsing.getMainCategory() ) {
 			    @if(nav == ("cat-" + cat.id)){
-			      <li><a href="@routes.Browsing.cat_by_id(cat.id)">@cat.name</a> </span></li>
+			      <li><a href="@routes.Browsing.cat_by_id(cat.id)?category=@cat.id">@cat.name</a> </span></li>
 			      	@for(repo <- cat.reports){
 				  @if(nav2 == ("report-" + repo.id)){
 					<span class="divider">/</span>
