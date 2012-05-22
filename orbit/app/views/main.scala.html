@@ -196,7 +196,7 @@
 				@if(nav == ("cat-" + cat.id) || nav2 == ("cat-" + cat.id)){
 			            <ul class="">
 				    @for(repo <- cat.reports){
-			                <li class="sidebar-report-@repo.id"><a href="@routes.Browsing.report_by_id(repo.id)">@repo.name</a></li>
+			                <li class="sidebar-report-@repo.id"><a href="@routes.Browsing.report_by_id(repo.id)?category=@cat.id">@repo.name</a></li>
 			            }
 					<script type="text/javascript">
 					    $(function() {
@@ -247,8 +247,13 @@
 		@if(nav != "home"){
                         @for(cat <- controllers.Browsing.getMainCategory() ) {
 			    @if(nav == ("cat-" + cat.id)){
-			      <li><a href="@routes.Browsing.cat_by_id(cat.id)">@cat.name</a> <span class="divider">/</span></li>
-			      <li class="active">Report</li>
+			      <li><a href="@routes.Browsing.cat_by_id(cat.id)">@cat.name</a> </span></li>
+			      	@for(repo <- cat.reports){
+				  @if(nav2 == ("report-" + repo.id)){
+					<span class="divider">/</span>
+			                <li class="sidebar-report-@repo.id">@repo.name</li>
+			            }
+				  }
 			    }									      
 			}
 				  

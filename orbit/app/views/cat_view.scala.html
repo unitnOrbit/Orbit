@@ -16,7 +16,7 @@
     <p>@report.description<p>
     <p>
       <a class="btn btn-small" title="Settings" href="#"><i class="icon-cog"></i></a>
-      <a class="btn" rel="tooltip" title="View this report" href="@(routes.Browsing.report_by_id(report.id))">View &raquo;</a>
+      <a class="btn" rel="tooltip" title="View this report" href="@(routes.Browsing.report_by_id(report.id))?category=@cat.id">View &raquo;</a>
     </p>
   </div><!--/span-->
   }
