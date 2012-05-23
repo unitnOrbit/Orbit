@@ -17,7 +17,7 @@ public class Browsing extends Controller {
     }
     
     /**
-     * Return the list of categories. Useful for building the sidebar.
+     * Returns the list of categories. Useful for building the sidebar.
      */
     public static List<models.statistics.Category> getMainCategory() {
         List<models.statistics.Category> cats = models.statistics.Category.find.all();
@@ -69,8 +69,8 @@ public class Browsing extends Controller {
         return ok(reports.render(cat, report, stats));
       }
     
-     /**
-     * Returns a json with information about the statistic and 
+    /**
+     * Return a json with information about the statistic and 
      * how to display/plot it
      */
     public static Result statistic_by_id(Long stat_id) {

@@ -15,6 +15,8 @@ public class Authentication extends Controller {
     /**
      * Login class (used to feed the login form)
      * Validates if and only if the username exists in the database.
+     * This is for developement only, meant to get things work
+     * before the external authentication system is available.
      */
     public static class Login {
         public String username;

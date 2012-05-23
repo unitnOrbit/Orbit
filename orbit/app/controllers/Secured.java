@@ -9,7 +9,7 @@ import play.mvc.Http.*;
 
 /**
  * Provides the Authenticator for the admin area, adding some
- * shortcuts for access control on web pages.
+ * shortcuts for access control on all web pages.
  */
 public class Secured extends Security.Authenticator {
     
