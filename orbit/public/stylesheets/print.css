@@ -1,0 +1,13 @@
+#top-bar {
+    display: none;
+}
+#side-bar {
+    display: none;
+}
+#content-and-header {
+    width: 100%; /* overrides span9 */
+}
+.noprint {
+    display: none;
+    color: red;
+}
