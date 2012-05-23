@@ -253,12 +253,13 @@
                         <h2>@title</h2>
                         <ul class="breadcrumb">
                             <li>
-                                <a href="@routes.Application.index">Home</a> <span class="divider">/</span>
+                                <a href="@routes.Application.index">Home</a> 
                             </li>
 		@if(nav != "home"){
                         @for(cat <- controllers.Browsing.getMainCategory() ) {
 			    @if(nav == ("cat-" + cat.id)){
-			      <li><a href="@routes.Browsing.cat_by_id(cat.id)?category=@cat.id">@cat.name</a> </span></li>
+			      <li> <span class="divider">/</span>
+			      <a href="@routes.Browsing.cat_by_id(cat.id)?category=@cat.id">@cat.name</a> </li>
 			      	@for(repo <- cat.reports){
 				  @if(nav2 == ("report-" + repo.id)){
 					<span class="divider">/</span>
