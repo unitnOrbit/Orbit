@@ -10,8 +10,9 @@ import java.lang.annotation.Documented;
 
 /**
  * Controller class for administration pages. 
+ * 
  * Note that any unauthorized user is redirected to 
- * the login page, according to Secured Authenticator
+ * the login page, according to Secured Authenticator.
  */
 @Security.Authenticated(Secured.class)
 public class Admin extends Controller {
