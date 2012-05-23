@@ -13,18 +13,26 @@ GET     /logout/                    controllers.Authentication.logout()
 # Other static pages
 GET     /about			    controllers.Application.aboutPage()
 
-# Categories and report visualization and management
-#GET     /category/list/            controllers.Category.list()
+# Categories and report visualization
 GET     /category/:cat_id/          controllers.Browsing.cat_by_id(cat_id: Long)
 #GET     /report/most-common/       controllers.Browsing.most_common()
 GET     /report/:report_id/         controllers.Browsing.report_by_id(report_id: Long)
 GET     /statistic/:stat_id/        controllers.Browsing.statistic_by_id(stat_id: Long)
 
-# Some testing pages
-GET     /prova                      controllers.Application.prova()
-GET     /test/db                    controllers.Application.dbtest()
-#GET     /category/:IDCategory/	    controllers.Application.categoryPage(IDCategory: Long)
-#GET     /chart/:IDCategory/:IDChart/ controllers.Application.chartPage(IDCategory: Long, IDChart: Long)
+# Categories and Reports management
+GET     /category/:cat_id/edit/     controllers.Admin.cat_edit_pg(cat_id: Long)
+POST    /category/:cat_id/edit/     controllers.Admin.cat_edit(cat_id: Long)
+GET     /category/new/              controllers.Admin.cat_new_pg()
+POST    /category/new/              controllers.Admin.cat_new()
+GET     /category/:cat_id/delete/   controllers.Admin.cat_del_pg(cat_id: Long)
+POST    /category/:cat_id/delete/   controllers.Admin.cat_del(cat_id: Long)
+
+GET     /report/:report_id/edit/    controllers.Admin.report_edit_pg(report_id: Long)
+POST    /report/:report_id/edit/    controllers.Admin.report_edit(report_id: Long)
+GET     /report/new/                controllers.Admin.report_new_pg()
+POST    /report/new/                controllers.Admin.report_new()
+GET     /report/:report_id/delete/  controllers.Admin.report_del_pg(report_id: Long)
+POST    /report/:report_id/delete/  controllers.Admin.report_del(report_id: Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

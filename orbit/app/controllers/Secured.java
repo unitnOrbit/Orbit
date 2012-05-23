@@ -8,19 +8,22 @@ import play.mvc.*;
 import play.mvc.Http.*;
 
 /**
- * Provides the Authenticator for the project, adding some
+ * Provides the Authenticator for the admin area, adding some
  * shortcuts for access control on web pages.
  */
 public class Secured extends Security.Authenticator {
     
     @Override
     public String getUsername(Context ctx) {
-        return ctx.session().get("username");
+	User user = Secured.user(ctx.session().get("username"));
+	if ( ! user.isAdmin() ) {
+	    return null;
+	}
+	return user.getUsername();
     }
     
     @Override
     public Result onUnauthorized(Context ctx) {
-	//return redirect(routes.Application.index());
         return redirect(routes.Authentication.login());
     }
     
@@ -38,14 +41,17 @@ public class Secured extends Security.Authenticator {
 	return Context.current().session().get("username");
     }
 
-    public static User user() {
-    	String u_name = username();
-    	if (u_name == null) {
+    public static User user(String username) {
+	if (username == null) {
     		return new AnonymousUser();
     	}	
         else {
-        	return UserCredentials.find.where().eq("user_name", u_name).findUnique();
+        	return UserCredentials.find.where()
+		    .eq("user_name", username).findUnique();
         }
+    }
+    public static User user() {
+    	return user(username());
     }
 
     ////// Access rights //////

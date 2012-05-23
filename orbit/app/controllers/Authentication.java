@@ -13,19 +13,19 @@ public class Authentication extends Controller {
 
     /**
      * Login class (used to feed the login form)
+     * Always validates, at the moment.
      */
     public static class Login {
         public String username;
 
 	public String validate() {
-	    /*
 	    if (username == null){
-		System.out.println(username);
-		return "Null username is not allowed";
+		return "Null username.";
 	    }
 	    else if (username == "") {
-		return "Empty username is not allowed";
-		}*/
+		return "Empty username.";
+	    }
+	    
 	    return null;
 	}
 
@@ -48,10 +48,11 @@ public class Authentication extends Controller {
      */
     public static Result authenticate() {
 	
-        Form<Login> loginForm = form(Login.class).bindFromRequest();
+        Form<Login> loginForm = form(Login.class);
+	loginForm = loginForm.bindFromRequest();
         if(loginForm.hasErrors()) {
             // should never happen with fake authentication
-            return badRequest(loginForm.toString());
+            return forbidden(login.render(loginForm));
         } else {
             Secured.login(loginForm.data().get("username"));
             return redirect(
