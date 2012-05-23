@@ -7,26 +7,12 @@ import models.statistics.*;
 
 public class Browsing extends Controller {
 
-    /*
-    public static Result list() {
-    	Map<String,Object> d = new HashMap<String,Object>();
-    	d.put("ok","true");
-    	List<String> cat_list = new LinkedList<String>();
-    	cat_list.add("Current Students");
-    	cat_list.add("Student Application");
-    	cat_list.add("Student marks");
-		d.put("list",cat_list);
-		return ok(toJson(d));
-    }
-    */
-
     /**
      * Returns a page for navigating across categories.
      */
     public static Result cat_list() {
-	System.out.println(request().username());
-	System.out.println(Secured.username());
-    	List<models.statistics.Category> cats = models.statistics.Category.find.all();
+    	List<models.statistics.Category> cats =
+	    models.statistics.Category.find.all();
     	return ok(cat_list.render(cats));
     }
     
@@ -37,7 +23,7 @@ public class Browsing extends Controller {
         List<models.statistics.Category> cats = models.statistics.Category.find.all();
 	for (Category cat: cats) {
 	  for (Report r: cat.reports) {
-	      String s = r.name;  // does nothing, forces fetching from db
+	      r.refresh(); // fetches object from database
 	  }
 	}
         return cats;
@@ -51,8 +37,8 @@ public class Browsing extends Controller {
     	models.statistics.Category cat =
     		models.statistics.Category.find.byId(cat_id);
 
-    	for (Report	r:cat.reports){
-    		String s = r.name; //does nothing, but forces fetching the database
+    	for (Report r:cat.reports){
+	    r.refresh(); // fetches object from database
     	}
 
     	return ok(cat_view.render(cat, cat.reports));
@@ -74,6 +60,9 @@ public class Browsing extends Controller {
 		  );
 	}
 	catch (NullPointerException e) {
+	    cat = report.categories.get(0);
+	}
+	catch (NumberFormatException e) {
 	    cat = report.categories.get(0);
 	}
 

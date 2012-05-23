@@ -8,12 +8,13 @@ import models.*;
 import views.html.*;
 
 import play.data.validation.Constraints.Required;
+import models.statistics.User;
 
 public class Authentication extends Controller {
 
     /**
      * Login class (used to feed the login form)
-     * Always validates, at the moment.
+     * Validates if and only if the username exists in the database.
      */
     public static class Login {
         public String username;
@@ -25,7 +26,11 @@ public class Authentication extends Controller {
 	    else if (username == "") {
 		return "Empty username.";
 	    }
-	    
+	    User user = Secured.user(username);
+	    if (user == null) {
+		return "Invalid username.";
+	    }
+
 	    return null;
 	}
 
@@ -51,7 +56,6 @@ public class Authentication extends Controller {
         Form<Login> loginForm = form(Login.class);
 	loginForm = loginForm.bindFromRequest();
         if(loginForm.hasErrors()) {
-            // should never happen with fake authentication
             return forbidden(login.render(loginForm));
         } else {
             Secured.login(loginForm.data().get("username"));

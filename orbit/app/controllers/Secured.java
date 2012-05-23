@@ -21,12 +21,12 @@ public class Secured extends Security.Authenticator {
 	}
 	return user.getUsername();
     }
-    
+
     @Override
     public Result onUnauthorized(Context ctx) {
         return redirect(routes.Authentication.login());
     }
-    
+
     ////// Utilities to be called from controllers //////
 
     /**
@@ -41,6 +41,10 @@ public class Secured extends Security.Authenticator {
 	return Context.current().session().get("username");
     }
 
+    /**
+     * Returns a the User object with the provided username.
+     * Returns null if the no user matches.
+     */
     public static User user(String username) {
 	if (username == null) {
     		return new AnonymousUser();
