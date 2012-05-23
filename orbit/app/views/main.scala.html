@@ -141,7 +141,7 @@
                     </ul>
 
                     <form class="navbar-search pull-left" action="">
-                        <input type="text" class="search-query span2" placeholder="Search" disabled="disabled"> @* TODO: implement searching *@
+                        <input type="text" class="search-query span2" placeholder="Search" disabled="disabled" title="Search feature is coming soon..." /> @* TODO: implement searching *@
                     </form>
 
                     <ul class="nav pull-right">
@@ -196,7 +196,7 @@
                             <li class="sidebar-createreport"><a href="#"><i class="icon-pencil"></i>Create Report</a></li>
                         }
                         
-                        <li class="sidebar-print"><a href="#"><i class="icon-print"></i>Print</a></li>
+                        <li class="sidebar-print"><a href="#" onclick="window.print();return false;"><i class="icon-print"></i>Print</a></li>
                         
                         <!-- categories block -->
                         <li id="cats-side-nav" class="nav-header">Categories</li>
@@ -244,10 +244,9 @@
 
                 <div class="row-fluid">
                     <!-- LOGOS -->
-                    <div class="span3">
-                        <img id="univ-logo" src="@routes.Assets.at("images/logo_ict_school.jpg")" alt="ICT PhD School logo" />
+                    <div class="span3" style="text-align: center;">
+                        <img id="univ-logo" src="@routes.Assets.at("images/ict_phd_school.png")" alt="ICT PhD School logo" style="max-width: 100%;" />
                     </div>
-
                     <!-- page TILE -->
                     <div class="span9">
                         <h2>@title</h2>
