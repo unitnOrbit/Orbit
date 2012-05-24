@@ -20,11 +20,6 @@ import java.lang.annotation.Documented;
 @Security.Authenticated(Secured.class)
 public class Admin extends Controller {
 
-public static class EditTest {
-public String reportName;
-
-
-}
 
     public static Result cat_edit_pg(Long cat_id) {
       models.statistics.Category cat =
@@ -35,7 +30,7 @@ public String reportName;
     	}
 
 	Form<Category> form = new Form(Category.class);
-	return ok(cat_edit_pg.render(cat, cat.reports,Form));
+	return ok(cat_edit_pg.render(cat, cat.reports,form));
     }
 
 
