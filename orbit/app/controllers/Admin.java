@@ -17,11 +17,26 @@ import java.lang.annotation.Documented;
 @Security.Authenticated(Secured.class)
 public class Admin extends Controller {
     public static Result cat_edit_pg(Long cat_id) {
-	return TODO;
+      models.statistics.Category cat =
+    		models.statistics.Category.find.byId(cat_id);
+
+    	for (Report r:cat.reports){
+	    r.refresh(); // fetches object from database
+    	}
+    return ok(cat_edit_pg.render(cat, cat.reports));
     }
+
+
     public static Result cat_edit(Long cat_id) {
-	return TODO;
+      models.statistics.Category cat =
+    		models.statistics.Category.find.byId(cat_id);
+
+    	for (Report r:cat.reports){
+	    r.refresh(); // fetches object from database
+    	}
+    return ok(cat_edit_pg.render(cat, cat.reports));
     }
+
     public static Result cat_new_pg() {
 	return TODO;
     }
@@ -36,11 +51,49 @@ public class Admin extends Controller {
     }
 
     public static Result report_edit_pg(Long report_id) {
-	return TODO;
+	List<Long> stats = new LinkedList<Long>();
+	Report report = Report.find.byId(report_id);
+	for (Statistic stat: report.statistics) {
+	    stats.add(stat.id);
+	}
+	Category cat = null;
+	try {
+	    cat = Category.find.byId(
+		      Long.parseLong(request().queryString().get("category")[0])
+		  );
+	}
+	catch (NullPointerException e) {
+	    cat = report.categories.get(0);
+	}
+	catch (NumberFormatException e) {
+	    cat = report.categories.get(0);
+	}
+
+        return ok(report_edit_pg.render(cat, report, stats));
     }
+
     public static Result report_edit(Long report_id) {
-	return TODO;
+      List<Long> stats = new LinkedList<Long>();
+	Report report = Report.find.byId(report_id);
+	for (Statistic stat: report.statistics) {
+	    stats.add(stat.id);
+	}
+	Category cat = null;
+	try {
+	    cat = Category.find.byId(
+		      Long.parseLong(request().queryString().get("category")[0])
+		  );
+	}
+	catch (NullPointerException e) {
+	    cat = report.categories.get(0);
+	}
+	catch (NumberFormatException e) {
+	    cat = report.categories.get(0);
+	}
+
+        return ok(report_edit.render(cat, report, stats));
     }
+
     public static Result report_new_pg() {
 	return TODO;
     }
