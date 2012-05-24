@@ -33,12 +33,14 @@ public String reportName;
     	for (Report r:cat.reports){
 	    r.refresh(); // fetches object from database
     	}
-    return ok(cat_edit_pg.render(cat, cat.reports));
+
+	Form<Category> form = new Form(Category.class);
+	return ok(cat_edit_pg.render(cat, cat.reports,Form));
     }
 
 
     public static Result cat_edit(Long cat_id) {
-    Form<EditTest> loginForm = form(Category.class);
+	Form<Category> loginForm = form(Category.class);
 	loginForm = loginForm.bindFromRequest();
         System.out.println("cat_id="+cat_id);
 	return TODO;
@@ -75,12 +77,15 @@ public String reportName;
 	catch (NumberFormatException e) {
 	    cat = report.categories.get(0);
 	}
-
-        return ok(report_edit_pg.render(cat, report, stats));
+	Form<Report> form = new Form(Report.class);
+        return ok(report_edit_pg.render(cat, report, stats, form));
     }
 
     public static Result report_edit(Long report_id) {
-        return TODO;
+	Form<Report> loginForm = form(Report.class);
+	loginForm = loginForm.bindFromRequest();
+        System.out.println("report_id="+report_id);
+	return TODO;
     }
 
     public static Result report_new_pg() {
