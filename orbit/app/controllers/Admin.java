@@ -76,11 +76,12 @@ public class Admin extends Controller {
         return ok(report_edit_pg.render(cat, report, stats, form));
     }
 
-    public static Result report_edit(Long report_id) {
-	Form<Report> loginForm = form(Report.class);
-	loginForm = loginForm.bindFromRequest();
+    public static Result report_edit(Long report_id) {        
+        Form<Report> reportForm = form(Report.class);
+        reportForm = reportForm.bindFromRequest();
+        
         System.out.println("report_id="+report_id);
-	return TODO;
+        return TODO;
     }
 
     public static Result report_new_pg() {

@@ -10,8 +10,8 @@
     <div class="well">
         @form(routes.Admin.report_edit(report.id)) { 
             <fieldset>
-                @inputText(reportForm("reportName"), '_label -> "Report Name")
-                @inputText(reportForm("reportName"), '_label -> "Report Description")
+                @inputText(reportForm("rep_name"), '_label -> "Report Name")
+                @inputText(reportForm("rep_desc"), '_label -> "Report Description")
                 @select(
                 reportForm("company.id"), 
                 options("visible"->"Visible", "hidden"->"Hidden"), 
