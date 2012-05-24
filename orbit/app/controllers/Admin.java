@@ -34,7 +34,7 @@ public class Admin extends Controller {
     	for (Report r:cat.reports){
 	    r.refresh(); // fetches object from database
     	}
-    return ok(cat_edit_pg.render(cat, cat.reports));
+    return ok(cat_edit.render(cat, cat.reports));
     }
 
     public static Result cat_new_pg() {
