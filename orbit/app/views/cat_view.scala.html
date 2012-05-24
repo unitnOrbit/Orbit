@@ -14,8 +14,12 @@
   <div class="span4">
     <h3>@report.name</h3>
     <p>@report.description<p>
-    <p>
-      <a class="btn btn-small" title="Settings" href="#"><i class="icon-cog"></i></a>
+      <p>
+      @if(controllers.Secured.user().getUsername() != null) {
+          @if(controllers.Secured.user().isAdmin()) {
+            <a class="btn btn-small" title="Settings" href="/report/@report.id/edit/"><i class="icon-cog"></i></a>
+          }
+      }
       <a class="btn" rel="tooltip" title="View this report" href="@(routes.Browsing.report_by_id(report.id))?category=@cat.id">View &raquo;</a>
     </p>
   </div><!--/span-->
