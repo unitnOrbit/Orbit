@@ -35,7 +35,7 @@ public String reportName;
 
 
     public static Result cat_edit(Long cat_id) {
-    Form<Login> loginForm = form(Category.class);
+    Form<EditTest> loginForm = form(Category.class);
 	loginForm = loginForm.bindFromRequest();
         System.out.println("cat_id="+cat_id);
 	return TODO;
