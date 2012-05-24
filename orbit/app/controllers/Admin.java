@@ -28,8 +28,15 @@ public class Admin extends Controller {
 
 
     public static Result cat_edit(Long cat_id) {
-	return TODO;
+      models.statistics.Category cat =
+    		models.statistics.Category.find.byId(cat_id);
+
+    	for (Report r:cat.reports){
+	    r.refresh(); // fetches object from database
+    	}
+    return ok(cat_edit_pg.render(cat, cat.reports));
     }
+
     public static Result cat_new_pg() {
 	return TODO;
     }
