@@ -16,6 +16,13 @@ import java.lang.annotation.Documented;
  */
 @Security.Authenticated(Secured.class)
 public class Admin extends Controller {
+
+public static class EditTest(){
+public String reportName;
+
+
+}
+
     public static Result cat_edit_pg(Long cat_id) {
       models.statistics.Category cat =
     		models.statistics.Category.find.byId(cat_id);
