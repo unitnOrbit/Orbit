@@ -40,7 +40,7 @@ INSERT INTO `supervisors` VALUES  (1,'Joe','Doe',1,1,1,'joe.doe@gmail.com',0);
 
 
 INSERT INTO `students` (`user_ID`, `date_of_birth`, `graduation_date`, `first_name`, `last_name`, `full_name`, `phd_cycle`, `is_suspended`, `course_year`, `admitted_conditionally`, `legal_residence`, `current_domicile`, `place_of_birth`, `office_phone`, `mobile_phone`, `office_working_place`, `locker_number`, `phd_scholarship`, `scholarship_type`, `yearly_fee_to_center`, `yearly_fee_to_school`, `has_pc_rights`, `pre_doctoral_scholarship`, `months_predoc_scholarship`, `year_extension_scholarship`, `months`, `personal_funds_available`, `is_graduated`, `commitee_members`, `email`, `deleted`, `Italian_Taxpayer_Code`, `university_of_provenance`, `university`, `funding_institution`, `country_of_provenance`, `citizenship`, `funds_owner`, `tutor`, `current_advisor`) VALUES
-(1, '1991-12-22 00:00:00', NULL, 'John Erik', 'Smith', 'John E. Smith', '28', 0, 2, 0, 'via manci 27, Trento', '', 'New York, NY, USA', '123-456789', '1231-23456', 'P1-S5-14', '27-A', 0, '0', 0, 0, 1, '0', 0, '0', 0, 0, 1, 'UNKNOWN', 'john.smith@domain.com', 0, 1, 1, 1, 1, 1, 4, 1, 1, 1),
+(1, '1991-12-22 00:00:00', NULL, 'John Erik', 'Smith', 'John E. Smith', '28', 0, 1, 0, 'via manci 27, Trento', '', 'New York, NY, USA', '123-456789', '1231-23456', 'P1-S5-14', '27-A', 0, '0', 0, 0, 1, '0', 0, '0', 0, 0, 1, 'UNKNOWN', 'john.smith@domain.com', 0, 1, 1, 1, 1, 1, 4, 1, 1, 1),
 (2, '1991-12-22 00:00:00', NULL, 'Paolo', 'Rossi', 'Paolo Rossi', '28', 0, 2, 0, 'piazza roma 12, Trento', '', 'Milano, MI, ITA', '123-456789', '1231-23456', 'P1-S5-14', '27-A', 0, '0', 0, 0, 1, '0', 0, '0', 0, 0, 1, 'UNKNOWN', 'paolo.rossi@domain.com', 0, 1, 1, 1, 1, 1, 4, 1, 1, 1),
 (3, '1991-12-22 00:00:00', NULL, 'Davide', 'Kirchner', 'Davide Kirchner', '28', 0, 2, 0, 'via manci 27, Trento', '', 'Trento, TN, ITA', '123-456789', '1231-23456', 'P1-S5-14', '27-A', 0, '0', 0, 0, 1, '0', 0, '0', 0, 0, 1, 'UNKNOWN', 'dk@example.com', 0, 1, 1, 1, 1, 1, 4, 1, 1, 1),
 (4, '1991-12-22 00:00:00', NULL, 'Paul', 'Jackson', 'Paul Jackson', '28', 0, 2, 0, 'via foscolo 40, Trento', '', 'New York, NY, USA', '123-456789', '1231-23456', 'P1-S5-14', '27-A', 0, '0', 0, 0, 1, '0', 0, '0', 0, 0, 1, 'UNKNOWN', 'paul.jackson@domain.com', 0, 1, 1, 1, 1, 1, 4, 1, 1, 1),
@@ -68,12 +68,12 @@ INSERT INTO `users_credentials` VALUES  (1,'demo','12345',1,1);
 INSERT INTO `data_set` (`id`, `description`) VALUES
 (1, 'datasets.StudentsByNationality'),
 (2, 'datasets.FirstYStudentsByNationality'),
-(3, 'datasets.StudentsByNationality'),
+(3, 'datasets.FirstYStudentsByNationalityLast5Years'),
 (4, 'datasets.StudentsByNationality');
 
 
 INSERT INTO `widget` (`id`, `name`, `description`) VALUES
-(1, 'nome_widget', 'PieChart'),
+(1, 'Pie Chart', 'PieChart'),
 (2, 'widget_name', 'PieChart');
 
 
@@ -96,9 +96,9 @@ INSERT INTO `category` (`id`, `name`, `description`) VALUES
 
 
 INSERT INTO `statistic` (`id`, `name`, `description`, `format`, `num_visits`, `widget_id`, `dataset_id`) VALUES
-(1, 'Distribution of 1st year admitted students by nationality for the current year ', 'The graph shows the list of countries, each one with the percentage of students from that country admitted to the 1st year ', NULL, NULL, 1, 2),
+(1, 'Distribution of 1st year admitted students by nationality for the current year ', 'The graph shows the list of countries, each one with the percentage of students from that country admitted to the 1st year ', NULL, NULL, 1, 1),
 (2, 'Distribution of current students by nationality ', 'The graph shows the list of countries, each one with the percentage of students from that country currently enrolled ', NULL, NULL, 1, 2),
-(3, 'Distribution of 1st year admitted students by nationality, over the last 5 years ', 'The graphs shows the list of countries, each one with the percentage of students from that country admitted over the last 5 years ', NULL, NULL, 1, 2),
+(3, 'Distribution of 1st year admitted students by nationality, over the last 5 years ', 'The graphs shows the list of countries, each one with the percentage of students from that country admitted over the last 5 years ', NULL, NULL, 1, 3),
 (4, 'Number of applications over the last 5 years', 'The graph shows the number of applications over the last 5 years', NULL, NULL, 1, 1),
 (5, 'Number of scholarships over the last 5 years, ', 'The graph shows the number of scholarships over the last 5 years, classified by source (UNITN, DISI, Research center, Company, Other) ', NULL, NULL, 1, 3),
 (6, 'Average number of months spent abroad, by cycle, historically (for 5 cycles) ', 'The graph shows the average number of months spent abroad by cycle, fo 5 cycles', NULL, NULL, 1, 4),

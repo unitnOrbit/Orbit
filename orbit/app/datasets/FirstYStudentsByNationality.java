@@ -57,7 +57,7 @@ public class FirstYStudentsByNationality
     public List<List> getData() {
 	List<List> data = new ArrayList<List>();
 	Map <String, Integer> map = new LinkedHashMap<String, Integer>();
-	for ( Student stud: Student.find.where().eq("course_year", 1).findList() ) {
+        for ( Student stud: Student.find.where().eq("course_year", 1).findList() ) {
 	    String countryName = stud.citizenship.name;
 	    Integer val = map.get(countryName);
 	    map.put(countryName,
