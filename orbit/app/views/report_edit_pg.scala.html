@@ -1,18 +1,30 @@
 @(cat: models.statistics.Category, report: models.statistics.Report, statsList: List[Long], reportForm: Form[models.statistics.Report])
 
 @import helper._
+@import helper.twitterBootstrap._
 
 @main(Html(report.name + ""), nav = "cat-" + cat.id, nav2 = "report-" + report.id, null) {
 
     <div class="alert alert-warning">Editing mode</div>
 
-    @form(routes.Admin.report_edit(report.id)) {   
-        <p>
-            @inputText(reportForm("reportName"), '_label -> "Report Name")
-        </p>
-        <p>
-            <button type="submit">TEST</button>
-        </p>
+    <div class="well">
+        @form(routes.Admin.report_edit(report.id)) { 
+            <fieldset>
+                @inputText(reportForm("rep_name"), '_label -> "Report Name")
+                @inputText(reportForm("rep_desc"), '_label -> "Report Description")
+                @select(
+                reportForm("company.id"), 
+                options("visible"->"Visible", "hidden"->"Hidden"), 
+                '_label -> "Visibility",
+                '_showConstraints -> false
+                )
+                
+            </fieldset>
+        
+            <div class="actions">
+                <button type="submit" class="btn">Done</button>
+            </div>
+        }
+    </div>
 
-    }
 }

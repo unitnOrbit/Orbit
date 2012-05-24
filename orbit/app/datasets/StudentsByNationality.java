@@ -13,6 +13,9 @@ import com.avaje.ebean.RawSqlBuilder;
 public class StudentsByNationality
     implements DataSet {
 	
+    /**
+     * No options supported, does nothing.
+     */
     public void setOptions(Map options) {
 	// no option supported yet
     }

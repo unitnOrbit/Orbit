@@ -1,23 +1,24 @@
 @(form: Form[Authentication.Login])
+@import helper.twitterBootstrap._
 
 @main(null, nav= "", nav2 = "", null){
-        @helper.form(routes.Authentication.authenticate) {
-            
-            <h1>Sign in</h1>
-            
-            @if(form.hasGlobalErrors) { 
-                <p class="error">
-                    @form.globalError.message
-                </p>
-            }
-            
-            <p>
-                <!--input type="text" name="username" placeholder="User Name" value="@form("username").value" /-->
-		@helper.inputText(form("username"))
-            </p>
-            <p>
-                <button type="submit">Login</button>
-            </p>
-            
+
+<div class="well">
+    <h2>Sign in</h2>
+    @helper.form(routes.Authentication.authenticate) {
+        @if(form.hasGlobalErrors) {
+            <div class="alert alert-error">@form.globalError.message</div>
         }
+
+        <fieldset>
+            <!--input type="text" name="username" placeholder="User Name" value="@form("username").value" /-->
+            @helper.inputText(form("username"), '_label -> "Username", 'placeholder -> "Your username")
+            @helper.inputPassword(form("password"), '_label -> "Password", 'placeholder -> "Your password")
+        </fieldset>
+    
+        <div class="actions">
+            <button type="submit" class="btn">Login</button>
+        </div>
+    }
+</div>
 }
