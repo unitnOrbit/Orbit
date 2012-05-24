@@ -28,7 +28,10 @@ public class Admin extends Controller {
 
 
     public static Result cat_edit(Long cat_id) {
-    return TODO;
+    Form<Login> loginForm = form(Category.class);
+	loginForm = loginForm.bindFromRequest();
+        System.out.println("cat_id="+cat_id);
+	return TODO;
     }
 
     public static Result cat_new_pg() {
