@@ -6,14 +6,14 @@
 <div class="well">
     <h2>Sign in</h2>
     @helper.form(routes.Authentication.authenticate) {
-        @if(form.hasGlobalErrors) { 
+        @if(form.hasGlobalErrors) {
             <div class="alert alert-error">@form.globalError.message</div>
         }
 
         <fieldset>
             <!--input type="text" name="username" placeholder="User Name" value="@form("username").value" /-->
-            @helper.inputText(form("username"), '_label -> "Username")
-            @helper.inputPassword(form("password"), '_label -> "Password")
+            @helper.inputText(form("username"), '_label -> "Username", 'placeholder -> "Your username")
+            @helper.inputPassword(form("password"), '_label -> "Password", 'placeholder -> "Your password")
         </fieldset>
     
         <div class="actions">
