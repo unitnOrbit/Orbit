@@ -42,4 +42,10 @@ public class Report extends Model {
     public String toString(){
         return this.name;
     }
+    
+    public void updateName(Long id, String name) {
+        Report selectedReport = Report.find.byId(id);
+        selectedReport.name = name;
+        selectedReport.save();
+    }
 }

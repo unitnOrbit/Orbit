@@ -55,33 +55,38 @@ public class Admin extends Controller {
     }
 
     public static Result report_edit_pg(Long report_id) {
-	List<Long> stats = new LinkedList<Long>();
-	Report report = Report.find.byId(report_id);
-	for (Statistic stat: report.statistics) {
-	    stats.add(stat.id);
-	}
-	Category cat = null;
-	try {
-	    cat = Category.find.byId(
-		      Long.parseLong(request().queryString().get("category")[0])
-		  );
-	}
-	catch (NullPointerException e) {
-	    cat = report.categories.get(0);
-	}
-	catch (NumberFormatException e) {
-	    cat = report.categories.get(0);
-	}
-	Form<Report> form = new Form(Report.class);
+        List<Long> stats = new LinkedList<Long>();
+        Report report = Report.find.byId(report_id);
+        for (Statistic stat: report.statistics) {
+            stats.add(stat.id);
+        }
+        Category cat = null;
+        try {
+            cat = Category.find.byId(
+                  Long.parseLong(request().queryString().get("category")[0])
+              );
+        }
+        catch (NullPointerException e) {
+            cat = report.categories.get(0);
+        }
+        catch (NumberFormatException e) {
+            cat = report.categories.get(0);
+        }
+        
+        Form<Report> form = new Form(Report.class).fill(report);
+        
         return ok(report_edit_pg.render(cat, report, stats, form));
     }
 
-    public static Result report_edit(Long report_id) {        
-        Form<Report> reportForm = form(Report.class);
-        reportForm = reportForm.bindFromRequest();
+    public static Result report_edit(Long report_id) {
+        Form<Report> reportForm = form(Report.class).bindFromRequest();
         
-        System.out.println("report_id="+report_id);
-        return TODO;
+        // DEBUG
+        System.out.println("report name: " + reportForm.get().name);
+        System.out.println("report desc: " + reportForm.get().description);
+        //System.out.println("report visib: " + reportForm.get().visibility);
+
+        reportForm.get().updateName(report_id, reportForm.get().name);        
     }
 
     public static Result report_new_pg() {
