@@ -10,7 +10,7 @@
 -- Versione del server: 5.1.62
 -- Versione PHP: 5.3.6-13ubuntu3.6
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+-- SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -30,13 +30,13 @@ INSERT INTO `countries` (`country_ID`, `name`, `region`, `citizenship`, `deleted
 (3, 'United States Of America', NULL, 'American', 0),
 (4, 'Italy', NULL, 'Italian', 0);
 
-INSERT INTO `phdcoursedb`.`funding_institutions` VALUES  (1,'DISI',0,'UNKNOWN');
+INSERT INTO `funding_institutions` VALUES  (1,'DISI',0,'UNKNOWN');
 
 
-INSERT INTO `phdcoursedb`.`universities` VALUES  (1,'UNITN','Rome',0,1);
+INSERT INTO `universities` VALUES  (1,'UNITN','Rome',0,1);
 
 
-INSERT INTO `phdcoursedb`.`supervisors` VALUES  (1,'Joe','Doe',1,1,1,'joe.doe@gmail.com',0);
+INSERT INTO `supervisors` VALUES  (1,'Joe','Doe',1,1,1,'joe.doe@gmail.com',0);
 
 
 INSERT INTO `students` (`user_ID`, `date_of_birth`, `graduation_date`, `first_name`, `last_name`, `full_name`, `phd_cycle`, `is_suspended`, `course_year`, `admitted_conditionally`, `legal_residence`, `current_domicile`, `place_of_birth`, `office_phone`, `mobile_phone`, `office_working_place`, `locker_number`, `phd_scholarship`, `scholarship_type`, `yearly_fee_to_center`, `yearly_fee_to_school`, `has_pc_rights`, `pre_doctoral_scholarship`, `months_predoc_scholarship`, `year_extension_scholarship`, `months`, `personal_funds_available`, `is_graduated`, `commitee_members`, `email`, `deleted`, `Italian_Taxpayer_Code`, `university_of_provenance`, `university`, `funding_institution`, `country_of_provenance`, `citizenship`, `funds_owner`, `tutor`, `current_advisor`) VALUES
@@ -56,10 +56,10 @@ UPDATE students SET
        is_graduated = True;
 
 
-INSERT INTO `phdcoursedb`.`users_roles` VALUES  (1,'admin',0);
+INSERT INTO `users_roles` VALUES  (1,'admin',0);
 
 
-INSERT INTO `phdcoursedb`.`users_credentials` VALUES  (1,'demo','12345',1,1);
+INSERT INTO `users_credentials` VALUES  (1,'demo','12345',1,1);
 
 
 -- STATISTICS

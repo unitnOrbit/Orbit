@@ -24,6 +24,10 @@ public class Statistic extends Model {
 
     public Integer num_visits;
 
+    public String widget_options;
+
+    public String dataset_options;
+
     @ManyToOne(optional=false)
     public Widget widget;
 

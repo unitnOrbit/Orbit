@@ -9,6 +9,8 @@ import play.db.ebean.*;
 import play.data.format.*;
 import play.data.validation.*;
 
+import models.global.UserRole;
+
 @Entity
 public class Report extends Model {
 
@@ -25,6 +27,9 @@ public class Report extends Model {
 
     @ManyToMany()
     public List<Category> categories;
+
+    @ManyToOne(optional=true)
+    public List<UserRole> allowed_roles;
 
     //@ManyToMany(mappedBy="usergroup")
     //public UserGroup usergroup;
