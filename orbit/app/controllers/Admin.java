@@ -17,7 +17,7 @@ import java.lang.annotation.Documented;
 @Security.Authenticated(Secured.class)
 public class Admin extends Controller {
 
-public static class EditTest(){
+public static class EditTest {
 public String reportName;
 
 
