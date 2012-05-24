@@ -1,4 +1,4 @@
-@(cat: models.statistics.Category, reports: Collection[models.statistics.Report])
+@(cat: models.statistics.Category, reports: Collection[models.statistics.Report], categoryForm: Form[models.statistics.Category])
 @main(Html(cat.name), nav = "cat-"+cat.id, nav2 = "", null) {
 
     <div class="alert alert-warning">Editing mode</div>
