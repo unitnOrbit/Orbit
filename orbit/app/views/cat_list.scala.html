@@ -20,7 +20,7 @@
     <p>
       @if(controllers.Secured.user().getUsername() != null) {
           @if(controllers.Secured.user().isAdmin()) {
-            <a class="btn btn-small" title="Settings" href="/report/@report.id/edit/"><i class="icon-cog"></i></a>
+            <a class="btn btn-small" title="Settings" href="#"><i class="icon-cog"></i></a>
           }
       }
       <a class="btn" rel="tooltip" title="View @cat.name" href="@(routes.Browsing.cat_by_id(cat.id))">View &raquo;</a>
