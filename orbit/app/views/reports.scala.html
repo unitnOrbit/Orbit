@@ -28,8 +28,11 @@ var stringToFunction = function(str) {
 
 </script>
 <script type="text/javascript">
-    google.load("visualization", "1", {packages:["corechart"]});
-    google.load("visualization", "1", {packages:["table"]});      
+  google.load("visualization", "1", {packages:["corechart"]});
+  google.load("visualization", "1", {packages:["table"]});      
+  google.setOnLoadCallback(drawStatistics);
+
+  function drawStatistics() {
     
     $.each(@statsList, function(i, statID) {
         var getStatsUrl = '/statistic/' + statID + '/';
@@ -118,6 +121,7 @@ var stringToFunction = function(str) {
             }
         });
     });
+  }
 </script>
     
 <!-- full size chart -->

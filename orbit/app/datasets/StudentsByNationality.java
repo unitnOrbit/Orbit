@@ -42,7 +42,7 @@ public class StudentsByNationality
 	cols.add(col);
 	    
 	col = new LinkedList<String>();
-	col.add(DataSet.ColTypes.STRING);
+	col.add(DataSet.ColTypes.NUMBER);
 	col.add("Number of enrolled students");
 	cols.add(col);
 	return cols;
