@@ -80,7 +80,7 @@ public class StudentsByNationality
 	
 	// e` sporchissimo, ma qui sopra sopra non va un cazzo
 	Map <String, Integer> map = new LinkedHashMap<String, Integer>();
-	for ( Student stud: Student.find.all() ) {
+	for ( Student stud: Student.allActive().findList() ) {
 	    String countryName = stud.citizenship.name;
 	    Integer val = map.get(countryName);
 	    map.put(countryName,

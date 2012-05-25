@@ -5,6 +5,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.avaje.ebean.ExpressionList;
+
 import play.db.ebean.*;
 
 @Entity
@@ -163,5 +165,9 @@ public class Student extends Model {
 
     public static void delete(Long id) {
     	find.ref(id).delete();
+    }
+
+    public static ExpressionList<Student> allActive() {
+        return find.where().eq("deleted", false);
     }
 }
