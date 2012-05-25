@@ -86,7 +86,7 @@ public class Admin extends Controller {
         System.out.println("report desc: " + reportForm.get().description);
         //System.out.println("report visib: " + reportForm.get().visibility);
 
-        reportForm.get().updateName(report_id, reportForm.get().name);        
+        reportForm.get().updateName(report_id, reportForm.get().name);             return TODO;
     }
 
     public static Result report_new_pg() {
