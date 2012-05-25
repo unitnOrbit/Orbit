@@ -11,11 +11,23 @@ import com.avaje.ebean.Ebean;
 import com.avaje.ebean.RawSqlBuilder;
 
 /**
- * this class represents the First Year Students grouped By Nationality
+ * Class for building the First Year Students grouped By Nationality statistic.
+ * 
+ * Builds the data table as follows:
+ *  Country | Students
+ * [string] | [number]
+ * ---------+----------
+ *   Italy  |   num    
+ *  Austria |   num
+ *   ...        ...
+ *
  */
 public class FirstYStudentsByNationality
     implements DataSet {
 	
+    /**
+     * No option supported.
+     */
     public void setOptions(Map options) {
 	// no option supported yet
     }
@@ -24,36 +36,17 @@ public class FirstYStudentsByNationality
 	List<List<String>> cols = new LinkedList<List<String>>();
 	List<String> col;
 	col = new LinkedList<String>();
-	col.add("string");
+	col.add(DataSet.ColTypes.STRING);
 	col.add("Nationality");
 	cols.add(col);
 	    
 	col = new LinkedList<String>();
-	col.add("number");
+	col.add(DataSet.ColTypes.NUMBER);
 	col.add("Number of enrolled students");
 	cols.add(col);
 	return cols;
     }
-    /*
-    @Entity
-    @Sql
-    public static class CountriesAggregate {
 
-	@OneToOne  
-	public Country country;
-
-	public Long number;
-
-	public CountriesAggregate() { super(); }
-	public String toString() {
-	    return this.country.toString() + ": " + this.number.toString();
-	}
-	public Country getCountry() { return this.country; }
-	public void setCountry(Country c) { this.country = c; }
-	public Long getNumber() { return this.number; }
-	public void setNumber(Long n) { this.number = n; }
-    }
-    */
     public List<List> getData() {
 	List<List> data = new ArrayList<List>();
 	Map <String, Integer> map = new LinkedHashMap<String, Integer>();
