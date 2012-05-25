@@ -7,7 +7,9 @@
     <h2>Sign in</h2>
     @helper.form(routes.Authentication.authenticate) {
         @if(form.hasGlobalErrors) {
-            <div class="alert alert-error">@form.globalError.message</div>
+            <div class="alert alert-error">
+                <p><strong>Error:</strong> @form.globalError.message</p>
+            </div>
         }
 
         <fieldset>

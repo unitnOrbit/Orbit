@@ -31,6 +31,47 @@ public class Category extends Model {
         return this.name;
     }
 
+    /**
+     * Updates the name of category.
+     *
+     * @param id    The unique id of the category
+     * @param name  The new name used for the category
+     */
+    public void updateName(Long id, String name) {
+        Category selectedCategory = Category.find.byId(id);
+        selectedCategory.name = name;
+        selectedCategory.save();
+    }
+    
+    /**
+     * Updates the description of category.
+     *
+     * @param id            The unique id of the category
+     * @param description   The new description used for the category
+     */
+    public void updateDescription(Long id, String description) {        
+        Category selectedCategory = Category.find.byId(id);
+        selectedCategory.description = description;
+        selectedCategory.save();
+    }
+    
+    /**
+     * Updates the visibility of category.
+     *
+     * @param id            The unique id of the category
+     * @param visibility    The new visibility used for the category
+     */    
+    public void updateVisibility(Long id, boolean visibility) {
+        Category selectedCategory = Category.find.byId(id);
+        
+        // TODO: remove comments when "visibility" will be added
+        //selectedCategory.visibility = visibility;
+        //selectedCategory.save();
+    }    
+    
+    //
+    // CLEAN HERE
+    //
     //public List<Report> report_list() {
     //    Report.find.where().eq("id", this.id)
     //}

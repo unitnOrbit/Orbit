@@ -3,20 +3,15 @@
 @import helper._
 @import helper.twitterBootstrap._
 
-@main(Html(report.name + ""), nav = "cat-" + cat.id, nav2 = "report-" + report.id, null) {
-    <script>
-        $(function() {
-          $("textarea").change(function() {
-            //alert("asd");
-                               $("body").append("asd, ");
-              //$("#main_container").append('<div id="form_debug" class="alert alert-warning" style="visibility: hidden;">asd</div>');
-          });
-        });
-    </script>
+@main(Html(report.name + ""), nav = "cat-" + cat.id, nav2 = "report-" + report.id, null){
 
-    <div class="alert alert-warning">Editing mode</div>
+    @if(reportForm.hasGlobalErrors) {
+        <div class="alert alert-error">
+            <p><strong>Error:</strong> @reportForm.globalError.message</p>
+        </div>
+    } 
 
-    @form(routes.Admin.report_edit(report.id), 'class -> "well form-horizontal") { 
+    @helper.form(routes.Admin.report_edit(report.id), 'class -> "well form-horizontal") { 
         <fieldset>
             @textarea(reportForm("name"), '_label -> "Report Name", 
             'rows -> 2, 'class -> "span6", '_showConstraints -> false)
@@ -24,15 +19,15 @@
             @textarea(reportForm("description"), '_label -> "Report Description", 
             'rows -> 8, 'class -> "span6", '_showConstraints -> false)
             
-            @select(reportForm("rep_visib"), 
+            @select(reportForm("visibility"), 
             options("visible"->"Visible", "hidden"->"Hidden"), 
-            '_label -> "Visibility",
+            '_label -> "Category Visibility",
             '_showConstraints -> false
             )
         </fieldset>
     
         <div class="actions">
-            <button type="submit" class="btn">Done</button>
+            <button type="submit" class="btn">Complete</button>
         </div>
     }
 
