@@ -10,9 +10,11 @@ import java.util.*;
 public interface DataSet {
 
     /**
-     * Returns information about the columns:
+     * Returns information about the columns
+     *
      * Each row in the returned list represents a column, formatted
      * as a 2-items list of strings: the column type and the column name.
+     * The column type can be chosen from ColTypes inner class.
      */
     public List<List<String>> getColumns();
 
@@ -26,5 +28,14 @@ public interface DataSet {
      * should specify which options are allowed.
      */
     public void setOptions(Map options);
+
+    /**
+     * Container class for types of column allowed to be returned 
+     * as the first velue of each pair return by getColumns().
+     */
+    public static class ColTypes {
+        public static final String NUMBER = "number";
+        public static final String STRING = "string";
+    }
 
 }

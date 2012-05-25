@@ -10,9 +10,22 @@ import com.avaje.ebean.annotation.Sql;
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.RawSqlBuilder;
 
+/**
+ * Class for building the statistic representing
+ * Students grouped by nationality.
+ * 
+ * Builds the data table as follows:
+ *  Country | Students
+ * [string] | [number]
+ * ---------+----------
+ *   Italy  |   num    
+ *  Austria |   num
+ *   ...        ...
+ *
+ */
 public class StudentsByNationality
     implements DataSet {
-	
+
     /**
      * No options supported, does nothing.
      */
@@ -24,12 +37,12 @@ public class StudentsByNationality
 	List<List<String>> cols = new LinkedList<List<String>>();
 	List<String> col;
 	col = new LinkedList<String>();
-	col.add("string");
+	col.add(DataSet.ColTypes.STRING);
 	col.add("Nationality");
 	cols.add(col);
 	    
 	col = new LinkedList<String>();
-	col.add("number");
+	col.add(DataSet.ColTypes.NUMBER);
 	col.add("Number of enrolled students");
 	cols.add(col);
 	return cols;
@@ -80,7 +93,7 @@ public class StudentsByNationality
 	
 	// e` sporchissimo, ma qui sopra sopra non va un cazzo
 	Map <String, Integer> map = new LinkedHashMap<String, Integer>();
-	for ( Student stud: Student.find.all() ) {
+	for ( Student stud: Student.allActive().findList() ) {
 	    String countryName = stud.citizenship.name;
 	    Integer val = map.get(countryName);
 	    map.put(countryName,
@@ -96,8 +109,6 @@ public class StudentsByNationality
 	    data.add(row);
 	}
 
-	
-	
 	return data;
     }
 

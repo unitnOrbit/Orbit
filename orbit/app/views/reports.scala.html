@@ -9,9 +9,30 @@
 </style>
 
 <script src="@routes.Assets.at("javascripts/jquery.templ.js")"></script>
-<script>
-    google.load("visualization", "1", {packages:["corechart"]});
-    google.load("visualization", "1", {packages:["table"]});      
+
+<script type="text/javascript">
+var stringToFunction = function(str) {
+  var arr = str.split(".");
+
+  var fn = (window || this);
+  for (var i = 0, len = arr.length; i < len; i++) {
+    fn = fn[arr[i]];
+  }
+
+  if (typeof fn !== "function") {
+    throw new Error("function not found");
+  }
+
+  return  fn;
+};
+
+</script>
+<script type="text/javascript">
+  google.load("visualization", "1", {packages:["corechart"]});
+  google.load("visualization", "1", {packages:["table"]});      
+  google.setOnLoadCallback(drawStatistics);
+
+  function drawStatistics() {
     
     $.each(@statsList, function(i, statID) {
         var getStatsUrl = '/statistic/' + statID + '/';
@@ -78,7 +99,10 @@
                var table_options = { showRowNumber: true, sortColumn: 1, sortAscending: false };
                               
                //chart = new google.visualization.PieChart(document.getElementById('chart-full-report'));
-               chart = new google.visualization.PieChart(report_container.find(".chart").get(0));
+               //chart = new google.visualization.PieChart(report_container.find(".chart").get(0));
+               chartClass = stringToFunction("google.visualization." + chart_type);
+               chart = new chartClass(report_container.find(".chart").get(0));
+
                chart_table = new google.visualization.Table(report_container.find(".table").get(0));
                
                chart.draw(data, options);
@@ -97,6 +121,7 @@
             }
         });
     });
+  }
 </script>
     
 <!-- full size chart -->
