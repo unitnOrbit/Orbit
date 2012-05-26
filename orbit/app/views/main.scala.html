@@ -12,11 +12,11 @@
         <link href="@routes.Assets.at("bootstrap/css/bootstrap.css")" rel="stylesheet">
         <link href="@routes.Assets.at("stylesheets/custom.css")" rel="stylesheet">
         <style type="text/css">
-            body { 
-                padding-top: 60px; 
+            body {
+                padding-top: 60px;
                 padding-bottom: 40px;
             }
-            .sidebar-nav { 
+            .sidebar-nav {
                 padding: 9px 0;
             }
 
@@ -38,7 +38,7 @@
     
 
 	<!-- Print stylesheet -->
-	<link rel="stylesheet" media="print" 
+	<link rel="stylesheet" media="print"
 	      href="@routes.Assets.at("stylesheets/print.css")" />
 
         <!-- TEST: disegno grafico di prova -->
@@ -146,14 +146,14 @@
 
                     <ul class="nav nav-list">
                         <li class="nav-header">Navigation</li>
-                        <li class="sidebar-home"><a href="@routes.Application.index"> Home</a></li>
-                        <li class="sidebar-about @("active".when(nav == "about"))"><a href="@routes.Application.aboutPage()"> About</a></li>
-                        <li class="sidebar-school"><a href="http://ict.unitn.it/" target="_blank"><i class=""></i> School website</a></li>
+                        <li class="sidebar-home"><a href="@routes.Application.index"><i class="icon-home"></i> Home</a></li>
+                        <li class="sidebar-about"><a href="@routes.Application.aboutPage()"><i class="icon-question-sign"></i> About</a></li>
+                        <li class="sidebar-school"><a href="http://ict.unitn.it/" target="_blank"><i class="icon-share-alt"></i> School website</a></li>
                         
                         @* Checks if user is ADMIN *@
                         @if(controllers.Secured.user().isAdmin()) {
                             <li class="nav-header">Administration</li>                            
-                            <li class="sidebar-createreport"><a href="@routes.Admin.cat_new_pg()"><i class="icon-pencil"></i> Create Category</a></li>                        
+                            <li class="sidebar-createcategory"><a href="@routes.Admin.cat_new_pg()"><i class="icon-pencil"></i> Create Category</a></li>                        
                             <li class="sidebar-createreport"><a href="@routes.Admin.report_new_pg()"><i class="icon-pencil"></i> Create Report</a></li>
                         }
                                                 
@@ -222,9 +222,8 @@
 			                <li class="sidebar-report-@repo.id">@repo.name</li>
 			            }
 				  }
-			    }									      
+			    }
 			}
-				  
 		}
                         </ul>
                     </div>
