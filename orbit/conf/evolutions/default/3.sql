@@ -94,8 +94,8 @@ INSERT INTO `category` (`id`, `name`, `description`) VALUES
 
 
 INSERT INTO `statistic` (`id`, `name`, `description`, `format`, `num_visits`, `widget_id`, `dataset_id`) VALUES
-(1, 'Distribution of 1st year admitted students by nationality for the current year ', 'The graph shows the list of countries, each one with the percentage of students from that country admitted to the 1st year ', NULL, NULL, 1, 1),
-(2, 'Distribution of current students by nationality ', 'The graph shows the list of countries, each one with the percentage of students from that country currently enrolled ', NULL, NULL, 1, 2),
+(1, 'Distribution of 1st year admitted students by nationality for the current year ', 'The graph shows the list of countries, each one with the percentage of students from that country admitted to the 1st year ', NULL, NULL, 1, 2),
+(2, 'Distribution of current students by nationality ', 'The graph shows the list of countries, each one with the percentage of students from that country currently enrolled ', NULL, NULL, 1, 1),
 (3, 'Distribution of 1st year admitted students by nationality, over the last 5 years ', 'The graphs shows the list of countries, each one with the percentage of students from that country admitted over the last 5 years ', NULL, NULL, 2, 3),
 (4, 'Number of applications over the last 5 years', 'The graph shows the number of applications over the last 5 years', NULL, NULL, 1, 1),
 (5, 'Number of scholarships over the last 5 years, ', 'The graph shows the number of scholarships over the last 5 years, classified by source (UNITN, DISI, Research center, Company, Other) ', NULL, NULL, 1, 3),
@@ -109,14 +109,19 @@ INSERT INTO `report_category` (`report_id`, `category_id`) VALUES
 (2, 1),
 (3, 1),
 (4, 2),
-(7, 3);
+(7, 3),
+(5, 4),
+(6, 4);
 
 
 INSERT INTO `report_statistic` (`report_id`, `statistic_id`) VALUES
 (1, 1),
 (2, 2),
 (3, 3),
-(4, 5);
+(4, 5),
+(5, 6),
+(6, 7),
+(7, 8);
 
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
