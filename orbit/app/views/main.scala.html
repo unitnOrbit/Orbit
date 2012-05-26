@@ -86,7 +86,7 @@
                     <ul class="nav">
                         <li class="@("active".when(nav == "home"))"><a href="@routes.Application.index">Home</a></li>
                         <li class="@("active".when(nav == "about"))"><a href="@routes.Application.aboutPage()">About</a></li>
-                        <li><a href="http://ict.unitn.it/" target="_blank">Shool website</a></li>
+                        <li><a href="http://ict.unitn.it/" target="_blank">School website</a></li>
 
                     </ul>
 
@@ -129,56 +129,63 @@
          ================================================== -->
     <div class="container-fluid">
         <div class="row-fluid">
-
+            
             <div id="side-bar" class="span3">
-
-                <!--h3>Actions here</h3>
-                <p>"testo qui"</p-->
-
+                <script type="text/javascript">
+                    /**
+                     * Check if the current report was selected.
+                     */
+                    $(function() {
+                          var selected_li = $(".sidebar-nav .nav-list li.sidebar-@nav")
+                          selected_li.addClass("active");
+                          selected_li.find("i").addClass("icon-white");
+                    });
+                </script>
+                
                 <div class="well sidebar-nav" style="padding: 8px 0;">
 
                     <ul class="nav nav-list">
-                        <li class="nav-header">Fast menu</li>
-                        <li class="sidebar-home"><a href="@routes.Application.index"><i class="icon-home"></i>Home</a></li>
-
-                        @* Check if user is ADMIN *@
+                        <li class="nav-header">Navigation</li>
+                        <li class="sidebar-home"><a href="@routes.Application.index"> Home</a></li>
+                        <li class="sidebar-about @("active".when(nav == "about"))"><a href="@routes.Application.aboutPage()"> About</a></li>
+                        <li class="sidebar-school"><a href="http://ict.unitn.it/" target="_blank"><i class=""></i> School website</a></li>
+                        
+                        @* Checks if user is ADMIN *@
                         @if(controllers.Secured.user().isAdmin()) {
-                            <li class="sidebar-createreport"><a href="#"><i class="icon-pencil"></i>Create Report</a></li>
-                        }
-                        
-                        <li class="sidebar-print"><a href="#" onclick="window.print();return false;"><i class="icon-print"></i>Print</a></li>
-                        
-                        <!-- categories block -->
+                            <li class="nav-header">Administration</li>                            
+                            <li class="sidebar-createreport"><a href="#"><i class="icon-pencil"></i> Create Category</a></li>                        
+                            <li class="sidebar-createreport"><a href="#"><i class="icon-pencil"></i> Create Report</a></li>
+                        } 
+                                                
+                        <!-- Categories block -->
                         <li id="cats-side-nav" class="nav-header">Categories</li>
-                        
                         @for(cat <- controllers.Browsing.getMainCategory() ) {
-                             <li class="sidebar sidebar-cat-@cat.id">
-                                <a href="@routes.Browsing.cat_by_id(cat.id)"><i class="icon-list-alt"></i> @cat.name</a>
-				@if(nav == ("cat-" + cat.id) || nav2 == ("cat-" + cat.id)){
-			            <ul class="">
-				    @for(repo <- cat.reports){
-			                <li class="sidebar-report-@repo.id"><a href="@routes.Browsing.report_by_id(repo.id)?category=@cat.id">@repo.name</a></li>
-			            }
-					<script type="text/javascript">
-					    $(function() {
-                            var selected_li = $(".sidebar-nav .nav-list li.sidebar-@nav ul li.sidebar-@nav2")
-                            selected_li.addClass("active").css("font-weight","bold");
-                            selected_li.find("i").addClass("icon-white");
-					    });
-					</script>
-				    </ul>
-			        }
+                             <li class="sidebar sidebar-cat-@cat.id"><a href="@routes.Browsing.cat_by_id(cat.id)"><i class="icon-list-alt"></i> @cat.name</a>
+                            
+                                @* Gets the asccociated reports *@
+                                @if(nav == ("cat-" + cat.id) || nav2 == ("cat-" + cat.id)){
+                                <ul class="">
+                                    <!-- Reports list -->
+                                    @for(repo <- cat.reports) {
+                                        <li class="sidebar-report-@repo.id"><a href="@routes.Browsing.report_by_id(repo.id)?category=@cat.id"> @repo.name</a></li>
+                                    }
+                                    <script type="text/javascript">
+                                        /**
+                                         * Check if the current report was selected.
+                                         */
+                                        $(function() {
+                                            var selected_li = $(".sidebar-nav .nav-list li.sidebar-@nav ul li.sidebar-@nav2")
+                                            selected_li.addClass("active").css("font-weight","bold");
+                                            selected_li.find("i").addClass("icon-white");
+                                        });
+                                    </script>
+                                </ul>
+                                }
                              </li>
-			}
-
-
-                        <script type="text/javascript">
-                            $(function() {
-                                var selected_li = $(".sidebar-nav .nav-list li.sidebar-@nav")
-                                selected_li.addClass("active");
-                                selected_li.find("i").addClass("icon-white");
-                            });
-                        </script>
+                        }
+                            
+                        <li class="nav-header">Tools</li>
+                        <li class="sidebar-print"><a href="#" onclick="window.print();return false;"><i class="icon-print"></i> Print</a></li>
 
                         <!--li class="divider"></li>
                         <li><a href="#"><i class="icon-flag"></i> Help</a></li-->

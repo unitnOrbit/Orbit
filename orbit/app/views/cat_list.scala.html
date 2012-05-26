@@ -12,18 +12,18 @@
 
 <div id="cat_list_container" class="row-fluid">
   @for(cat <- cats) {
-  <div class="span4">      
-    <h2>@cat.name</h2>              
-    <!-- test ajax -->
+  <div class="span4">
+    <h2>@cat.name</h2>
+
     <p class="cat_desc">@cat.description<p>
-      
     <p>
-      @if(controllers.Secured.user().getUsername() != null) {
+        @if(controllers.Secured.user().getUsername() != null) {
           @if(controllers.Secured.user().isAdmin()) {
-            <a class="btn btn-small" title="Settings" href="@(routes.Admin.cat_edit_pg(cat.id))"><i class="icon-cog"></i></a>
+              <a class="btn btn-small" rel="tooltip" title="Edit category" href="@routes.Admin.cat_edit_pg(cat.id)"><i class="icon-edit"></i></a>
+              <a class="btn btn-small" rel="tooltip" title="Delete category" href="@routes.Admin.cat_del_pg(cat.id)"><i class="icon-trash"></i></a>    
           }
-      }
-      <a class="btn" rel="tooltip" title="View @cat.name" href="@(routes.Browsing.cat_by_id(cat.id))">View &raquo;</a>
+        }
+        <a class="btn" rel="tooltip" title="View @cat.name" href="@(routes.Browsing.cat_by_id(cat.id))">View &raquo;</a>
     </p>
   </div><!--/span-->
   }
