@@ -22,7 +22,7 @@
 -- Database: `phdcoursedb`
 --
 
--- FROM BAEZ WITH LOVE
+-- 'global' models
 
 INSERT INTO `countries` (`country_ID`, `name`, `region`, `citizenship`, `deleted`) VALUES
 (1, 'China', 'Asia', 'Chinese', 0),
@@ -48,25 +48,19 @@ INSERT INTO `students` (`user_ID`, `date_of_birth`, `graduation_date`, `first_na
 (6, '1991-12-22 00:00:00', NULL, 'Patrick', 'Smith', 'Patrick Smith', '28', 0, 2, 0, 'via antonio fogazzaro 35, Trento', '', 'New York, NY, USA', '123-456789', '1231-23456', 'P1-S5-14', '27-A', 0, '0', 0, 0, 1, '0', 0, '0', 0, 0, 1, 'UNKNOWN', 'patrick.smith@domain.com', 0, 1, 1, 1, 1, 1, 4, 1, 1, 1),
 (7, '1991-12-22 00:00:00', NULL, 'Some Guy', 'Lee', 'Some Guy', '28', 0, 2, 0, 'via verdi 27, Trento', '', 'Shanghai, SHA, CN', '123-456789', '1231-23456', 'P1-S5-14', '27-A', 0, '0', 0, 0, 1, '0', 0, '0', 0, 0, 1, 'UNKNOWN', 'someguy.lee@domain.com', 0, 1, 1, 1, 1, 1, 4, 1, 1, 1);
 
-	
-UPDATE students SET
-       graduation_date = NULL,
-       date_of_birth = '1991-12-22',
-       has_pc_rights = True,
-       is_graduated = True;
-
 
 INSERT INTO `users_roles` (`user_rol_ID`, `role`, `deleted`) VALUES
 (1,'admin',0),
-(2,'professor',0);
+(2,'professor',0),
+(3,'student',0);
 
 
-INSERT INTO `users_credentials` VALUES 
+INSERT INTO `users_credentials` (`user_credential_ID`, `user_name`, `password`, `user_rol`, `user`, `user_supervisor`) VALUES
 (1,'admin','admin',1,NULL,NULL),
-(2,'prof','prof',2,NULL,1);
+(2,'prof','prof',2,NULL,1),
+(3,'student','student',3,1,NULL);
 
-
--- STATISTICS
+-- STATISTICS models
 
 
 INSERT INTO `data_set` (`id`, `description`) VALUES
