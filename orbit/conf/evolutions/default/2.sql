@@ -56,10 +56,14 @@ UPDATE students SET
        is_graduated = True;
 
 
-INSERT INTO `users_roles` VALUES  (1,'admin',0);
+INSERT INTO `users_roles` VALUES 
+(1,'admin',0),
+(2,'professor',0);
 
 
-INSERT INTO `users_credentials` VALUES  (1,'demo','12345',1,1);
+INSERT INTO `users_credentials` VALUES 
+(1,'admin','admin',1,1),
+(2,'prof','prof',2,1);
 
 
 -- STATISTICS
