@@ -15,13 +15,14 @@
     <h3>@report.name</h3>
     <p>@report.description<p>
       <p>
-      @if(controllers.Secured.user().getUsername() != null) {
-          @if(controllers.Secured.user().isAdmin()) {
-            <a class="btn btn-small" title="Settings" href="/report/@report.id/edit/"><i class="icon-cog"></i></a>
+          @if(controllers.Secured.user().getUsername() != null) {
+              @if(controllers.Secured.user().isAdmin()) {
+                <a class="btn btn-small" rel="tooltip" title="Edit report" href="@routes.Admin.report_edit_pg(report.id)"><i class="icon-edit"></i></a>
+                <a class="btn btn-small" rel="tooltip" title="Delete report" href="@routes.Admin.report_del_pg(report.id)"><i class="icon-trash"></i></a>
+              }
           }
-      }
-      <a class="btn" rel="tooltip" title="View this report" href="@(routes.Browsing.report_by_id(report.id))?category=@cat.id">View &raquo;</a>
-    </p>
+          <a class="btn" rel="tooltip" title="View this report" href="@(routes.Browsing.report_by_id(report.id))?category=@cat.id">View &raquo;</a>
+      </p>
   </div><!--/span-->
   }
   

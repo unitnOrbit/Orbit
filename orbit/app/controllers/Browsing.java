@@ -48,10 +48,10 @@ public class Browsing extends Controller {
      * Returns a page displaying the given category.
      */
     public static Result report_by_id(Long report_id) {
-    List<Long> stats = new LinkedList<Long>();
+    List<String> stats = new LinkedList<String>();
 	Report report = Report.find.byId(report_id);
 	for (Statistic stat: report.statistics) {
-	    stats.add(stat.id);
+	    stats.add(controllers.routes.Browsing.statistic_by_id(stat.id).toString());
 	}
 	Category cat = null;
 	try {
@@ -66,7 +66,7 @@ public class Browsing extends Controller {
 	    cat = report.categories.get(0);
 	}
 
-        return ok(reports.render(cat, report, stats));
+        return ok(reports.render(cat, report, play.libs.Json.toJson(stats).toString()));
       }
     
     /**
