@@ -65,7 +65,8 @@ public class Admin extends Controller {
     public static Result cat_new_pg() {
         Form<Category> newCatForm = new Form(Category.class);
         
-        return ok(cat_new.render(newCatForm));
+        //return ok(cat_new.render(newCatForm));
+        return TODO;
     }
     public static Result cat_new() {
         return TODO;
