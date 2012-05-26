@@ -16,11 +16,14 @@ public class Report extends Model {
 
     @Id
     public Long id;
-    
+
     @Constraints.Required
     public String name;
 
     public String description;
+
+    @NotNull()
+    public boolean is_public;
 
     @ManyToMany()
     public List<Statistic> statistics;
@@ -28,11 +31,8 @@ public class Report extends Model {
     @ManyToMany()
     public List<Category> categories;
 
-    @ManyToOne(optional=true)
+    @ManyToMany()
     public List<UserRole> allowed_roles;
-
-    //@ManyToMany(mappedBy="usergroup")
-    //public UserGroup usergroup;
 
     public static Finder<Long,Report> find = new Finder<Long, Report>(
       Long.class, Report.class
@@ -42,7 +42,10 @@ public class Report extends Model {
     public String toString(){
         return this.name;
     }
-    
+
+
+    // TODO: tidy up following methods: there is no need of getting id,
+    // because they aren't static
     /**
      * Updates the name of report.
      *
@@ -54,25 +57,25 @@ public class Report extends Model {
         selectedReport.name = name;
         selectedReport.save();
     }
-    
+
     /**
      * Updates the description of report.
      *
      * @param id            The unique id of the report
      * @param description   The new description used for the report
      */
-    public void updateDescription(Long id, String description) {        
+    public void updateDescription(Long id, String description) {
         Report selectedReport = Report.find.byId(id);
         selectedReport.description = description;
         selectedReport.save();
     }
-    
+
     /**
      * Updates the visibility of report.
      *
      * @param id            The unique id of the report
      * @param visibility    The new visibility used for the report
-     */    
+     */
     public void updateVisibility(Long id, boolean visibility) {
         Report selectedReport = Report.find.byId(id);
         // TODO: remove comments when "visibility" will be added

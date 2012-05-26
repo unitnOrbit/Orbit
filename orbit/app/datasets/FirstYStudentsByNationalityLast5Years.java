@@ -5,8 +5,6 @@ import models.global.*;
 
 import play.db.ebean.Model;
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;  
-import com.avaje.ebean.annotation.Sql;  
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.RawSqlBuilder;
 /**
@@ -34,7 +32,6 @@ public class FirstYStudentsByNationalityLast5Years
         for (Country c: Country.find.all()) {
             countries.add(c);
         }
-        // System.out.println(countries.toString());
     }
 
     /**
@@ -64,7 +61,6 @@ public class FirstYStudentsByNationalityLast5Years
         List<List> data = new ArrayList<List>();
         int to_c = SchoolCalendar.thisCycle();
         int from_c = to_c - YEARS_REQUIRED + 1;
-        System.out.println("Will report years from "+from_c+" to "+to_c);
         for (int cycle = from_c; cycle <= to_c; cycle++) {
             List row = new LinkedList();
             row.add(SchoolCalendar.cycle2a_y(cycle));
