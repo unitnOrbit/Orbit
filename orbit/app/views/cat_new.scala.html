@@ -1,0 +1,34 @@
+@(newCatForm: Form[models.statistics.Category])
+
+@import helper._
+@import helper.twitterBootstrap._
+
+@main(Html("New Category"), nav = "", nav2 = "", null) {
+
+    @if(newCatForm.hasGlobalErrors) {
+        <div class="alert alert-error">
+            <p><strong>Error:</strong> @newCatForm.globalError.message</p>
+        </div>
+    }
+
+    @helper.form(routes.Admin.cat_new(), 'class -> "well form-horizontal") { 
+        <fieldset>
+            @textarea(newCatForm("name"), '_label -> "Category Name", 
+            'rows -> 2, 'class -> "span6", '_showConstraints -> false, 'placeholder -> "Choose the category name")
+            
+            @textarea(newCatForm("description"), '_label -> "Choose the category description", 
+            'rows -> 8, 'class -> "span6", '_showConstraints -> false)
+            
+            @select(newCatForm("visibility"), 
+            options("visible"->"Visible", "hidden"->"Hidden"), 
+            '_label -> "Category Visibility",
+            '_showConstraints -> false
+            )
+        </fieldset>
+
+        <div class="actions">
+            <button type="submit" class="btn">Create new category</button>
+        </div>
+
+    }
+}
