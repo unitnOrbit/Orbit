@@ -1,7 +1,34 @@
 @(cat: models.statistics.Category, reports: Collection[models.statistics.Report], categoryForm: Form[models.statistics.Category])
+
+@import helper._
+@import helper.twitterBootstrap._
+
 @main(Html(cat.name), nav = "cat-"+cat.id, nav2 = "", null) {
 
-    <div class="alert alert-warning">Editing mode</div>
+    @if(categoryForm.hasGlobalErrors) {
+        <div class="alert alert-error">
+            <p><strong>Error:</strong> @categoryForm.globalError.message</p>
+        </div>
+    }
 
+    @helper.form(routes.Admin.cat_edit(cat.id), 'class -> "well form-horizontal") { 
+        <fieldset>
+            @textarea(categoryForm("name"), '_label -> "Category Name", 
+            'rows -> 2, 'class -> "span6", '_showConstraints -> false)
+            
+            @textarea(categoryForm("description"), '_label -> "Category Description", 
+            'rows -> 8, 'class -> "span6", '_showConstraints -> false)
+            
+            @select(categoryForm("visibility"), 
+            options("visible"->"Visible", "hidden"->"Hidden"), 
+            '_label -> "Category Visibility",
+            '_showConstraints -> false
+            )
+        </fieldset>
 
+        <div class="actions">
+            <button type="submit" class="btn">Complete</button>
+        </div>
+
+    }
 }
