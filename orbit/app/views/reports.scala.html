@@ -1,4 +1,9 @@
-@(cat: models.statistics.Category, report: models.statistics.Report, statsList: List[Long])
+@(cat: models.statistics.Category, report: models.statistics.Report, statsList: String)
+
+@*
+  statsList: Json string: array of strings, each string is the path of a statistic
+*@
+
 @main(Html(report.name + ""), nav = "cat-" + cat.id, nav2 = "report-" + report.id, null) {
 
 <style type="text/css">
@@ -11,6 +16,9 @@
 <script src="@routes.Assets.at("javascripts/jquery.templ.js")"></script>
 
 <script type="text/javascript">
+
+// gets a function (or class) from it qualified name
+
 var stringToFunction = function(str) {
   var arr = str.split(".");
 
@@ -25,8 +33,8 @@ var stringToFunction = function(str) {
 
   return  fn;
 };
-
 </script>
+
 <script type="text/javascript">
   google.load("visualization", "1", {packages:["corechart"]});
   google.load("visualization", "1", {packages:["table"]});      
@@ -34,8 +42,7 @@ var stringToFunction = function(str) {
 
   function drawStatistics() {
     
-    $.each(@statsList, function(i, statID) {
-        var getStatsUrl = '/statistic/' + statID + '/';
+    $.each(@Html(statsList), function(i, getStatsUrl) {
            
         $.ajax({
             url: getStatsUrl,
