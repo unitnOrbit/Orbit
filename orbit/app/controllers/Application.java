@@ -20,13 +20,13 @@ public class Application extends Controller {
     public static Result index() {
 	return controllers.Browsing.cat_list();
     }
-    
+
     /**
      * Renders the 'about' page.
      */
     public static Result aboutPage() {
         return ok(about.render());
-    }    
+    }
 
     //
 
@@ -46,5 +46,4 @@ public class Application extends Controller {
 	else
 	    return notFound();
     }
-
 }

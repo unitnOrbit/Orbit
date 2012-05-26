@@ -9,6 +9,8 @@ import play.db.ebean.*;
 import play.data.format.*;
 import play.data.validation.*;
 
+import models.statistics.Report;
+
 @Entity
 @Table(name = "users_roles")
 public class UserRole extends Model {
@@ -26,18 +28,20 @@ public class UserRole extends Model {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userRol")
     public Set<UserCredentials> usersCredentialsSet;
 
+    @ManyToMany(mappedBy="allowed_roles")
+    public List<Report> visible_reports;
+
     public static Finder<Long,UserRole> find = new Finder<Long, UserRole>(
-Long.class, UserRole.class
-);
+        Long.class, UserRole.class);
 
-public static List<UserRole> all() {
-return find.all();
-}
-public static void create(UserRole userrole) {
-userrole.save();
-}
+    public static List<UserRole> all() {
+        return find.all();
+    }
+    public static void create(UserRole userrole) {
+        userrole.save();
+    }
 
-public static void delete(Long id) {
-find.ref(id).delete();
-}
+    public static void delete(Long id) {
+        find.ref(id).delete();
+    }
 }

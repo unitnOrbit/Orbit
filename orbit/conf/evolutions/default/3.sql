@@ -75,14 +75,14 @@ INSERT INTO `widget` (`id`, `name`, `description`) VALUES
 (2, 'Area Chart', 'AreaChart');
 
 
-INSERT INTO `report` (`id`, `name`, `description`) VALUES
-(1, 'Distribution of first year admitted students by nationality for the current year ', 'distribution of first year admitted students by nationality'),
-(2, 'Distribution of 1st year admitted students by nationality, over the last 5 years ', 'distribution of 1st year admitted students by nationality, over the last 5 years '),
-(3, 'Distribution of current students by nationality ', 'distribution of current students by nationality '),
-(4, 'Number of scholarships over the last 5 years, classified by source (UNITN, DISI, Research center, Company, Other) ', 'number of scholarships over the last 5 years, classified by source '),
-(5, 'Average number of months spent abroad, by cycle, historically (for 5 cycles) ', 'average number of months spent abroad, by cycle, historically'),
-(6, 'Average number of months spent abroad, by cycle and by funding institution, historically (for 5 cycles) ', 'average number of months spent abroad, by cycle and by funding institution, historically'),
-(7, 'Average mark in courses by funding institution, over the past 5 years', 'average mark in courses by funding institution, over the past 5 years');
+INSERT INTO `report` (`id`, `name`, `description`, `is_public`) VALUES
+(1, 'Distribution of first year admitted students by nationality for the current year ', 'distribution of first year admitted students by nationality', 1),
+(2, 'Distribution of 1st year admitted students by nationality, over the last 5 years ', 'distribution of 1st year admitted students by nationality, over the last 5 years ', 0),
+(3, 'Distribution of current students by nationality ', 'distribution of current students by nationality ', 0),
+(4, 'Number of scholarships over the last 5 years, classified by source (UNITN, DISI, Research center, Company, Other) ', 'number of scholarships over the last 5 years, classified by source ', 0),
+(5, 'Average number of months spent abroad, by cycle, historically (for 5 cycles) ', 'average number of months spent abroad, by cycle, historically', 0),
+(6, 'Average number of months spent abroad, by cycle and by funding institution, historically (for 5 cycles) ', 'average number of months spent abroad, by cycle and by funding institution, historically', 1),
+(7, 'Average mark in courses by funding institution, over the past 5 years', 'average mark in courses by funding institution, over the past 5 years', 1);
 
 
 
@@ -123,6 +123,20 @@ INSERT INTO `report_statistic` (`report_id`, `statistic_id`) VALUES
 (6, 7),
 (7, 8);
 
+INSERT INTO `report_users_roles` (`report_id`, `users_roles_user_rol_ID`) VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(3, 2),
+(3, 3),
+(4, 2),
+(4, 3),
+(5, 2),
+(5, 3),
+(6, 2),
+(6, 3),
+(7, 2),
+(7, 3);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
@@ -130,6 +144,7 @@ INSERT INTO `report_statistic` (`report_id`, `statistic_id`) VALUES
 
 # --- !Downs
 
+DELETE FROM `report_users_roles`;
 DELETE FROM `report_category`;
 DELETE FROM `report_statistic`;
 DELETE FROM `statistic`;

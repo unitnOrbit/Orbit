@@ -72,6 +72,7 @@ create table report (
   id                        bigint auto_increment not null,
   name                      varchar(255),
   description               varchar(255),
+  is_public                 tinyint(1) default 0,
   constraint pk_report primary key (id))
 ;
 
@@ -262,6 +263,12 @@ create table report_category (
   category_id                    bigint not null,
   constraint pk_report_category primary key (report_id, category_id))
 ;
+
+create table report_users_roles (
+  report_id                      bigint not null,
+  users_roles_user_rol_ID        integer not null,
+  constraint pk_report_users_roles primary key (report_id, users_roles_user_rol_ID))
+;
 alter table courses add constraint fk_courses_professor_1 foreign key (professor) references supervisors (supervisor_ID) on delete restrict on update restrict;
 create index ix_courses_professor_1 on courses (professor);
 alter table courses_enrollments add constraint fk_courses_enrollments_student_2 foreign key (student) references students (user_ID) on delete restrict on update restrict;
@@ -307,6 +314,10 @@ alter table report_category add constraint fk_report_category_report_01 foreign 
 
 alter table report_category add constraint fk_report_category_category_02 foreign key (category_id) references category (id) on delete restrict on update restrict;
 
+alter table report_users_roles add constraint fk_report_users_roles_report_01 foreign key (report_id) references report (id) on delete restrict on update restrict;
+
+alter table report_users_roles add constraint fk_report_users_roles_users_r_02 foreign key (users_roles_user_rol_ID) references users_roles (user_rol_ID) on delete restrict on update restrict;
+
 # --- !Downs
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -328,6 +339,8 @@ drop table funding_institutions;
 drop table report;
 
 drop table report_statistic;
+
+drop table report_users_roles;
 
 drop table statistic;
 
