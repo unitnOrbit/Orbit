@@ -167,7 +167,11 @@
                                 <ul class="">
                                     <!-- Reports list -->
                                     @for(repo <- cat.reports) {
-                                        <li class="sidebar-report-@repo.id"><a href="@routes.Browsing.report_by_id(repo.id)?category=@cat.id"> @repo.name</a></li>
+                                        <li class="sidebar-report-@repo.id">
+                                            <a href="@routes.Browsing.report_by_id(repo.id)?category=@cat.id" class="rep_tip" rel="tooltip" title="@repo.name">
+                                                @{val repo_name = repo.name.substring(0,35); repo_name } ...
+                                            </a>
+                                        </li>
                                     }
                                     <script type="text/javascript">
                                         /**
@@ -177,6 +181,8 @@
                                             var selected_li = $(".sidebar-nav .nav-list li.sidebar-@nav ul li.sidebar-@nav2")
                                             selected_li.addClass("active").css("font-weight","bold");
                                             selected_li.find("i").addClass("icon-white");
+                                            
+                                            $('a.rep_tip[rel=tooltip]').tooltip({ placement : 'right'});
                                         });
                                     </script>
                                 </ul>
