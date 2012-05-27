@@ -9,7 +9,7 @@ import models.global.*;
 import models.statistics.*;
 
 import java.util.*;
-import java.lang.annotation.Documented;
+//import java.lang.annotation.Documented; // WTF?
 
 /**
  * Controller class for administration pages. 
@@ -133,7 +133,7 @@ public class Admin extends Controller {
         
         Form<Report> form = new Form(Report.class).fill(report);
         
-        return ok(report_edit_pg.render(cat, report, stats, form));
+        return ok(report_edit_pg.render(cat, report, stats, form, "edit"));
     }
 
     public static Result report_edit(Long report_id) {
@@ -158,20 +158,15 @@ public class Admin extends Controller {
         
         // Debug msg
         System.out.println(">\treport_edit(" + report_id + ")");
-        System.out.println("\tname: " + report.name + " -> " + reportForm.get().name);
-        System.out.println("\tdescr: " + report.description 
-                           + " -> " + reportForm.get().description);
-        System.out.println("\tis public: " + report.is_public 
-                           + " -> " + reportForm.get().is_public);
         
         // Checks if name is empty
         if(reportForm.field("name").valueOr("").isEmpty()) {
             reportForm.reject("name", "Cannot be empty!");            
         }
-        
+                
         if(reportForm.hasErrors()) {
             System.out.println("FAIL: " + reportForm.errors());
-            return badRequest(report_edit_pg.render(cat, report, stats, reportForm));
+            return badRequest(report_edit_pg.render(cat, report, stats, reportForm, "error"));
         } else {
             System.out.println("\tSUCCESS!\n");
 
@@ -179,7 +174,7 @@ public class Admin extends Controller {
             reportForm.get().updateDescription(report_id, reportForm.get().description);
             reportForm.get().updateVisibility(report_id, reportForm.get().is_public);
             
-            return ok(report_edit_pg.render(cat, report, stats, reportForm));
+            return ok(report_edit_pg.render(cat, report, stats, reportForm, "success"));
             //return ok(reports.render(cat, report, play.libs.Json.toJson(stats).toString()));
         }        
     }
