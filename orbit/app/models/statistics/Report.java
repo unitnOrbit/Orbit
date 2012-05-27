@@ -114,16 +114,14 @@ public class Report extends Model {
      * Note that if the user's username is not null,
      * a cast to UserCredentials is performed.
      */
-    public boolean is_authorized(User user) {System.out.println("user "+ user.getUsername()
-                           + " request for report "+ this.name);
+    public boolean is_authorized(User user) {
+        System.out.println("user \""+ user.getUsername() + "\" request for report "+ this.name);
         if (this.is_public || user.isAdmin()) {
             return true;
-        }
-        else {
+        } else {
             if (user.getUsername() == null) {
                 return false;
-            }
-            else {
+            } else {
                 if ( this.is_authorized((UserCredentials) user) )
                     return true;
                 else
@@ -131,5 +129,4 @@ public class Report extends Model {
             }
         }
     }
-
 }
