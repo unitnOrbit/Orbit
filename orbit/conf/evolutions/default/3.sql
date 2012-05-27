@@ -76,7 +76,7 @@ INSERT INTO `widget` (`id`, `name`, `description`) VALUES
 
 
 INSERT INTO `report` (`id`, `name`, `description`, `is_public`) VALUES
-(1, 'Distribution of first year admitted students by nationality for the current year ', 'distribution of first year admitted students by nationality', 1),
+(1, 'Distribution of 1st year admitted students by nationality for the current year ', 'distribution of first year admitted students by nationality', 1),
 (2, 'Distribution of 1st year admitted students by nationality, over the last 5 years ', 'distribution of 1st year admitted students by nationality, over the last 5 years ', 0),
 (3, 'Distribution of current students by nationality ', 'distribution of current students by nationality ', 0),
 (4, 'Number of scholarships over the last 5 years, classified by source (UNITN, DISI, Research center, Company, Other) ', 'number of scholarships over the last 5 years, classified by source ', 0),
@@ -90,7 +90,9 @@ INSERT INTO `category` (`id`, `name`, `description`) VALUES
 (1, 'Current Students', 'Statistic reports about students'' marks, for current students'),
 (2, 'Student Scholarships', 'Statistic reports about student scholarships over the last 5 years'),
 (3, 'Student Marks', 'Students marks'),
-(4, 'Time Spent Abroad', 'Number of Month Spent Abroad');
+(4, 'Time Spent Abroad', 'Number of month spent abroad'),
+(5, 'Prova 1', 'Descrizione prova 1'),
+(6, 'Prova 2', 'Descrizione prova 2');
 
 
 INSERT INTO `statistic` (`id`, `name`, `description`, `format`, `num_visits`, `widget_id`, `dataset_id`) VALUES
