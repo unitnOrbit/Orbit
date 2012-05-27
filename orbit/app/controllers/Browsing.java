@@ -4,6 +4,7 @@ import play.mvc.*;
 import java.util.*;
 
 import models.statistics.*;
+import models.global.UserCredentials;
 
 public class Browsing extends Controller {
 
@@ -43,16 +44,21 @@ public class Browsing extends Controller {
 
     	return ok(cat_view.render(cat, cat.reports));
     }
-    
+
     /**
      * Returns a page displaying the given category.
      */
     public static Result report_by_id(Long report_id) {
-    List<String> stats = new LinkedList<String>();
-	Report report = Report.find.byId(report_id);
-	for (Statistic stat: report.statistics) {
-	    stats.add(controllers.routes.Browsing.statistic_by_id(stat.id).toString());
-	}
+        List<String> stats = new LinkedList<String>();
+        Report report = Report.find.byId(report_id);
+
+        if ( ! report.is_authorized(Secured.user()) ) {
+            return forbidden("Forbidden\n");
+        }
+
+        for (Statistic stat: report.statistics) {
+            stats.add(controllers.routes.Browsing.statistic_by_id(stat.id).toString());
+        }
 	Category cat = null;
 	try {
 	    cat = Category.find.byId(

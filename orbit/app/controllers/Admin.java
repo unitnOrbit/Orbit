@@ -71,11 +71,45 @@ public class Admin extends Controller {
     public static Result cat_new() {
         return TODO;
     }
+    
+    /**
+     * Displays a form for the removal of the category
+     */    
     public static Result cat_del_pg(Long cat_id) {
-        return TODO;
+        Form<Category> catDelForm = form(Category.class).bindFromRequest();
+        Category category = Category.find.byId(cat_id);
+        
+        return ok(cat_remove.render(category, catDelForm));
     }
+    
+    /** 
+     * Process data received from the form and proceed with the cancellation
+     */
     public static Result cat_del(Long cat_id) {
-        return TODO;
+        Form<Category> catDelForm = form(Category.class).bindFromRequest();
+        Category category = Category.find.byId(cat_id);
+        List<Category> cats_list = Category.find.all();
+        
+        // Debug msg
+        System.out.println(">\tcat_del(" + cat_id + ")");
+        System.out.println("\tname: " + category.name);
+        
+        // Checks if the text confirmation is empty
+        if(!catDelForm.field("text-confirmation").valueOr("").isEmpty()) {
+            if(!catDelForm.field("text-confirmation").valueOr("").equals("remove")) {
+                catDelForm.reject("text-confirmation", "You must type \"remove\" to delete this category!");
+            }
+        } else {
+            catDelForm.reject("text-confirmation", "The text cannot be empty!");
+        }
+        
+        if(catDelForm.hasErrors()) {
+            System.err.println("\tFAIL: " + catDelForm.errors());
+            return badRequest(cat_remove.render(category, catDelForm));
+        } else {
+            System.out.println("\tSUCCESS!\n");
+            return ok(cat_list.render(cats_list));
+        }
     }
 
     public static Result report_edit_pg(Long report_id) {
@@ -122,25 +156,31 @@ public class Admin extends Controller {
             cat = report.categories.get(0);
         }
         
+        // Debug msg
+        System.out.println(">\treport_edit(" + report_id + ")");
+        System.out.println("\tname: " + report.name + " -> " + reportForm.get().name);
+        System.out.println("\tdescr: " + report.description 
+                           + " -> " + reportForm.get().description);
+        System.out.println("\tis public: " + report.is_public 
+                           + " -> " + reportForm.get().is_public);
+        
         // Checks if name is empty
         if(reportForm.field("name").valueOr("").isEmpty()) {
             reportForm.reject("name", "Cannot be empty!");            
         }
         
         if(reportForm.hasErrors()) {
+            System.out.println("FAIL: " + reportForm.errors());
             return badRequest(report_edit_pg.render(cat, report, stats, reportForm));
         } else {
-            System.out.println("report name: " + reportForm.get().name);
-            System.out.println("report desc: " + reportForm.get().description);
-            // TODO
-            //System.out.println("report visib: " + reportForm.get().visibility);
-            
+            System.out.println("\tSUCCESS!\n");
+
             reportForm.get().updateName(report_id, reportForm.get().name);
             reportForm.get().updateDescription(report_id, reportForm.get().description);
-            // TODO
-            //reportForm.get().updateVisibility(report_id, reportForm.get().visibility);
+            reportForm.get().updateVisibility(report_id, reportForm.get().is_public);
             
             return ok(report_edit_pg.render(cat, report, stats, reportForm));
+            //return ok(reports.render(cat, report, play.libs.Json.toJson(stats).toString()));
         }        
     }
 
@@ -150,9 +190,21 @@ public class Admin extends Controller {
     public static Result report_new() {
         return TODO;
     }
+    
+    /**
+     * Displays a form for the removal of the report
+     */
     public static Result report_del_pg(Long report_id) {
+        Form<Report> repDelForm = form(Report.class).bindFromRequest();
+        Report report = Report.find.byId(report_id);
+        
+        //return ok(report_remove.render(report, repDelForm));
         return TODO;
     }
+    
+    /** 
+     * Process data received from the form and proceed with the cancellation
+     */
     public static Result report_del(Long report_id) {
         return TODO;
     }

@@ -8,8 +8,10 @@ import javax.validation.constraints.Size;
 import play.db.ebean.*;
 import play.data.format.*;
 import play.data.validation.*;
+import com.avaje.ebean.FetchConfig;
 
 import models.global.UserRole;
+import models.global.UserCredentials;
 
 @Entity
 public class Report extends Model {
@@ -74,12 +76,60 @@ public class Report extends Model {
      * Updates the visibility of report.
      *
      * @param id            The unique id of the report
-     * @param visibility    The new visibility used for the report
+     * @param visible       The new visibility used for the report
      */
-    public void updateVisibility(Long id, boolean visibility) {
+    public void updateVisibility(Long id, boolean visible) {
         Report selectedReport = Report.find.byId(id);
-        // TODO: remove comments when "visibility" will be added
-        //selectedReport.visibility = visibility;
-        //selectedReport.save();
+        selectedReport.is_public = visible;
+        selectedReport.save();
     }
+
+
+    /**
+     * Checks whether a user with the given Role
+     * is allowed to see this report.
+     */
+    public boolean is_authorized(UserRole role) {
+        for (UserRole allowed: this.allowed_roles) {
+            if (allowed == role)
+                System.out.println("Si`");
+            if (allowed.userrolID == role.userrolID)
+                return true;
+        }
+        return false;
+    }
+
+    /**
+     * Checks whether the user with given UserCredentials
+     * is allowed to see this report.
+     */
+    public boolean is_authorized(UserCredentials u) {
+        return this.is_authorized(u.userRol);
+    }
+
+    /**
+     * Checks whether The given User
+     * is allowed to see this report.
+     *
+     * Note that if the user's username is not null,
+     * a cast to UserCredentials is performed.
+     */
+    public boolean is_authorized(User user) {System.out.println("user "+ user.getUsername()
+                           + " request for report "+ this.name);
+        if (this.is_public || user.isAdmin()) {
+            return true;
+        }
+        else {
+            if (user.getUsername() == null) {
+                return false;
+            }
+            else {
+                if ( this.is_authorized((UserCredentials) user) )
+                    return true;
+                else
+                    return false;
+            }
+        }
+    }
+
 }

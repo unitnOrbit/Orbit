@@ -1,0 +1,46 @@
+@(cat: models.statistics.Category, categoryForm: Form[models.statistics.Category])
+
+@import helper._
+@import helper.twitterBootstrap._
+
+@main(Html(""), nav = "", nav2 = "", null) {
+
+    <h2>Delete this category</h2>
+    <p>Once you delete a category, there is no going back.</p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Visibility</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@cat.id</td>
+                <td>@cat.name</td>
+                <td>@cat.description</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+    @if(categoryForm.hasGlobalErrors) {
+        <div class="alert alert-error">
+            <p><strong>Error:</strong> @categoryForm.globalError.message</p>
+        </div>
+    }
+
+    @form(routes.Admin.cat_del(1), 'class -> "well form-horizontal") { 
+        <fieldset class="control-group">
+            @inputText(categoryForm("text-confirmation"), '_label -> "If you're really sure type \"remove\" to delete this category", 
+            'class -> "span3", '_showConstraints -> false)
+        </fieldset>
+
+        <div class="actions">
+            <button type="submit" class="btn btn-danger">Remove this category</button>
+        </div>
+    }
+}

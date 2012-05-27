@@ -130,7 +130,6 @@ INSERT INTO `report_users_roles` (`report_id`, `users_roles_user_rol_ID`) VALUES
 (1, 2),
 (1, 3),
 (3, 2),
-(3, 3),
 (4, 2),
 (4, 3),
 (5, 2),
