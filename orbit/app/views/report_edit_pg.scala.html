@@ -19,8 +19,8 @@
             @textarea(reportForm("description"), '_label -> "Report Description", 
             'rows -> 8, 'class -> "span6", '_showConstraints -> false)
             
-            @select(reportForm("visibility"), 
-            options("visible"->"Visible", "hidden"->"Hidden"), 
+            @select(reportForm("is_public"), 
+            options("true"->"Public", "false"->"Private"), 
             '_label -> "Category Visibility",
             '_showConstraints -> false
             )

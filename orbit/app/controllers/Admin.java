@@ -156,25 +156,31 @@ public class Admin extends Controller {
             cat = report.categories.get(0);
         }
         
+        // Debug msg
+        System.out.println(">\treport_edit(" + report_id + ")");
+        System.out.println("\tname: " + report.name + " -> " + reportForm.get().name);
+        System.out.println("\tdescr: " + report.description 
+                           + " -> " + reportForm.get().description);
+        System.out.println("\tis public: " + report.is_public 
+                           + " -> " + reportForm.get().is_public);
+        
         // Checks if name is empty
         if(reportForm.field("name").valueOr("").isEmpty()) {
             reportForm.reject("name", "Cannot be empty!");            
         }
         
         if(reportForm.hasErrors()) {
+            System.out.println("FAIL: " + reportForm.errors());
             return badRequest(report_edit_pg.render(cat, report, stats, reportForm));
         } else {
-            System.out.println("report name: " + reportForm.get().name);
-            System.out.println("report desc: " + reportForm.get().description);
-            // TODO
-            //System.out.println("report visib: " + reportForm.get().visibility);
-            
+            System.out.println("\tSUCCESS!\n");
+
             reportForm.get().updateName(report_id, reportForm.get().name);
             reportForm.get().updateDescription(report_id, reportForm.get().description);
-            // TODO
-            //reportForm.get().updateVisibility(report_id, reportForm.get().visibility);
+            reportForm.get().updateVisibility(report_id, reportForm.get().is_public);
             
             return ok(report_edit_pg.render(cat, report, stats, reportForm));
+            //return ok(reports.render(cat, report, play.libs.Json.toJson(stats).toString()));
         }        
     }
 
