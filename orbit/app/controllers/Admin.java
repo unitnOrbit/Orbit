@@ -88,6 +88,11 @@ public class Admin extends Controller {
     public static Result cat_del(Long cat_id) {
         Form<Category> catDelForm = form(Category.class).bindFromRequest();
         Category category = Category.find.byId(cat_id);
+        List<Category> cats_list = Category.find.all();
+        
+        // Debug msg
+        System.out.println(">\tcat_del(" + cat_id + ")");
+        System.out.println("\tname: " + category.name);
         
         // Checks if the text confirmation is empty
         if(!catDelForm.field("text-confirmation").valueOr("").isEmpty()) {
@@ -99,12 +104,11 @@ public class Admin extends Controller {
         }
         
         if(catDelForm.hasErrors()) {
-            System.out.println(catDelForm.hasErrors());
-            
+            System.err.println("\tFAIL: " + catDelForm.errors());
             return badRequest(cat_remove.render(category, catDelForm));
         } else {
-            System.out.println(catDelForm.field("text-confirmation").valueOr(""));
-            return TODO;
+            System.out.println("\tSUCCESS!\n");
+            return ok(cat_list.render(cats_list));
         }
     }
 
