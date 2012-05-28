@@ -89,10 +89,11 @@ public class Category extends Model {
      */    
     public void deleteCategory(Long id) {
         Category category = Category.find.byId(id);        
-        
+        /*
         for (Report r:category.reports) {
             find.ref(r.id).delete();
         }
+        */
         find.ref(id).delete();
     }
 }

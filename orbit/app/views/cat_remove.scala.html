@@ -3,7 +3,7 @@
 @import helper._
 @import helper.twitterBootstrap._
 
-@main(Html(""), nav = "", nav2 = "", null) {
+@main(Html("Delete: " + cat.name), nav = "", nav2 = "", null) {
 
     <h2>Delete this category</h2>
     <p>Once you delete a category, there is no going back.</p>
@@ -46,7 +46,7 @@
         </fieldset>
 
         <div class="actions">
-            <button type="submit" class="btn btn-danger">Remove this category</button>
+            <button type="submit" class="btn btn-danger">Delete this category</button>
         </div>
     }
 }
