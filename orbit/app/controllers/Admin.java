@@ -50,13 +50,9 @@ public class Admin extends Controller {
         } else {
             System.out.println("Cat name: " + categoryForm.get().name);
             System.out.println("Cat descr: " + categoryForm.get().description);
-            // TODO
-            //System.out.println("Cat visib: " + categoryForm.get().visibility);
             
             categoryForm.get().updateName(cat_id, categoryForm.get().name);
             categoryForm.get().updateDescription(cat_id, categoryForm.get().description);
-            // TODO
-            //categoryForm.get().updateVisibility(cat_id, categoryForm.get().visibility);
             return ok(cat_edit_pg.render(category, category.reports, 
                                          categoryForm, "success"));
         }

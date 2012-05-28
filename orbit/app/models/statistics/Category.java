@@ -67,21 +67,7 @@ public class Category extends Model {
         selectedCategory.description = description;
         selectedCategory.update();
     }
-    
-    /**
-     * Updates the visibility of category.
-     *
-     * @param id            The unique id of the category
-     * @param visibility    The new visibility used for the category
-     */    
-    public void updateVisibility(Long id, boolean visibility) {
-        Category selectedCategory = Category.find.byId(id);
-        
-        // TODO: remove comments when "visibility" will be added
-        //selectedCategory.visibility = visibility;
-        //selectedCategory.save();
-    }    
-    
+
     /**
      * Remove the selected category.
      *
