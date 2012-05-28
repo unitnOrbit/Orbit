@@ -95,12 +95,19 @@ public class Admin extends Controller {
         System.out.println("\tname: " + category.name);
         
         // Checks if the text confirmation is empty
-        if(!catDelForm.field("text-confirmation").valueOr("").isEmpty()) {
+        /*
+         if(!catDelForm.field("text-confirmation").valueOr("").isEmpty()) {
             if(!catDelForm.field("text-confirmation").valueOr("").equals("remove")) {
                 catDelForm.reject("text-confirmation", "You must type \"remove\" to delete this category!");
             }
         } else {
             catDelForm.reject("text-confirmation", "The text cannot be empty!");
+        }
+        */
+
+        // Checks if the confirmation is true
+        if(catDelForm.field("confirmation").value() == null) {
+            catDelForm.reject("confirmation", "You must confirm this box to continue!");            
         }
         
         if(catDelForm.hasErrors()) {
