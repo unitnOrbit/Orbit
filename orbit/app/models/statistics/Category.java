@@ -32,6 +32,19 @@ public class Category extends Model {
     }
 
     /**
+     * Returns the list of reports the specified
+     * user is allowed to see.
+     */
+    public List<Report> allowed_reports(User user) {
+        List<Report> allowed = new LinkedList<Report>();
+        for (Report report: this.reports) {
+            if (report.is_authorized(user))
+                allowed.add(report);
+        }
+        return allowed;
+    }
+
+    /**
      * Updates the name of category.
      *
      * @param id    The unique id of the category
