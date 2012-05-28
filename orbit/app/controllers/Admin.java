@@ -58,12 +58,18 @@ public class Admin extends Controller {
         }
     }
     
+    /**
+     * Displays a form for the creation of the category
+     */    
     public static Result cat_new_pg() {
         Form<Category> newCatForm = new Form(Category.class);
         
-        //return ok(cat_new.render(newCatForm));
-        return TODO;
+        return ok(cat_new.render(newCatForm));
     }
+    
+    /** 
+     * Process data received from the form and proceed with the creation
+     */
     public static Result cat_new() {
         return TODO;
     }
