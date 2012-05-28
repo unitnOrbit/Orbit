@@ -40,7 +40,7 @@ public class Category extends Model {
     public void updateName(Long id, String name) {
         Category selectedCategory = Category.find.byId(id);
         selectedCategory.name = name;
-        selectedCategory.save();
+        selectedCategory.update();
     }
     
     /**
@@ -52,7 +52,7 @@ public class Category extends Model {
     public void updateDescription(Long id, String description) {        
         Category selectedCategory = Category.find.byId(id);
         selectedCategory.description = description;
-        selectedCategory.save();
+        selectedCategory.update();
     }
     
     /**
@@ -69,10 +69,12 @@ public class Category extends Model {
         //selectedCategory.save();
     }    
     
-    //
-    // CLEAN HERE
-    //
-    //public List<Report> report_list() {
-    //    Report.find.where().eq("id", this.id)
-    //}
+    /**
+     * Remove the selected category.
+     *
+     * @param id            The unique id of the category
+     */    
+    public void deleteCategory(Long id) {
+        find.ref(id).delete(); // FIXME: violazione chiave
+    }
 }

@@ -15,38 +15,38 @@ public class Secured extends Security.Authenticator {
     
     @Override
     public String getUsername(Context ctx) {
-	User user = Secured.user(ctx.session().get("username"));
-	if ( ! user.isAdmin() ) {
-	    return null;
-	}
-	return user.getUsername();
+        User user = Secured.user(ctx.session().get("username"));
+        if ( ! user.isAdmin() ) {
+            return null;
+        }
+        return user.getUsername();
     }
-
+    
     @Override
     public Result onUnauthorized(Context ctx) {
         return redirect(routes.Authentication.login());
     }
-
+    
     ////// Utilities to be called from controllers //////
-
+    
     /**
      * Logs <code>username</code> in. 
      * This function does NOT check authentication.
      */
     public static void login(String username) {
-	Context.current().session().put("username", username);
+        Context.current().session().put("username", username);
     }
-
+    
     public static String username() {
-	return Context.current().session().get("username");
+        return Context.current().session().get("username");
     }
-
+    
     /**
      * Returns a the User object with the provided username.
      * Returns null if the no user matches.
      */
     public static User user(String username) {
-	if (username == null) {
+        if (username == null) {
     		return new AnonymousUser();
     	}	
         else {
@@ -57,7 +57,7 @@ public class Secured extends Security.Authenticator {
     public static User user() {
     	return user(username());
     }
-
+    
     ////// Access rights //////
     
     /**
@@ -65,8 +65,8 @@ public class Secured extends Security.Authenticator {
      * specified report.
      */
     public static boolean canSee(Long report_id) {
-	// Context.current().request().
-	return true; // TODO: actual access control
+        // Context.current().request().
+        return true; // TODO: actual access control
     }
     
     /**

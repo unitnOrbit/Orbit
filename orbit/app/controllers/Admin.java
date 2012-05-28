@@ -26,11 +26,11 @@ public class Admin extends Controller {
     	for (Report r:cat.reports){
             r.refresh(); // fetches object from database
     	}
-
+        
         Form<Category> form = new Form(Category.class).fill(cat);
         return ok(cat_edit_pg.render(cat, cat.reports,form));
     }
-
+    
     public static Result cat_edit(Long cat_id) {
         Form<Category> categoryForm = form(Category.class).bindFromRequest();
         Category category = Category.find.byId(cat_id);
@@ -61,7 +61,7 @@ public class Admin extends Controller {
             return ok(cat_edit_pg.render(category, category.reports, categoryForm));
         }
     }
-
+    
     public static Result cat_new_pg() {
         Form<Category> newCatForm = new Form(Category.class);
         
@@ -107,11 +107,13 @@ public class Admin extends Controller {
             System.err.println("\tFAIL: " + catDelForm.errors());
             return badRequest(cat_remove.render(category, catDelForm));
         } else {
+            catDelForm.get().deleteCategory(cat_id);
+            
             System.out.println("\tSUCCESS!\n");
             return ok(cat_list.render(cats_list));
         }
     }
-
+    
     public static Result report_edit_pg(Long report_id) {
         List<Long> stats = new LinkedList<Long>();
         Report report = Report.find.byId(report_id);
@@ -121,8 +123,8 @@ public class Admin extends Controller {
         Category cat = null;
         try {
             cat = Category.find.byId(
-                  Long.parseLong(request().queryString().get("category")[0])
-              );
+                                     Long.parseLong(request().queryString().get("category")[0])
+                                     );
         }
         catch (NullPointerException e) {
             cat = report.categories.get(0);
@@ -135,7 +137,7 @@ public class Admin extends Controller {
         
         return ok(report_edit_pg.render(cat, report, stats, form, "edit"));
     }
-
+    
     public static Result report_edit(Long report_id) {
         Form<Report> reportForm = form(Report.class).bindFromRequest();
         Report report = Report.find.byId(report_id);
@@ -163,13 +165,13 @@ public class Admin extends Controller {
         if(reportForm.field("name").valueOr("").isEmpty()) {
             reportForm.reject("name", "Cannot be empty!");            
         }
-                
+        
         if(reportForm.hasErrors()) {
             System.out.println("FAIL: " + reportForm.errors());
             return badRequest(report_edit_pg.render(cat, report, stats, reportForm, "error"));
         } else {
             System.out.println("\tSUCCESS!\n");
-
+            
             reportForm.get().updateName(report_id, reportForm.get().name);
             reportForm.get().updateDescription(report_id, reportForm.get().description);
             reportForm.get().updateVisibility(report_id, reportForm.get().is_public);
@@ -178,7 +180,7 @@ public class Admin extends Controller {
             //return ok(reports.render(cat, report, play.libs.Json.toJson(stats).toString()));
         }        
     }
-
+    
     public static Result report_new_pg() {
         return TODO;
     }
