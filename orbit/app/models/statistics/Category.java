@@ -44,6 +44,14 @@ public class Category extends Model {
         return allowed;
     }
 
+    public void createCategory(String name, String descr) {
+        this.name = name;
+        this.description = descr;
+        
+        System.out.println("New Category: "+ name + ", " + descr);
+        //save();
+    }
+    
     /**
      * Updates the name of category.
      *

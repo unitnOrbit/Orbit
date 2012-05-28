@@ -71,7 +71,25 @@ public class Admin extends Controller {
      * Process data received from the form and proceed with the creation
      */
     public static Result cat_new() {
-        return TODO;
+        Form<Category> newCatForm = form(Category.class).bindFromRequest();
+        List<Category> cats_list = Category.find.all();
+
+        // Checks if name is empty
+        if(newCatForm.field("name").valueOr("").isEmpty()) {
+            newCatForm.reject("name", "Cannot be empty!");
+        }
+        
+        if(newCatForm.hasErrors()) {
+            System.err.println("\tFAIL: " + newCatForm.errors());
+            return badRequest(cat_new.render(newCatForm));
+        } else {
+            String name = newCatForm.field("name").value();
+            String description = newCatForm.field("description").value();
+            newCatForm.get().createCategory(name, description);
+            return ok(cat_list.render(cats_list));
+            //return TODO;
+        }
+        
     }
     
     /**
