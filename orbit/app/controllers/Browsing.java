@@ -53,7 +53,7 @@ public class Browsing extends Controller {
         Report report = Report.find.byId(report_id);
 
         if ( ! report.is_authorized(Secured.user()) ) {
-            return forbidden("Forbidden\n");
+            return forbidden("You are not allowed to see this report!\n");
         }
 
         for (Statistic stat: report.statistics) {
@@ -81,6 +81,11 @@ public class Browsing extends Controller {
      */
     public static Result statistic_by_id(Long stat_id) {
 	Statistic stat = Statistic.find.byId(stat_id);
+
+        if ( ! stat.is_authorized(Secured.user()) ) {
+            return forbidden("Forbidden\n");
+        }
+
 	String res;
 	try {
 	    return ok(stat.toJson());

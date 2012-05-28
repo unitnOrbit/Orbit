@@ -115,7 +115,6 @@ public class Report extends Model {
      * a cast to UserCredentials is performed.
      */
     public boolean is_authorized(User user) {
-        System.out.println("user \""+ user.getUsername() + "\" request for report "+ this.name);
         if (this.is_public || user.isAdmin()) {
             return true;
         } else {

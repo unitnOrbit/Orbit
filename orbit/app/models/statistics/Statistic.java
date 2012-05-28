@@ -14,7 +14,7 @@ public class Statistic extends Model {
 
     @Id
     public Long id;
-    
+
     @Constraints.Required
     public String name;
 
@@ -46,7 +46,19 @@ public class Statistic extends Model {
         return this.name;
     }
 
-    
+    /**
+     * Checks wether the specified user is allowed to
+     * see this statistic
+     */
+    public boolean is_authorized(User user) {
+        for (Report r: this.reports) {
+            if (r.is_authorized(user)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Serializes the object into a JSON, suitable for
      * being interpreted by the displaying/plotting engine.
