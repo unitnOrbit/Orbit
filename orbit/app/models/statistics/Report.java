@@ -57,7 +57,7 @@ public class Report extends Model {
     public void updateName(Long id, String name) {
         Report selectedReport = Report.find.byId(id);
         selectedReport.name = name;
-        selectedReport.save();
+        selectedReport.update();
     }
 
     /**
@@ -69,7 +69,7 @@ public class Report extends Model {
     public void updateDescription(Long id, String description) {
         Report selectedReport = Report.find.byId(id);
         selectedReport.description = description;
-        selectedReport.save();
+        selectedReport.update();
     }
 
     /**
@@ -81,7 +81,7 @@ public class Report extends Model {
     public void updateVisibility(Long id, boolean visible) {
         Report selectedReport = Report.find.byId(id);
         selectedReport.is_public = visible;
-        selectedReport.save();
+        selectedReport.update();
     }
 
 

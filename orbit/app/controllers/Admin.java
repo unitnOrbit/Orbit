@@ -90,17 +90,6 @@ public class Admin extends Controller {
         System.out.println(">\tcat_del(" + cat_id + ")");
         System.out.println("\tname: " + category.name);
         
-        // Checks if the text confirmation is empty
-        /*
-         if(!catDelForm.field("text-confirmation").valueOr("").isEmpty()) {
-            if(!catDelForm.field("text-confirmation").valueOr("").equals("remove")) {
-                catDelForm.reject("text-confirmation", "You must type \"remove\" to delete this category!");
-            }
-        } else {
-            catDelForm.reject("text-confirmation", "The text cannot be empty!");
-        }
-        */
-
         // Checks if the confirmation is true
         if(catDelForm.field("confirmation").value() == null) {
             catDelForm.reject("confirmation", "You must confirm this box to continue!");            
@@ -120,14 +109,14 @@ public class Admin extends Controller {
     public static Result report_edit_pg(Long report_id) {
         List<Long> stats = new LinkedList<Long>();
         Report report = Report.find.byId(report_id);
+        
         for (Statistic stat: report.statistics) {
             stats.add(stat.id);
         }
+        
         Category cat = null;
         try {
-            cat = Category.find.byId(
-                                     Long.parseLong(request().queryString().get("category")[0])
-                                     );
+            cat = Category.find.byId(Long.parseLong(request().queryString().get("category")[0]));
         }
         catch (NullPointerException e) {
             cat = report.categories.get(0);
@@ -166,7 +155,7 @@ public class Admin extends Controller {
         
         // Checks if name is empty
         if(reportForm.field("name").valueOr("").isEmpty()) {
-            reportForm.reject("name", "Cannot be empty!");            
+            reportForm.reject("name", "Cannot be empty!");
         }
         
         if(reportForm.hasErrors()) {
@@ -180,7 +169,6 @@ public class Admin extends Controller {
             reportForm.get().updateVisibility(report_id, reportForm.get().is_public);
             
             return ok(report_edit_pg.render(cat, report, stats, reportForm, "success"));
-            //return ok(reports.render(cat, report, play.libs.Json.toJson(stats).toString()));
         }        
     }
     
