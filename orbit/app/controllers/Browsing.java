@@ -105,5 +105,23 @@ public class Browsing extends Controller {
      return ok(toJson(cat));
      }
      */
-    
+
+    /**
+     * utility function: splits the give iterable into
+     * a list of lists where each sublist has n elements,
+     * except the last one that might have less elements.
+     */
+    public static <T> List<List<T>> split(Iterable<T> in, int n) {
+        LinkedList<List<T>> ret = new LinkedList<List<T>>();
+        for (T item: in) {
+            if (ret.peek() == null) {
+                ret.addLast(new LinkedList<T>());
+            }
+            else if (ret.getLast().size() >= n) {
+                ret.addLast(new LinkedList<T>());
+            }
+            ret.getLast().add(item);
+        }
+        return ret;
+    }
 }
