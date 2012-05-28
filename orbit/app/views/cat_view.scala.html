@@ -9,25 +9,46 @@
     });
 </script>
 
+<style type="text/css">
+    .public { 
+        background-color: #DFF0D8;
+        border-color: #D6E9C6;
+    }
+    .private { border: 1px #B94A48 solid; }
+</style>
+
 <div class="alert alert-info">Reports</div>
 
 <div id="report_list_container" class="row-fluid">
-  @for(report <- reports) {
-  <div class="span4">
-    <h3>@report.name</h3>
-    <p>@report.description<p>
-      <p>
-          @if(user.getUsername() != null) {
-              @if(user.isAdmin()) {
-                <a class="btn btn-small" rel="tooltip" title="Edit report" href="@routes.Admin.report_edit_pg(report.id)"><i class="icon-edit"></i></a>
-                <a class="btn btn-small" rel="tooltip" title="Delete report" href="@routes.Admin.report_del_pg(report.id)"><i class="icon-trash"></i></a>
-              }
-          }
-          <a class="btn" rel="tooltip" title="View this report" href="@(routes.Browsing.report_by_id(report.id))?category=@cat.id">View &raquo;</a>
-      </p>
-  </div><!--/span-->
-  }
-  
+    @for(report <- reports) {
+        
+        <div class="span4">
+            <h3>@report.name</h3>
+            <p>@report.description<p>
+            <p>
+                <div class="btn-group">
+                    @if(user.getUsername() != null) {
+                            @if(user.isAdmin()) {
+                                    <a class="btn btn-small" rel="tooltip" title="Edit report" href="@routes.Admin.report_edit_pg(report.id)"><i class="icon-edit"></i></a>
+                                    <a class="btn btn-small" rel="tooltip" title="Delete report" href="@routes.Admin.report_del_pg(report.id)"><i class="icon-trash"></i></a>
+                            }
+                    }
+                    <a class="btn" rel="tooltip" title="View this report" href="@(routes.Browsing.report_by_id(report.id))?category=@cat.id">View &raquo;</a>
+                </div><!--/btn-group-->
+            </p>
+        
+            @* Visibility label *@
+            @if(user.getUsername() != null) {
+                <p>
+                    @if(report.is_public) {
+                        <span class="label label-success">Public</span>
+                    } else {
+                        <span class="label label-important">Private</span>
+                    }
+                </p>        
+            }
+        </div><!--/span-->
+    }
 </div>
 
 } @* end defining user *@
