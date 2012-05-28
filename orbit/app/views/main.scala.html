@@ -1,4 +1,7 @@
 @(title: Html, nav: String, nav2: String, connected: String)(content: Html)
+
+@defining(controllers.Secured.user()){ user =>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -104,10 +107,10 @@
                         <li class="divider-vertical"></li>                    
 		        *@
                         
-			@if(controllers.Secured.user().getUsername() != null) {
+			@if(user.getUsername() != null) {
                           <!-- se l'utente e' loggato -->
                           <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">@controllers.Secured.user().getUsername() <b class="caret"></b></a>
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">@user.getUsername() <b class="caret"></b></a>
                               <ul class="dropdown-menu">
                                   <li><a href="#">Settings</a></li>
                                   <li class="divider"></li>
@@ -151,7 +154,7 @@
                         <li class="sidebar-school"><a href="http://ict.unitn.it/" target="_blank"><i class="icon-share-alt"></i> School website</a></li>
                         
                         @* Checks if user is ADMIN *@
-                        @if(controllers.Secured.user().isAdmin()) {
+                        @if(user.isAdmin()) {
                             <li class="nav-header">Administration</li>                            
                             <li class="sidebar-createcategory"><a href="@routes.Admin.cat_new_pg()"><i class="icon-pencil"></i> Create Category</a></li>                        
                             <li class="sidebar-createreport"><a href="@routes.Admin.report_new_pg()"><i class="icon-pencil"></i> Create Report</a></li>
@@ -159,14 +162,17 @@
                                                 
                         <!-- Categories block -->
                         <li id="cats-side-nav" class="nav-header">Categories</li>
-                        @for(cat <- controllers.Browsing.getMainCategory() ) {
-                             <li class="sidebar sidebar-cat-@cat.id"><a href="@routes.Browsing.cat_by_id(cat.id)"><i class="icon-list-alt"></i> @cat.name</a>
-                            
-                                @* Gets the asccociated reports *@
+                        @for(cat <- controllers.Browsing.get_cat_list() ) {
+                          @defining(cat.allowed_reports(user)){reports =>
+                            @if(reports.size() > 0) {
+                              <li class="sidebar sidebar-cat-@cat.id">
+                                <a href="@routes.Browsing.cat_by_id(cat.id)">
+                                  <i class="icon-list-alt"></i> @cat.name
+                                </a>
                                 @if(nav == ("cat-" + cat.id) || nav2 == ("cat-" + cat.id)){
-                                <ul class="">
+                                  <ul class="">
                                     <!-- Reports list -->
-                                    @for(repo <- cat.reports) {
+                                    @for(repo <- reports) {
                                         <li class="sidebar-report-@repo.id">
                                             <a href="@routes.Browsing.report_by_id(repo.id)?category=@cat.id" class="rep_tip" rel="tooltip" title="@repo.name">
                                                 @{val repo_name = repo.name.substring(0,35); repo_name } ...
@@ -174,7 +180,7 @@
                                         </li>
                                     }
                                     <script type="text/javascript">
-                                        /**
+                                        /*
                                          * Check if the current report was selected.
                                          */
                                         $(function() {
@@ -185,9 +191,11 @@
                                             $('a.rep_tip[rel=tooltip]').tooltip({ placement : 'right'});
                                         });
                                     </script>
-                                </ul>
+                                  </ul>
                                 }
-                             </li>
+                              </li>
+                            }
+                          }
                         }
                             
                         <li class="nav-header">Tools</li>
@@ -218,7 +226,7 @@
                                 <a href="@routes.Application.index">Home</a> 
                             </li>
 		@if(nav != "home"){
-                        @for(cat <- controllers.Browsing.getMainCategory() ) {
+                        @for(cat <- controllers.Browsing.get_cat_list() ) {
 			    @if(nav == ("cat-" + cat.id)){
 			      <li> <span class="divider">/</span>
 			      <a href="@routes.Browsing.cat_by_id(cat.id)?category=@cat.id">@cat.name</a> </li>
@@ -286,3 +294,5 @@
 
 </body>
 </html>
+
+} @* end defining user *@

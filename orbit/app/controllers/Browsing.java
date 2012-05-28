@@ -7,29 +7,23 @@ import models.statistics.*;
 import models.global.UserCredentials;
 
 public class Browsing extends Controller {
-    
+
+    /**
+     * Returns the list of categories available to the current user.
+     *
+     * Useful for building the sidebar.
+     */
+    public static List<Category> get_cat_list() {
+        return Category.find.all();
+    }
+
     /**
      * Returns a page for navigating across categories.
      */
     public static Result cat_list() {
-    	List<models.statistics.Category> cats =
-	    models.statistics.Category.find.all();
-    	return ok(cat_list.render(cats));
+    	return ok(cat_list.render(get_cat_list()));
     }
-    
-    /**
-     * Returns the list of categories. Useful for building the sidebar.
-     */
-    public static List<models.statistics.Category> getMainCategory() {
-        List<models.statistics.Category> cats = models.statistics.Category.find.all();
-        for (Category cat: cats) {
-            for (Report r: cat.reports) {
-                r.refresh(); // fetches object from database
-            }
-        }
-        return cats;
-    }
-    
+
     /**
      * Returns a page for navigating across reports in the given category.
      */
