@@ -33,7 +33,7 @@
         </div>
     }
 
-    @form(routes.Admin.cat_del(1), 'class -> "well form-horizontal") { 
+    @form(routes.Admin.cat_del(cat.id), 'class -> "well form-horizontal") { 
         <fieldset class="control-group">
             @inputText(categoryForm("text-confirmation"), '_label -> "If you're really sure type \"remove\" to delete this category", 
             'class -> "span3", '_showConstraints -> false)

@@ -75,6 +75,14 @@ public class Category extends Model {
      * @param id            The unique id of the category
      */    
     public void deleteCategory(Long id) {
-        find.ref(id).delete(); // FIXME: violazione chiave
+        Category category = Category.find.byId(id);
+        
+        for (Report r:category.reports) {
+            //r.delete();
+            System.out.println("Cat " + id + ", REPO: "+r.id);
+        }
+        
+
+        //find.ref(id).delete(); // FIXME: violazione chiave
     }
 }

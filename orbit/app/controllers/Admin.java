@@ -76,7 +76,7 @@ public class Admin extends Controller {
      * Displays a form for the removal of the category
      */    
     public static Result cat_del_pg(Long cat_id) {
-        Form<Category> catDelForm = form(Category.class).bindFromRequest();
+        Form<Category> catDelForm = form(Category.class);
         Category category = Category.find.byId(cat_id);
         
         return ok(cat_remove.render(category, catDelForm));
