@@ -21,24 +21,25 @@ public class Browsing extends Controller {
      * Returns a page for navigating across categories.
      */
     public static Result cat_list() {
-    	return ok(cat_list.render(get_cat_list()));
+        List<Category> cats = get_cat_list();
+        User user = Secured.user();
+        List<Category> ret = new LinkedList<Category>();
+        for (Category c:cats) {
+            if (c.allowed_reports(user).size() > 0)
+                ret.add(c);
+        }
+    	return ok(cat_list.render(ret));
     }
 
     /**
      * Returns a page for navigating across reports in the given category.
      */
     public static Result cat_by_id(Long cat_id) {
-        
-    	models.statistics.Category cat =
-        models.statistics.Category.find.byId(cat_id);
-        
-    	for (Report r:cat.reports){
-            r.refresh(); // fetches object from database
-    	}
-        
-    	return ok(cat_view.render(cat, cat.reports));
+    	Category cat = Category.find.byId(cat_id);
+        List<Report> reports = cat.allowed_reports(Secured.user());
+    	return ok(cat_view.render(cat, reports));
     }
-    
+
     /**
      * Returns a page displaying the given category.
      */

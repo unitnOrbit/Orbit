@@ -1,6 +1,8 @@
 @(cat: models.statistics.Category, reports: Collection[models.statistics.Report])
 
 @main(Html(cat.name), nav = "cat-"+cat.id, nav2 = "", null) {
+@defining(controllers.Secured.user()){ user =>
+
 <script>
     $(function() { // adds tooltip to the buttons
         $('a.btn[rel=tooltip]').tooltip();
@@ -15,8 +17,8 @@
     <h3>@report.name</h3>
     <p>@report.description<p>
       <p>
-          @if(controllers.Secured.user().getUsername() != null) {
-              @if(controllers.Secured.user().isAdmin()) {
+          @if(user.getUsername() != null) {
+              @if(user.isAdmin()) {
                 <a class="btn btn-small" rel="tooltip" title="Edit report" href="@routes.Admin.report_edit_pg(report.id)"><i class="icon-edit"></i></a>
                 <a class="btn btn-small" rel="tooltip" title="Delete report" href="@routes.Admin.report_del_pg(report.id)"><i class="icon-trash"></i></a>
               }
@@ -28,4 +30,5 @@
   
 </div>
 
+} @* end defining user *@
 }
