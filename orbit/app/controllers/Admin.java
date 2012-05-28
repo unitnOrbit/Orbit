@@ -28,7 +28,7 @@ public class Admin extends Controller {
     	}
         
         Form<Category> form = new Form(Category.class).fill(cat);
-        return ok(cat_edit_pg.render(cat, cat.reports,form));
+        return ok(cat_edit_pg.render(cat, cat.reports, form, "edit"));
     }
     
     public static Result cat_edit(Long cat_id) {
@@ -45,9 +45,8 @@ public class Admin extends Controller {
         }
         
         if(categoryForm.hasErrors()) {
-            return(badRequest(cat_edit_pg.render(category, 
-                                                 category.reports, 
-                                                 categoryForm)));
+            return(badRequest(cat_edit_pg.render(category, category.reports, 
+                                                 categoryForm, "error")));
         } else {
             System.out.println("Cat name: " + categoryForm.get().name);
             System.out.println("Cat descr: " + categoryForm.get().description);
@@ -58,7 +57,8 @@ public class Admin extends Controller {
             categoryForm.get().updateDescription(cat_id, categoryForm.get().description);
             // TODO
             //categoryForm.get().updateVisibility(cat_id, categoryForm.get().visibility);
-            return ok(cat_edit_pg.render(category, category.reports, categoryForm));
+            return ok(cat_edit_pg.render(category, category.reports, 
+                                         categoryForm, "success"));
         }
     }
     
@@ -95,12 +95,19 @@ public class Admin extends Controller {
         System.out.println("\tname: " + category.name);
         
         // Checks if the text confirmation is empty
-        if(!catDelForm.field("text-confirmation").valueOr("").isEmpty()) {
+        /*
+         if(!catDelForm.field("text-confirmation").valueOr("").isEmpty()) {
             if(!catDelForm.field("text-confirmation").valueOr("").equals("remove")) {
                 catDelForm.reject("text-confirmation", "You must type \"remove\" to delete this category!");
             }
         } else {
             catDelForm.reject("text-confirmation", "The text cannot be empty!");
+        }
+        */
+
+        // Checks if the confirmation is true
+        if(catDelForm.field("confirmation").value() == null) {
+            catDelForm.reject("confirmation", "You must confirm this box to continue!");            
         }
         
         if(catDelForm.hasErrors()) {

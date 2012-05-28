@@ -1,15 +1,31 @@
-@(cat: models.statistics.Category, reports: Collection[models.statistics.Report], categoryForm: Form[models.statistics.Category])
+@(cat: models.statistics.Category, reports: Collection[models.statistics.Report], categoryForm: Form[models.statistics.Category], step: String)
 
 @import helper._
 @import helper.twitterBootstrap._
 
-@main(Html(cat.name), nav = "cat-"+cat.id, nav2 = "", null) {
+@main(Html("Edit: " + cat.name), nav = "cat-"+cat.id, nav2 = "", null) {
 
-    @if(categoryForm.hasGlobalErrors) {
-        <div class="alert alert-error">
-            <p><strong>Error:</strong> @categoryForm.globalError.message</p>
+
+    @if(step == "edit") {
+        <div class="alert alert-info">
+            <button class="close" data-dismiss="alert">x</button>
+            <strong>Info:</strong> The changes made ​​will be final, you can not go back. 
+        </div>        
+    }
+
+    @if(step == "success") {
+        <div class="alert alert-success">
+            <button class="close" data-dismiss="alert">x</button>
+            <strong>Well done:</strong> The operation that you have made ​​has been completed successfully!
         </div>
     }
+
+    @if(categoryForm.hasErrors()) {
+        <div class="alert alert-error">
+            <button class="close" data-dismiss="alert">x</button>
+            <p><strong>Error:</strong> @categoryForm.errors()</p>
+        </div>
+    } 
 
     @helper.form(routes.Admin.cat_edit(cat.id), 'class -> "well form-horizontal") { 
         <fieldset>
