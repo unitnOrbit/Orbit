@@ -67,7 +67,8 @@ INSERT INTO `data_set` (`id`, `description`) VALUES
 (1, 'datasets.StudentsByNationality'),
 (2, 'datasets.FirstYStudentsByNationality'),
 (3, 'datasets.FirstYStudentsByNationalityLast5Years'),
-(4, 'datasets.StudentsByNationality');
+(4, 'datasets.ScholarshipOver5bySource'),
+(5, 'datasets.AverageMark');
 
 
 INSERT INTO `widget` (`id`, `name`, `description`) VALUES
@@ -103,7 +104,7 @@ INSERT INTO `statistic` (`id`, `name`, `description`, `format`, `num_visits`, `w
 (5, 'Number of scholarships over the last 5 years, ', 'The graph shows the number of scholarships over the last 5 years, classified by source (UNITN, DISI, Research center, Company, Other) ', NULL, NULL, 1, 3),
 (6, 'Average number of months spent abroad, by cycle, historically (for 5 cycles) ', 'The graph shows the average number of months spent abroad by cycle, fo 5 cycles', NULL, NULL, 1, 4),
 (7, 'Average number of months spent abroad, by cycle and by funding institution, historically (for 5 cycles) ', 'The graph shows the average number of months spent abroad by cycles and by funding institution, for 5 years', NULL, NULL, 1, 3),
-(8, 'Average mark in courses by funding institution, over the past 5 years', 'The graph shows the average mark in courses by funding institution, over the past 5 years', NULL, NULL, 1, 4);
+(8, 'Average mark in courses by funding institution, over the past 5 years', 'The graph shows the average mark in courses by funding institution, over the past 5 years', NULL, NULL, 1, 5);
 
 
 INSERT INTO `report_category` (`report_id`, `category_id`) VALUES
