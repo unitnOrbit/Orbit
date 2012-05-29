@@ -17,9 +17,11 @@ public class Trip extends Model {
     @Column(name = "Planned_end_date")
     public Date plannedenddate;
     @Column(name = "actual_begin_date_time")
-    public Date actualBeginDateTime;
+    public Calendar actualBeginDateTime;
+    //public Date actualBeginDateTime;
     @Column(name = "actual_end_date_time")
-    public Date actualEndDateTime;
+    public Calendar actualEndDateTime;
+    //public Date actualEndDateTime;
     @Column(name = "departure_border_cross_datetime")
     public Date departureBorderCrossDatetime;
     @Column(name = "arrival_border_cross_datetime")
