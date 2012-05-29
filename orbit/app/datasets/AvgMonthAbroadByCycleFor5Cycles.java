@@ -52,33 +52,32 @@ public class AvgMonthAbroadByCycleFor5Cycles
                 List<String> col;
 	col = new LinkedList<String>();
 	col.add(DataSet.ColTypes.STRING);
-	col.add("Cycle");
+	col.add("Academic Year");
 	cols.add(col);
 	  
 	col = new LinkedList<String>();
-	col.add(DataSet.ColTypes.STRING);
+	col.add(DataSet.ColTypes.NUMBER);
 	col.add("Avg months spent abroad");
 	cols.add(col);
 
 	return cols;
     }
- 
+
     public List<List> getData() {
     	List<List> data = new ArrayList<List>();
 
-                int to_c = SchoolCalendar.thisCycle();
-                int from_c = to_c - YEARS_REQUIRED + 1;
+        int to_c = SchoolCalendar.thisCycle();
+        int from_c = to_c - YEARS_REQUIRED + 1;
+        /*for (int i = from_c; i <= to_c; i++){
 
-                /*for (int i = from_c; i <= to_c; i++){
+          List row = new LinkedList();
+          row.add(SchoolCalendar.cycle2a_y(i));
+          for (Trip tr: this.trips) {
+          }
 
-                    List row = new LinkedList();
-                    row.add(SchoolCalendar.cycle2a_y(i));
-                    for (Trip tr: this.trips) {                    
-                   }
-                
-                data.add(row);
+          data.add(row);
 
-                }*/
+          }*/
 
 	return data;
      }
