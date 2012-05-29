@@ -61,6 +61,28 @@ INSERT INTO `users_credentials` (`user_credential_ID`, `user_name`, `password`, 
 (2,'prof','prof',2,NULL,1),
 (3,'student','student',3,1,NULL);
 
+INSERT INTO `courses` (`course_ID`, `notes`, `actual_start_date`, `institution`, `place`, `credits`, `course_name`, `academic_year`, `is_in_manifesto`, `is_by_UNITN`, `is_paid`, `budgeted_cost`, `actual_cost`, `planned_course_period`, `are_all_marks_defined`, `url`, `is_payment_completed`, `deleted`, `professor`) VALUES
+(1,'internal course / not started',NULL,'University of Trento','Povo 0, room 202',3,'Web Engineering',2012,1,1,1,1000,0,'Summer 2012',0,'http://summer-course.org',0,0,1),
+(2,'external course',NULL,'University of Bolzano','Bolzano',3,'Human Computer Interaction',2012,0,0,0,0,0,'UNKNOWN',0,'http://bolzano-courses.edu/hci',0,0,NULL),
+(3,'internal course / started','2012-04-05','Universiti of Trento','Povo 1, room 12',3,'Research Methodology II',2012,1,1,1,3000,0,'Spring 2012',0,'http://research-methodology.net',0,0,1),
+(4,'internal course / finished','2012-02-01','University of Trento','Povo 0, room Ofek',3,'Research Methodology I',2012,1,1,1,5000,4500,'Winter 2012',1,'http://research-methodology.net',0,0,1),
+(5,NULL,NULL,'Università','Trento',NULL,'Matematica',2012,0,1,NULL,10000,8000,'Ottobre 2013',0,'www.cheneso.com',0,0,NULL),
+(6,NULL,NULL,'Università','Trento',NULL,'Matematica',2012,0,1,NULL,10000,8000,'Ottobre 2013',0,'www.cheneso.com',0,0,NULL),
+(7,NULL,NULL,'Università','Trento',NULL,'Matematica',2012,0,1,NULL,10000,8000,'Ottobre 2013',0,'www.cheneso.com',0,0,NULL),
+(8,NULL,NULL,'Università','Trento',NULL,'Matematica',2012,0,1,NULL,10000,8000,'Ottobre 2013',0,'www.cheneso.com',0,0,NULL),
+(9,NULL,NULL,'Università','Trento',NULL,'Matematica',2012,0,1,NULL,10000,8000,'Ottobre 2013',0,'www.cheneso.com',0,0,NULL),
+(10,NULL,NULL,'Università','Trento',NULL,'DEMO',2012,0,1,NULL,10000,8000,'Ottobre 2013',0,'www.cheneso.com',0,0,NULL),
+(11,NULL,NULL,'Milano','none',NULL,'Prova Corso Esterno',2012,0,0,NULL,0,0,'none',0,'none',1,0,NULL);
+
+INSERT INTO `courses_enrollments` (`enrollment_ID`, `qualification`, `is_finished`, `credits`, `enrolled_at`, `updated_at`, `course`, `student`, `approved_at`) VALUES
+(3,'27',1,5,'2012-05-04 00:00:00',NULL,3,2,NULL),
+(4,'21',NULL,12,'2012-05-04 00:00:00',NULL,5,1,NULL),
+(5,'30L',NULL,6,'2012-05-04 00:00:00',NULL,6,2,NULL),
+(6,'25',NULL,3,'2012-05-04 00:00:00',NULL,7,3,NULL),
+(8,'30',NULL,6,'2012-05-07 00:00:00',NULL,8,4,NULL),
+(9,'none',NULL,6,'2012-05-07 00:00:00',NULL,6,3,NULL),
+(10,'',1,6,'2012-05-15 10:50:18','2012-05-15 10:50:18',4,2,'2012-05-15 10:50:18');
+
 -- STATISTICS models
 
 
@@ -77,8 +99,8 @@ INSERT INTO `data_set` (`id`, `description`) VALUES
 INSERT INTO `widget` (`id`, `name`, `description`) VALUES
 (1, 'Pie Chart', 'PieChart'),
 (2, 'Area Chart', 'AreaChart'),
-(3, 'Bar Chart', 'BarChart');
-
+(3, 'Vertical Bar Chart', 'ColumnChart'),
+(4, 'Orizontal Bar Chart', 'BarChart');
 
 
 INSERT INTO `report` (`id`, `name`, `description`, `is_public`) VALUES
@@ -88,7 +110,7 @@ INSERT INTO `report` (`id`, `name`, `description`, `is_public`) VALUES
 (4, 'Number of scholarships over the last 5 years, classified by source (UNITN, DISI, Research center, Company, Other) ', 'number of scholarships over the last 5 years, classified by source ', 0),
 (5, 'Average number of months spent abroad, by cycle, historically (for 5 cycles) ', 'average number of months spent abroad, by cycle, historically', 0),
 (6, 'Average number of months spent abroad, by cycle and by funding institution, historically (for 5 cycles) ', 'average number of months spent abroad, by cycle and by funding institution, historically', 1),
-(7, 'Average mark in courses by funding institution, over the past 5 years', 'average mark in courses by funding institution, over the past 5 years', 1);
+(7, 'Average mark in courses by funding institution, over the past 5 years', 'Average mark in courses by funding institution, considered over the past 5 years.', 1);
 
 
 
@@ -96,9 +118,7 @@ INSERT INTO `category` (`id`, `name`, `description`) VALUES
 (1, 'Current Students', 'Statistic reports about students'' marks, for current students'),
 (2, 'Student Scholarships', 'Statistic reports about student scholarships over the last 5 years'),
 (3, 'Student Marks', 'Students marks'),
-(4, 'Time Spent Abroad', 'Number of month spent abroad'),
-(5, 'Prova 1', 'Descrizione prova 1'),
-(6, 'Prova 2', 'Descrizione prova 2');
+(4, 'Time Spent Abroad', 'Number of month spent abroad');
 
 
 INSERT INTO `statistic` (`id`, `name`, `description`, `format`, `num_visits`, `widget_options`, `dataset_options`, `widget_id`, `dataset_id`) VALUES
@@ -108,7 +128,7 @@ INSERT INTO `statistic` (`id`, `name`, `description`, `format`, `num_visits`, `w
 (4, 'Number of scholarships over the last 5 years, ', 'The graph shows the number of scholarships over the last 5 years, classified by source (UNITN, DISI, Research center, Company, Other) ', NULL, NULL, NULL, NULL, 2, 4),
 (5, 'Average number of months spent abroad, by cycle, historically (for 5 cycles) ', 'The graph shows the average number of months spent abroad by cycle, fo 5 cycles', NULL, NULL, NULL, NULL, 1, 6),
 (6, 'Average number of months spent abroad, by cycle and by funding institution, historically (for 5 cycles) ', 'The graph shows the average number of months spent abroad by cycles and by funding institution, for 5 years', NULL, NULL, NULL, NULL, 1, 7),
-(7, 'Average mark in courses by funding institution, over the past 5 years', 'The graph shows the average mark in courses by funding institution, over the past 5 years', NULL, NULL, NULL, NULL, 3, 5);
+(7, 'Average mark in courses by funding institution, over the past 5 years', 'The graph shows the average mark in courses by funding institution, over the past 5 years. Note that any "-1" value means there was no student taking exams with a scholarship from that funding institution, during the considered academic year.', NULL, NULL, NULL, NULL, 3, 5);
 
 
 INSERT INTO `report_category` (`report_id`, `category_id`) VALUES
@@ -130,6 +150,7 @@ INSERT INTO `report_statistic` (`report_id`, `statistic_id`) VALUES
 (6, 6),
 (7, 7);
 
+
 INSERT INTO `report_users_roles` (`report_id`, `users_roles_user_rol_ID`) VALUES
 (1, 1),
 (1, 2),
@@ -148,6 +169,7 @@ INSERT INTO `report_users_roles` (`report_id`, `users_roles_user_rol_ID`) VALUES
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
+
 # --- !Downs
 
 DELETE FROM `report_users_roles`;
@@ -159,6 +181,8 @@ DELETE FROM `report`;
 DELETE FROM `data_set`;
 DELETE FROM `widget`;
 
+DELETE FROM `courses_enrollments`;
+DELETE FROM `courses`;
 DELETE FROM `users_credentials`;
 DELETE FROM `users_roles`;
 DELETE FROM `students`;

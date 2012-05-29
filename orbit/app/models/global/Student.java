@@ -1,6 +1,8 @@
 package models.global;
 
 import java.util.*;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -169,5 +171,27 @@ public class Student extends Model {
 
     public static ExpressionList<Student> allActive() {
         return find.where().eq("deleted", false);
+    }
+
+    public Double marks_mean() {
+        Pattern p = Pattern.compile("(\\d+)");
+        int sum = 0;
+        int count = 0;
+        for (CourseEnrollment c: this.coursesEnrollmentSet) {
+            Matcher m = p.matcher(c.qualification);
+            if (m.find()) {
+                int mark = Integer
+                    .parseInt(c.qualification.substring(m.start(), m.end()));
+                if (mark >= 18 && mark <= 30) {
+                    // out of this range, marks are out of scale, thus ignored
+                    count ++;
+                    sum += mark;
+                }
+            }
+        }
+        if (count > 0)
+            return new Double(((double)sum)/count);
+        else
+            return null;
     }
 }

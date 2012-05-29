@@ -65,8 +65,10 @@ public class FirstYStudentsByNationalityLast5Years
             List row = new LinkedList();
             row.add(SchoolCalendar.cycle2a_y(cycle));
             for (Country country: this.countries) {
-                int val = Student.allActive().eq("phd_cycle", Integer.toString(cycle))
-                    .eq("citizenship", country).findRowCount();
+                int val = Student.allActive()
+                    .eq("phd_cycle", Integer.toString(cycle))
+                    .eq("citizenship", country)
+                    .findRowCount();
                 row.add(new Integer(val));
             }
 

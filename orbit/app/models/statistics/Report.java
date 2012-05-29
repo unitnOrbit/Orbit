@@ -78,9 +78,9 @@ public class Report extends Model {
      * @param id            The unique id of the report
      * @param visible       The new visibility used for the report
      */
-    public void updateVisibility(Long id, boolean visible) {
+    public void updateVisibility(Long id, List<UserRole> r) {
         Report selectedReport = Report.find.byId(id);
-        selectedReport.is_public = visible;
+        //selectedReport.is_public = visible;
         selectedReport.update();
     }
 
