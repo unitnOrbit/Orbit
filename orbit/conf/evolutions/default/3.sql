@@ -108,7 +108,7 @@ INSERT INTO `statistic` (`id`, `name`, `description`, `format`, `num_visits`, `w
 (4, 'Number of scholarships over the last 5 years, ', 'The graph shows the number of scholarships over the last 5 years, classified by source (UNITN, DISI, Research center, Company, Other) ', NULL, NULL, NULL, NULL, 2, 4),
 (5, 'Average number of months spent abroad, by cycle, historically (for 5 cycles) ', 'The graph shows the average number of months spent abroad by cycle, fo 5 cycles', NULL, NULL, NULL, NULL, 1, 6),
 (6, 'Average number of months spent abroad, by cycle and by funding institution, historically (for 5 cycles) ', 'The graph shows the average number of months spent abroad by cycles and by funding institution, for 5 years', NULL, NULL, NULL, NULL, 1, 7),
-(7, 'Average mark in courses by funding institution, over the past 5 years', 'The graph shows the average mark in courses by funding institution, over the past 5 years', NULL, NULL, NULL, NULL, 1, 5);
+(7, 'Average mark in courses by funding institution, over the past 5 years', 'The graph shows the average mark in courses by funding institution, over the past 5 years', NULL, NULL, NULL, NULL, 3, 5);
 
 
 INSERT INTO `report_category` (`report_id`, `category_id`) VALUES

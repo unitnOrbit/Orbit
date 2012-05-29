@@ -32,12 +32,12 @@
             </p>
         
             @* Visibility label *@
-            @if(user.getUsername() != null) {
+            @if(user.isAdmin()) {
                 <p>
                     @if(report.is_public) {
                         <span class="label label-success">Public</span>
                     } else {
-                        <span class="label label-important">Private</span>
+                        <span class="label label-important">Restricted</span>
                     }
                 </p>        
             }
