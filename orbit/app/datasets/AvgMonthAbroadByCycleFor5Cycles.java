@@ -10,8 +10,6 @@ import com.avaje.ebean.annotation.Sql;
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.RawSqlBuilder;
 
-import org.joda.time.DateTime;
-import org.joda.time.Months;
 
 /**
  * Class for building the statistic representing
