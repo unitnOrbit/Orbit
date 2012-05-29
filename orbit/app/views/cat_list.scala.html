@@ -1,5 +1,6 @@
 @(cats: List[models.statistics.Category])
 
+
 @main(Html("Statistics Portal"), nav = "home", nav2 = "", null) {
 
 <script>
@@ -10,8 +11,11 @@
 
 <div class="alert alert-info">Categories</div>
 
-<div id="cat_list_container" class="row-fluid">
-    @for(cat <- cats) {
+<div id="cat_list_container"> 
+ @for(row <- controllers.Browsing.split(cats,3)){
+
+  <div style="margin-bottom:2em;" class="row-fluid">
+    @for(cat <- row) {
         
     <div class="span4">
         <h3>@cat.name</h3>
@@ -29,7 +33,8 @@
         </p>
     </div><!--/span-->
     }
-  
+   </div>
+ }
 </div>
 
 @*<hr/>

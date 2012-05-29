@@ -55,6 +55,7 @@ var stringToFunction = function(str) {
                var chart_type = stat_data.type;             // The type of current chart
                var chart_columns = stat_data.columns;       // The columns to be used
                var chart_data = stat_data.data;             // The rows to be used
+               var chart_options = stat_data.options;       // The options for the chrt
                
                var chart_templ_data;
                var data;
@@ -102,7 +103,8 @@ var stringToFunction = function(str) {
                data_table.addRows(chart_data);
                         
                //var options = {'title':'How Much Pizza I Ate Last Night', 'width':400, 'height':300};
-               var options = {'is3D': 'true'};
+               var options = $.extend({'is3D': 'true'}, chart_options);
+               console.log(options);
                var table_options = { showRowNumber: true, sortColumn: 1, sortAscending: false };
                               
                //chart = new google.visualization.PieChart(document.getElementById('chart-full-report'));

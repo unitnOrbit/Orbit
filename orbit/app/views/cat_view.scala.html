@@ -11,9 +11,11 @@
 
 <div class="alert alert-info">Reports</div>
 
-<div id="report_list_container" class="row-fluid">
-    @for(report <- reports) {
-        
+<div id="report_list_container">
+@for(row <- controllers.Browsing.split(reports,3)) {
+  
+  <div style="margin-bottom:2em;" class="row-fluid">
+    @for(report <- row) {
         <div class="span4">
             <h4>@report.name</h4>
             <p>@report.description<p>
@@ -41,6 +43,8 @@
             }
         </div><!--/span-->
     }
+  </div>
+}
 </div>
 
 } @* end defining user *@
