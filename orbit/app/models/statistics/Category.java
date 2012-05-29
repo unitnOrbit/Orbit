@@ -47,7 +47,7 @@ public class Category extends Model {
     public void createCategory(String name, String descr) {
         this.name = name;
         this.description = descr;
-        
+        this.save();
         System.out.println("New Category: "+ name + ", " + descr);
         //save();
     }

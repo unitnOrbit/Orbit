@@ -1,0 +1,66 @@
+@(cats_list: List[models.statistics.Category], userRole: List[models.global.UserRole], rep_form: Form[models.statistics.Report])
+
+@import helper._
+@import helper.twitterBootstrap._
+
+@main(Html("New report"), nav = "", nav2 = "", null){
+
+@if(rep_form.hasErrors()) {
+<div class="alert alert-error">
+    <button class="close" data-dismiss="alert">x</button>
+    <p><strong>Error:</strong> @rep_form.errors()</p>
+</div>
+} 
+
+@helper.form(routes.Admin.report_new(), 'class -> "well form-inline") {
+    <fieldset>
+        <legend>Create report</legend>
+        @textarea(
+            rep_form("name"), 
+            '_label -> "Report Name",
+            'rows -> 2, 
+            'class -> "span6", 
+            '_showConstraints -> false,
+            'placeholder -> "Enter the name for the new report"
+        )
+        @textarea(
+            rep_form("description"), 
+            '_label -> "Report Description",
+            'rows -> 8, 
+            'class -> "span6", 
+            '_showConstraints -> false,
+            'placeholder -> "Enter the description for the new report"        
+        )
+    </fieldset>
+
+    <fieldset>
+        <legend>Set visibility</legend>
+        @for(role <- userRole) {                
+            <label class="inline"><!-- force inline -->
+                @checkbox(
+                    rep_form("role"),
+                    '_label -> role.role,
+                    'id -> role.role,
+                    'class -> "inline"
+                )
+                &nbsp;
+            </label>
+        }
+    </fieldset>
+
+    <fieldset>
+        <legend>Select Category</legend>
+        <select name="categories">
+            @for(cat <- cats_list) {
+                <option value="@cat.id">@cat.name</option>
+            }
+        </select>
+    </fieldset>
+    <br/>
+
+    <div class="actions">
+        <button type="submit" class="btn">Complete</button>
+    </div>
+}
+
+}

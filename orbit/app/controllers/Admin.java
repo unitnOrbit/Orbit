@@ -87,7 +87,6 @@ public class Admin extends Controller {
             String description = newCatForm.field("description").value();
             newCatForm.get().createCategory(name, description);
             return ok(cat_list.render(cats_list));
-            //return TODO;
         }
         
     }
@@ -150,14 +149,13 @@ public class Admin extends Controller {
             cat = report.categories.get(0);
         }
 
-        Form<Report> form = new Form(Report.class).fill(report);
+        Form<Report> formRepEdit = new Form(Report.class).fill(report);
         for(UserRole role:report.allowed_roles) {
-            System.out.println(role.role);
-            String currentRole = "role-" + role.userrolID;
-            //form.fill(wtf wtf wtf);
+            String currentRole = role.role;
+            // TODO: fill checkbox
         }
         
-        return ok(report_edit_pg.render(cat, report, stats, form, roles, "edit"));
+        return ok(report_edit_pg.render(cat, report, stats, formRepEdit, roles, "edit"));
     }
     
     public static Result report_edit(Long report_id) {
@@ -197,17 +195,44 @@ public class Admin extends Controller {
             
             reportForm.get().updateName(report_id, reportForm.get().name);
             reportForm.get().updateDescription(report_id, reportForm.get().description);
-            reportForm.get().updateVisibility(report_id, reportForm.get().is_public);
+            reportForm.get().updateVisibility(report_id, reportForm.get().allowed_roles);
             
             return ok(report_edit_pg.render(cat, report, stats, reportForm, roles, "success"));
         }        
     }
     
     public static Result report_new_pg() {
-        return TODO;
+        Form<Report> formRepNew = new Form(Report.class);
+        List<Category> cats_list = Category.find.all();        
+        List<UserRole> roles = UserRole.find.all();
+        return ok(rep_new.render(cats_list, roles, formRepNew));
     }
+    
+    
     public static Result report_new() {
-        return TODO;
+        Form<Report> reportForm = form(Report.class).bindFromRequest();
+        List<Category> cats_list = Category.find.all();
+        List<UserRole> roles = UserRole.find.all();
+        
+        // DEBUG
+        System.out.println("name: " + reportForm.field("name").value());
+        System.out.println("descr: " + reportForm.field("description").value());
+        System.out.println("role_admin: " + reportForm.field("role").value());
+        System.out.println("category: " + reportForm.field("categories").value());
+        
+        // Checks if name is empty
+        if(reportForm.field("name").valueOr("").isEmpty()) {
+            reportForm.reject("name", "Cannot be empty!");
+        }
+                
+        if(reportForm.hasErrors()) {
+            System.out.println("FAIL: " + reportForm.errors());
+            return badRequest(rep_new.render(cats_list, roles, reportForm));
+        } else {
+            
+            System.out.println("SUCCESS!\n");
+            return ok(cat_list.render(cats_list));
+        }        
     }
     
     /**

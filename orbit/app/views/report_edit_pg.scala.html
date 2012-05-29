@@ -5,18 +5,11 @@
 
 @main(Html("Edit: " + report.name), nav = "cat-" + cat.id, nav2 = "report-" + report.id, null){
 
-<script>
-    $(function() {
-      //$("#check_role").find("label").addClass("checkbox");
-      $("#check_role").find("input").addClass("checkbox inline");
-      
-    });
-</script>
     @if(step == "edit") {
         <div class="alert alert-info">
             <button class="close" data-dismiss="alert">x</button>
             <strong>Info:</strong> The changes made ​​will be final, you can not go back. 
-        </div>        
+        </div>
     }
 
     @if(step == "success") {
@@ -25,7 +18,7 @@
             <strong>Well done:</strong> The operation that you have made ​​has been completed successfully!
         </div>
     }
-    
+
     @if(reportForm.hasErrors()) {
         <div class="alert alert-error">
             <button class="close" data-dismiss="alert">x</button>
@@ -35,24 +28,37 @@
 
     @helper.form(routes.Admin.report_edit(report.id), 'class -> "well form-inline") {
         <fieldset>
-            @textarea(reportForm("name"), '_label -> "Report Name", 
-            'rows -> 2, 'class -> "span6", '_showConstraints -> false)
-                            
-            @textarea(reportForm("description"), '_label -> "Report Description", 
-            'rows -> 8, 'class -> "span6", '_showConstraints -> false)
-            
-            @select(reportForm("is_public"), 
-            options("true"->"Public", "false"->"Private"), 
-            '_label -> "Category Visibility", '_showConstraints -> false
+            <legend>Edit report</legend>
+            @textarea(
+                reportForm("name"), 
+                '_label -> "Report Name",
+                'rows -> 2, 
+                'class -> "span6", 
+                '_showConstraints -> false
             )
-            
-            @for(role <- userRole) {
-                <label class="chackbox inline">
-                @role.role@helper.checkbox(reportForm("role-" + role.userrolID + ""), 'class -> "inline", '_label -> "")
-                </label>
-            }                
+            @textarea(
+                reportForm("description"), 
+                '_label -> "Report Description",
+                'rows -> 8, 
+                'class -> "span6", 
+                '_showConstraints -> false
+            )
         </fieldset>
 
+        <fieldset>
+            <legend>Set visibility</legend>
+            @for(role <- userRole) {                
+                <label class="inline"><!-- force inline -->
+                    @checkbox(
+                    reportForm(role.role),
+                    '_label -> role.role,
+                    'id -> role.role,
+                    'class -> "inline"
+                    )
+                    &nbsp;
+                </label>
+            }
+        </fieldset>
 
         <div class="actions">
             <button type="submit" class="btn">Complete</button>
