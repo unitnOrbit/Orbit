@@ -96,9 +96,7 @@ INSERT INTO `category` (`id`, `name`, `description`) VALUES
 (1, 'Current Students', 'Statistic reports about students'' marks, for current students'),
 (2, 'Student Scholarships', 'Statistic reports about student scholarships over the last 5 years'),
 (3, 'Student Marks', 'Students marks'),
-(4, 'Time Spent Abroad', 'Number of month spent abroad'),
-(5, 'Prova 1', 'Descrizione prova 1'),
-(6, 'Prova 2', 'Descrizione prova 2');
+(4, 'Time Spent Abroad', 'Number of month spent abroad');
 
 
 INSERT INTO `statistic` (`id`, `name`, `description`, `format`, `num_visits`, `widget_options`, `dataset_options`, `widget_id`, `dataset_id`) VALUES
