@@ -74,6 +74,10 @@ public class Statistic extends Model {
 	datasets.DataSet dataset = this.dataset.getDataSetInstance();
 	res.put("columns", dataset.getColumns());
 	res.put("data", dataset.getData());
+	res.put("options", play.libs.Json.parse(
+	    (this.widget_options == null || this.widget_options == "")? "{}" : this.widget_options
+	));
+	//res.put("options", play.libs.Json.parse(this.dataset_options));
 	// TODO: support widget options and dataset options
 	return play.libs.Json.toJson(res);
     }
