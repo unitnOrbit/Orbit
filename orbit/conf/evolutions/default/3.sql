@@ -44,7 +44,7 @@ INSERT INTO `students` (`user_ID`, `first_name`, `last_name`, `full_name`, `phd_
 (1, 'John Erik', 'Smith', 'John E. Smith', '27', 0, 1, 0, 'via manci 27, Trento', '', '1991-12-22', 'New York, NY, USA', '123-456789', '1231-23456', 'P1-S5-14', '27-A', 0, '0', 0, 0, 1, '0', 0, '0', 0, 0, 1, NULL, 'UNKNOWN', 'john.smith@domain.com', 1, 1, 1, 1, 1, 4, 1, 1, 1, 1, NULL, NULL),
 (2, 'Paolo', 'Rossi', 'Paolo Rossi', '27', 0, 2, 0, 'piazza roma 12, Trento', '', '1991-12-22', 'Milano, MI, ITA', '123-456789', '1231-23456', 'P1-S5-14', '27-A', 0, '0', 0, 0, 1, '0', 0, '0', 0, 0, 1, NULL, 'UNKNOWN', 'paolo.rossi@domain.com', 0, 2, 1, 1, 1, 4, 1, 1, 1, 1, NULL, NULL),
 (3, 'Davide', 'Kirchner', 'Davide Kirchner', '26', 0, 2, 0, 'via manci 27, Trento', '', '1991-12-22', 'Trento, TN, ITA', '123-456789', '1231-23456', 'P1-S5-14', '27-A', 0, '0', 0, 0, 1, '0', 0, '0', 0, 0, 1, NULL, 'UNKNOWN', 'dk@example.com', 0, 1, 1, 1, 1, 4, 1, 1, 1, 1, NULL, NULL),
-(4, 'Paul', 'Jackson', 'Paul Jackson', '26', 0, 2, 0, 'via foscolo 40, Trento', '', '1991-12-22', 'New York, NY, USA', '123-456789', '1231-23456', 'P1-S5-14', '27-A', 0, '0', 0, 0, 1, '0', 0, '0', 0, 0, 1, NULL, 'UNKNOWN', 'paul.jackson@domain.com', 0, 1, 1, 1, 1, 4, 1, 1, 1, 1, NULL, NULL),
+(4, 'Paul', 'Jackson', 'Paul Jackson', '26', 0, 1, 0, 'via foscolo 40, Trento', '', '1991-12-22', 'New York, NY, USA', '123-456789', '1231-23456', 'P1-S5-14', '27-A', 0, '0', 0, 0, 1, '0', 0, '0', 0, 0, 1, NULL, 'UNKNOWN', 'paul.jackson@domain.com', 0, 1, 1, 1, 1, 4, 1, 1, 1, 1, NULL, NULL),
 (5, 'Harry', 'Johnson', 'Harry Johnson', '28', 0, 2, 0, 'via milano 50, Trento', '', '1991-12-22', 'New York, NY, USA', '123-456789', '1231-23456', 'P1-S5-14', '27-A', 0, '0', 0, 0, 1, '0', 0, '0', 0, 0, 1, NULL, 'UNKNOWN', 'harry.johnson@domain.com', 0, 1, 1, 1, 1, 4, 1, 1, 1, 1, NULL, NULL),
 (6, 'Patrick', 'Smith', 'Patrick Smith', '28', 0, 2, 0, 'via antonio fogazzaro 35, Trento', '', '1991-12-22', 'New York, NY, USA', '123-456789', '1231-23456', 'P1-S5-14', '27-A', 0, '0', 0, 0, 1, '0', 0, '0', 0, 0, 1, NULL, 'UNKNOWN', 'patrick.smith@domain.com', 0, 2, 1, 1, 1, 4, 1, 1, 1, 1, NULL, NULL),
 (7, 'Some Guy', 'Lee', 'Some Guy', '28', 0, 2, 0, 'via verdi 27, Trento', '', '1991-12-22', 'Shanghai, SHA, CN', '123-456789', '1231-23456', 'P1-S5-14', '27-A', 0, '0', 0, 0, 1, '0', 0, '0', 0, 0, 1, NULL, 'UNKNOWN', 'someguy.lee@domain.com', 0, 1, 1, 1, 1, 4, 1, 1, 1, 1, NULL, NULL);
@@ -76,7 +76,9 @@ INSERT INTO `data_set` (`id`, `description`) VALUES
 
 INSERT INTO `widget` (`id`, `name`, `description`) VALUES
 (1, 'Pie Chart', 'PieChart'),
-(2, 'Area Chart', 'AreaChart');
+(2, 'Area Chart', 'AreaChart'),
+(3, 'Bar Chart', 'BarChart');
+
 
 
 INSERT INTO `report` (`id`, `name`, `description`, `is_public`) VALUES
