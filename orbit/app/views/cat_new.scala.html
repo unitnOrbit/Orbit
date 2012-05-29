@@ -10,14 +10,14 @@
             <button class="close" data-dismiss="alert">x</button>
             <p><strong>Error:</strong> @newCatForm.errors()</p>
         </div>
-    } 
+    }
 
     @helper.form(routes.Admin.cat_new(), 'class -> "well form-horizontal") { 
         <fieldset>
             @textarea(newCatForm("name"), '_label -> "Category Name", 
             'rows -> 2, 'class -> "span6", '_showConstraints -> false, 'placeholder -> "Enter the name for the category")
             
-            @textarea(newCatForm("description"), '_label -> "Category description", 'rows -> 8, 'class -> "span6", '_showConstraints -> false, 'placeholder -> "Enter the description for the category")            
+            @textarea(newCatForm("description"), '_label -> "Category description", 'rows -> 8, 'class -> "span6", '_showConstraints -> false, 'placeholder -> "Enter the description for the category")
         </fieldset>
 
         <div class="actions">
