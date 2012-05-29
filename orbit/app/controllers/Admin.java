@@ -150,14 +150,13 @@ public class Admin extends Controller {
             cat = report.categories.get(0);
         }
 
-        Form<Report> form = new Form(Report.class).fill(report);
+        Form<Report> formRepEdit = new Form(Report.class).fill(report);
         for(UserRole role:report.allowed_roles) {
-            System.out.println(role.role);
-            String currentRole = "role-" + role.userrolID;
-            //form.fill(wtf wtf wtf);
+            String currentRole = role.role;
+            // TODO: fill checkbox
         }
         
-        return ok(report_edit_pg.render(cat, report, stats, form, roles, "edit"));
+        return ok(report_edit_pg.render(cat, report, stats, formRepEdit, roles, "edit"));
     }
     
     public static Result report_edit(Long report_id) {
@@ -197,7 +196,7 @@ public class Admin extends Controller {
             
             reportForm.get().updateName(report_id, reportForm.get().name);
             reportForm.get().updateDescription(report_id, reportForm.get().description);
-            reportForm.get().updateVisibility(report_id, reportForm.get().is_public);
+            reportForm.get().updateVisibility(report_id, reportForm.get().allowed_roles);
             
             return ok(report_edit_pg.render(cat, report, stats, reportForm, roles, "success"));
         }        
