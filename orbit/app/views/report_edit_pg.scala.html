@@ -1,10 +1,17 @@
-@(cat: models.statistics.Category, report: models.statistics.Report, statsList: List[Long], reportForm: Form[models.statistics.Report], step: String)
+@(cat: models.statistics.Category, report: models.statistics.Report, statsList: List[Long], reportForm: Form[models.statistics.Report], userRole: List[models.global.UserRole], step: String)
 
 @import helper._
 @import helper.twitterBootstrap._
 
 @main(Html("Edit: " + report.name), nav = "cat-" + cat.id, nav2 = "report-" + report.id, null){
 
+<script>
+    $(function() {
+      //$("#check_role").find("label").addClass("checkbox");
+      $("#check_role").find("input").addClass("checkbox inline");
+      
+    });
+</script>
     @if(step == "edit") {
         <div class="alert alert-info">
             <button class="close" data-dismiss="alert">x</button>
@@ -26,7 +33,7 @@
         </div>
     } 
 
-    @helper.form(routes.Admin.report_edit(report.id), 'class -> "well form-horizontal") { 
+    @helper.form(routes.Admin.report_edit(report.id), 'class -> "well form-inline") {
         <fieldset>
             @textarea(reportForm("name"), '_label -> "Report Name", 
             'rows -> 2, 'class -> "span6", '_showConstraints -> false)
@@ -38,8 +45,15 @@
             options("true"->"Public", "false"->"Private"), 
             '_label -> "Category Visibility", '_showConstraints -> false
             )
+            
+            @for(role <- userRole) {
+                <label class="chackbox inline">
+                @role.role@helper.checkbox(reportForm("role-" + role.userrolID + ""), 'class -> "inline", '_label -> "")
+                </label>
+            }                
         </fieldset>
-    
+
+
         <div class="actions">
             <button type="submit" class="btn">Complete</button>
         </div>

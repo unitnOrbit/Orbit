@@ -131,8 +131,9 @@ public class Admin extends Controller {
     }
     
     public static Result report_edit_pg(Long report_id) {
-        List<Long> stats = new LinkedList<Long>();
         Report report = Report.find.byId(report_id);
+        List<Long> stats = new LinkedList<Long>();
+        List<UserRole> roles = report.allowed_roles;
         
         for (Statistic stat: report.statistics) {
             stats.add(stat.id);
@@ -148,16 +149,22 @@ public class Admin extends Controller {
         catch (NumberFormatException e) {
             cat = report.categories.get(0);
         }
-        
+
         Form<Report> form = new Form(Report.class).fill(report);
+        for(UserRole role:report.allowed_roles) {
+            System.out.println(role.role);
+            String currentRole = "role-" + role.userrolID;
+            //form.fill(wtf wtf wtf);
+        }
         
-        return ok(report_edit_pg.render(cat, report, stats, form, "edit"));
+        return ok(report_edit_pg.render(cat, report, stats, form, roles, "edit"));
     }
     
     public static Result report_edit(Long report_id) {
         Form<Report> reportForm = form(Report.class).bindFromRequest();
         Report report = Report.find.byId(report_id);
         List<Long> stats = new LinkedList<Long>();
+        List<UserRole> roles = report.allowed_roles;
         
         for (Statistic stat: report.statistics) {
             stats.add(stat.id);
@@ -184,7 +191,7 @@ public class Admin extends Controller {
         
         if(reportForm.hasErrors()) {
             System.out.println("FAIL: " + reportForm.errors());
-            return badRequest(report_edit_pg.render(cat, report, stats, reportForm, "error"));
+            return badRequest(report_edit_pg.render(cat, report, stats, reportForm, roles, "error"));
         } else {
             System.out.println("\tSUCCESS!\n");
             
@@ -192,7 +199,7 @@ public class Admin extends Controller {
             reportForm.get().updateDescription(report_id, reportForm.get().description);
             reportForm.get().updateVisibility(report_id, reportForm.get().is_public);
             
-            return ok(report_edit_pg.render(cat, report, stats, reportForm, "success"));
+            return ok(report_edit_pg.render(cat, report, stats, reportForm, roles, "success"));
         }        
     }
     
