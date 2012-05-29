@@ -68,7 +68,9 @@ INSERT INTO `data_set` (`id`, `description`) VALUES
 (2, 'datasets.FirstYStudentsByNationality'),
 (3, 'datasets.FirstYStudentsByNationalityLast5Years'),
 (4, 'datasets.ScholarshipOver5bySource'),
-(5, 'datasets.AverageMark');
+(5, 'datasets.AverageMark'),
+(6, 'datasets.AvgMonthAbroadByCycleFor5Cycles'),
+(7, 'datasets.AvgMonthAbroadByCycleByInstitutionFor5CyclesHistorically');
 
 
 INSERT INTO `widget` (`id`, `name`, `description`) VALUES
@@ -100,11 +102,10 @@ INSERT INTO `statistic` (`id`, `name`, `description`, `format`, `num_visits`, `w
 (1, 'Distribution of 1st year admitted students by nationality for the current year ', 'The graph shows the list of countries, each one with the percentage of students from that country admitted to the 1st year ', NULL, NULL, 1, 2),
 (2, 'Distribution of current students by nationality ', 'The graph shows the list of countries, each one with the percentage of students from that country currently enrolled ', NULL, NULL, 1, 1),
 (3, 'Distribution of 1st year admitted students by nationality, over the last 5 years ', 'The graphs shows the list of countries, each one with the percentage of students from that country admitted over the last 5 years ', NULL, NULL, 2, 3),
-(4, 'Number of applications over the last 5 years', 'The graph shows the number of applications over the last 5 years', NULL, NULL, 1, 1),
-(5, 'Number of scholarships over the last 5 years, ', 'The graph shows the number of scholarships over the last 5 years, classified by source (UNITN, DISI, Research center, Company, Other) ', NULL, NULL, 1, 3),
-(6, 'Average number of months spent abroad, by cycle, historically (for 5 cycles) ', 'The graph shows the average number of months spent abroad by cycle, fo 5 cycles', NULL, NULL, 1, 4),
-(7, 'Average number of months spent abroad, by cycle and by funding institution, historically (for 5 cycles) ', 'The graph shows the average number of months spent abroad by cycles and by funding institution, for 5 years', NULL, NULL, 1, 3),
-(8, 'Average mark in courses by funding institution, over the past 5 years', 'The graph shows the average mark in courses by funding institution, over the past 5 years', NULL, NULL, 1, 5);
+(4, 'Number of scholarships over the last 5 years, ', 'The graph shows the number of scholarships over the last 5 years, classified by source (UNITN, DISI, Research center, Company, Other) ', NULL, NULL, 1, 3),
+(5, 'Average number of months spent abroad, by cycle, historically (for 5 cycles) ', 'The graph shows the average number of months spent abroad by cycle, fo 5 cycles', NULL, NULL, 1, 6),
+(6, 'Average number of months spent abroad, by cycle and by funding institution, historically (for 5 cycles) ', 'The graph shows the average number of months spent abroad by cycles and by funding institution, for 5 years', NULL, NULL, 1, 7),
+(7, 'Average mark in courses by funding institution, over the past 5 years', 'The graph shows the average mark in courses by funding institution, over the past 5 years', NULL, NULL, 1, 5);
 
 
 INSERT INTO `report_category` (`report_id`, `category_id`) VALUES
@@ -121,10 +122,10 @@ INSERT INTO `report_statistic` (`report_id`, `statistic_id`) VALUES
 (1, 1),
 (2, 2),
 (3, 3),
-(4, 5),
-(5, 6),
-(6, 7),
-(7, 8);
+(4, 4),
+(5, 5),
+(6, 6),
+(7, 7);
 
 INSERT INTO `report_users_roles` (`report_id`, `users_roles_user_rol_ID`) VALUES
 (1, 1),
