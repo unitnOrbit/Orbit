@@ -86,7 +86,6 @@ public class Admin extends Controller {
             String name = newCatForm.field("name").value();
             String description = newCatForm.field("description").value();
             newCatForm.get().createCategory(name, description);
-            //return ok(cat_list.render(cats_list));
             return redirect(routes.Application.index());
         }
         
@@ -126,7 +125,8 @@ public class Admin extends Controller {
             catDelForm.get().deleteCategory(cat_id);
             
             System.out.println("\tSUCCESS!\n");
-            return ok(cat_list.render(cats_list));
+            //return ok(cat_list.render(cats_list));
+            return redirect(routes.Application.index());
         }
     }
     
@@ -241,10 +241,10 @@ public class Admin extends Controller {
             return badRequest(rep_new.render(cats_list, roles,
                                              reportForm, getCategoryMap()));
         } else {
-            
             System.out.println("SUCCESS!\n");
-            return ok(cat_list.render(cats_list));
-        } 
+            //return ok(cat_list.render(cats_list));
+            return redirect(routes.Application.index());            
+        }
     }
     
     /**
@@ -256,32 +256,34 @@ public class Admin extends Controller {
         
         return ok(report_remove.render(report, repDelForm));        
     }
+    
     private static class Confirm {
-	boolean confirm;
-	public String validate() {
-	    if (confirm == true)
-		return null;
-	    else
-		return "You must confirm before deleting";
-	}
+        boolean confirm;
+        public String validate() {
+            if (confirm == true)
+                return null;
+            else
+                return "You must confirm before deleting";
+        }
     }
+    
     /** 
      * Process data received from the form and proceed with the cancellation
      */
     public static Result report_del(Long report_id) {
-	Form<Report> repDelForm = form(Report.class).bindFromRequest();
+        Form<Report> repDelForm = form(Report.class).bindFromRequest();
         Report report = Report.find.byId(report_id);
         List<Category> cats_list = Category.find.all();
         
         // Debug msg
         System.out.println(">\trep_del(" + report_id + ")");
-        System.out.println("\tname: " + report.name);
+        System.out.println("\tname: " + repDelForm.field("name").value());
         
         // Checks if the confirmation is true
         if(repDelForm.field("confirmation").value() == null) {
             repDelForm.reject("confirmation", "You must confirm this box to continue!");            
         }
-        
+ 
         if(repDelForm.hasErrors()) {
             System.err.println("\tFAIL: " + repDelForm.errors());
             return badRequest(report_remove.render(report, repDelForm));
@@ -289,7 +291,8 @@ public class Admin extends Controller {
             repDelForm.get().deleteReport(report_id);
             
             System.out.println("\tSUCCESS!\n");
-            return ok(cat_list.render(cats_list));
+            //return ok(cat_list.render(cats_list));
+            return redirect(routes.Application.index());            
         }
     }
 }

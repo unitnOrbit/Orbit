@@ -41,6 +41,7 @@
     }
 
     @form(routes.Admin.report_del(rep.id), 'class -> "well form-horizontal") { 
+        <input type="hidden" name="name" value="@rep.name" /><!-- required -->
         <fieldset class="control-group">
             @checkbox(field = reportForm("confirmation"), '_label -> "I'm sure you want to delete this report")            
         </fieldset>
