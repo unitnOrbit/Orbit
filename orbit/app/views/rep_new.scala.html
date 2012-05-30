@@ -33,37 +33,36 @@
         )
     </fieldset>
 
+
     <fieldset>
-        <legend>Set visibility</legend>
-        @for(role <- userRole) {
-            <label class="inline"><!-- force inline -->
-                @*
-                @checkbox(
-                    rep_form("role-" + role.role),
-                    '_label -> role.role,
-                    'id -> ("role-" + role.role),
-                    'class -> "inline",
-                    'checked -> "checked"
-                )*@
-            </label>
-            @input(rep_form("role-" + role.role), '_label -> role.role) {(id, name, value, args) =>
-                  <input id="@id" name="@name" type="checkbox" />
+        <legend>Set Category</legend>
+        @for(cat <- cats_list) {
+            <label class="inline span1"><!-- force inline -->
+            @input(rep_form("cat-" + cat.id), '_label -> cat.name) {(id, name, value, args) =>
+            <input id="@id" name="@name" type="checkbox" />
             }
-            &nbsp;
+            </label>
         }
     </fieldset>
+    <br/>
 
-    @*<fieldset>
-        <legend>Select Category</legend>
-        <!--select name="categories">
-            @for(cat <- cats_list) {
-                <option value="@cat.id">@cat.name</option>
-            }
-        </select-->
-        @select(
-          field = rep_form("categories"),
-          options = options(cat_map))
-    </fieldset>*@
+    <fieldset>
+        <legend>Set visibility</legend>
+        <label class="inline span1"><!-- force inline -->
+            @checkbox(
+                rep_form("is_public"), 
+                '_label -> Html("<b>Is Public</b>")
+            )
+        </label>
+        
+        @for(role <- userRole) {
+            <label class="inline span1"><!-- force inline -->
+                @input(rep_form("role-" + role.userrolID), '_label -> role.role) {(id, name, value, args) =>
+                      <input id="@id" name="@name" type="checkbox" />
+                }
+            </label>
+        }
+    </fieldset>
     <br/>
 
     <div class="actions">
