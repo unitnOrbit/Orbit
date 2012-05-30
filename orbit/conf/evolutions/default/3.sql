@@ -163,8 +163,8 @@ INSERT INTO `report_category` (`report_id`, `category_id`) VALUES
 
 INSERT INTO `report_statistic` (`report_id`, `statistic_id`) VALUES
 (1, 1),
-(2, 2),
-(3, 3),
+(2, 3),
+(3, 2),
 (4, 4),
 (5, 5),
 (6, 6),
