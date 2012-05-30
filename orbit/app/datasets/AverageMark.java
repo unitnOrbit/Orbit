@@ -41,28 +41,28 @@ public class AverageMark
      * No options supported, does nothing.
      */
     public void setOptions(Map options) {
-	// no option supported yet
+        // no option supported yet
     }
 
     public List<List<String>> getColumns() {
-	List<List<String>> cols = new LinkedList<List<String>>();
-	List<String> col;
-	col = new LinkedList<String>();
-	col.add(DataSet.ColTypes.STRING);
-	col.add("Academic Years");
-	cols.add(col);
+        List<List<String>> cols = new LinkedList<List<String>>();
+        List<String> col;
+        col = new LinkedList<String>();
+        col.add(DataSet.ColTypes.STRING);
+        col.add("Academic Years");
+        cols.add(col);
 
         for (FundingInstitution institutions: this.institutions) {
-	     col = new LinkedList<String>();
-	     col.add(DataSet.ColTypes.NUMBER);
-	     col.add(institutions.name);
-	     cols.add(col);
+            col = new LinkedList<String>();
+            col.add(DataSet.ColTypes.NUMBER);
+            col.add(institutions.name);
+            cols.add(col);
         }
-	return cols;
+        return cols;
     }
 
     public List<List> getData() {
-	List<List> data = new ArrayList<List>();
+        List<List> data = new ArrayList<List>();
 
         int to_c = SchoolCalendar.thisCycle();
         int from_c = to_c - YEARS_REQUIRED + 1;
@@ -91,7 +91,7 @@ public class AverageMark
             }
             data.add(row);
         }
-	return data;
+        return data;
     }
 
 }
