@@ -9,7 +9,20 @@
     });
 </script>
 
-<div class="alert alert-info">Reports</div>
+<div class="alert alert-info">
+		  Reports
+     @if(user.isAdmin()) {
+	<div class="btn-group" style="float:right;">
+                             <a class="btn btn-mini" rel="tooltip" title="Edit category" href="@routes.Admin.cat_edit_pg(cat.id)"><i class="icon-edit"></i> Edit</a>
+                             <a class="btn btn-mini" rel="tooltip" title="Delete category" href="@routes.Admin.cat_del_pg(cat.id)"><i class="icon-trash"></i> Delete</a>
+	</div><!--/btn-group-->
+	<div style="clear:both;"></div>
+
+     }
+
+</div>
+
+
 
 <div id="report_list_container">
 @for(row <- controllers.Browsing.split(reports,3)) {
