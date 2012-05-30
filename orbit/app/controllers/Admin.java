@@ -251,17 +251,45 @@ public class Admin extends Controller {
      * Displays a form for the removal of the report
      */
     public static Result report_del_pg(Long report_id) {
-        Form<Report> repDelForm = form(Report.class).bindFromRequest();
+        Form<Report> repDelForm = form(Report.class);
         Report report = Report.find.byId(report_id);
         
-        //return ok(report_remove.render(report, repDelForm));
-        return TODO;
+        return ok(report_remove.render(report, repDelForm));        
     }
-    
+    private static class Confirm {
+	boolean confirm;
+	public String validate() {
+	    if (confirm == true)
+		return null;
+	    else
+		return "You must confirm before deleting";
+	}
+    }
     /** 
      * Process data received from the form and proceed with the cancellation
      */
     public static Result report_del(Long report_id) {
-        return TODO;
+	Form<Report> repDelForm = form(Report.class).bindFromRequest();
+        Report report = Report.find.byId(report_id);
+        List<Category> cats_list = Category.find.all();
+        
+        // Debug msg
+        System.out.println(">\trep_del(" + report_id + ")");
+        System.out.println("\tname: " + report.name);
+        
+        // Checks if the confirmation is true
+        if(repDelForm.field("confirmation").value() == null) {
+            repDelForm.reject("confirmation", "You must confirm this box to continue!");            
+        }
+        
+        if(repDelForm.hasErrors()) {
+            System.err.println("\tFAIL: " + repDelForm.errors());
+            return badRequest(report_remove.render(report, repDelForm));
+        } else {
+            repDelForm.get().deleteReport(report_id);
+            
+            System.out.println("\tSUCCESS!\n");
+            return ok(cat_list.render(cats_list));
+        }
     }
 }

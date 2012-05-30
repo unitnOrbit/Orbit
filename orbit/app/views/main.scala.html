@@ -175,7 +175,7 @@
                                     @for(repo <- reports) {
                                         <li class="sidebar-report-@repo.id">
                                             <a href="@routes.Browsing.report_by_id(repo.id)?category=@cat.id" class="rep_tip" rel="tooltip" title="@repo.name">
-                                                @{val repo_name = repo.name.substring(0,35); repo_name } ...
+                                                @repo.name
                                             </a>
                                         </li>
                                     }

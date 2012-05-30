@@ -9,6 +9,7 @@ import play.db.ebean.*;
 import play.data.format.*;
 import play.data.validation.*;
 import com.avaje.ebean.FetchConfig;
+import com.avaje.ebean.Ebean;
 
 import models.global.UserRole;
 import models.global.UserCredentials;
@@ -125,5 +126,12 @@ public class Report extends Model {
                     return false;
             }
         }
+    }
+
+
+    public void deleteReport(Long id){
+        Report report = Report.find.byId(id);
+	Ebean.deleteManyToManyAssociations(report, "categories");
+        find.ref(id).delete();
     }
 }

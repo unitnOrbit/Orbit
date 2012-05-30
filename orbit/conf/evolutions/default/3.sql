@@ -131,7 +131,7 @@ INSERT INTO `report` (`id`, `name`, `description`, `is_public`) VALUES
 (5, 'Average number of months spent abroad, by cycle, historically (for 5 cycles) ', 'average number of months spent abroad, by cycle, historically', 0),
 (6, 'Average number of months spent abroad, by cycle and by funding institution, historically (for 5 cycles) ', 'average number of months spent abroad, by cycle and by funding institution, historically', 1),
 (7, 'Average mark in courses by funding institution, over the past 5 years', 'Average mark in courses by funding institution, considered over the past 5 years.', 1),
-(9, 'Report di prova', 'jhasbdghjbsah dbsabdhjs abdhjbdshjds fdsbhfjdsh fnsd hjbds', 1);
+(10, 'Report di prova', 'jhasbdghjbsah dbsabdhjs abdhjbdshjds fdsbhfjdsh fnsd hjbds', 1);
 
 
 
@@ -140,7 +140,7 @@ INSERT INTO `category` (`id`, `name`, `description`) VALUES
 (2, 'Student Scholarships', 'Statistic reports about student scholarships over the last 5 years'),
 (3, 'Student Marks', 'Students marks'),
 (4, 'Time Spent Abroad', 'Number of month spent abroad'),
-(5, 'Categoria di prova', 'asdasd');
+(6, 'Categoria di prova', 'asdasd');
 
 
 INSERT INTO `statistic` (`id`, `name`, `description`, `format`, `num_visits`, `widget_options`, `dataset_options`, `widget_id`, `dataset_id`) VALUES
@@ -161,7 +161,7 @@ INSERT INTO `report_category` (`report_id`, `category_id`) VALUES
 (7, 3),
 (5, 4),
 (6, 4),
-(9, 5);
+(10, 6);
 
 
 INSERT INTO `report_statistic` (`report_id`, `statistic_id`) VALUES
