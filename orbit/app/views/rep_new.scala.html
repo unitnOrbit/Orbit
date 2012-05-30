@@ -37,18 +37,23 @@
         <legend>Set visibility</legend>
         @for(role <- userRole) {
             <label class="inline"><!-- force inline -->
+                @*
                 @checkbox(
                     rep_form("role-" + role.role),
                     '_label -> role.role,
                     'id -> ("role-" + role.role),
-                    'class -> "inline"
-                )
-                &nbsp;
+                    'class -> "inline",
+                    'checked -> "checked"
+                )*@
             </label>
+            @input(rep_form("role-" + role.role), '_label -> role.role) {(id, name, value, args) =>
+                  <input id="@id" name="@name" type="checkbox" />
+            }
+            &nbsp;
         }
     </fieldset>
 
-    <fieldset>
+    @*<fieldset>
         <legend>Select Category</legend>
         <!--select name="categories">
             @for(cat <- cats_list) {
@@ -58,7 +63,7 @@
         @select(
           field = rep_form("categories"),
           options = options(cat_map))
-    </fieldset>
+    </fieldset>*@
     <br/>
 
     <div class="actions">

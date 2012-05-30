@@ -9,7 +9,7 @@ import models.global.*;
 import models.statistics.*;
 
 import java.util.*;
-//import java.lang.annotation.Documented; // WTF?
+import com.avaje.ebean.Ebean;
 
 /**
  * Controller class for administration pages. 
@@ -212,53 +212,70 @@ public class Admin extends Controller {
 
     public static Result report_new_pg() {
         Form<Report> formRepNew = new Form(Report.class);
-        List<Category> cats_list = Category.find.all();        
-        List<UserRole> roles = UserRole.find.all();
+        List<Category> cats_list = Category.find.all();
+        List<UserRole> roles = UserRole.find.where()
+            .eq("deleted", false).findList();
         return ok(rep_new.render(cats_list, roles,
                                  formRepNew, getCategoryMap()));
     }
-    
-    
+
     public static Result report_new() {
         Form<Report> reportForm = form(Report.class).bindFromRequest();
         List<Category> cats_list = Category.find.all();
-        List<UserRole> roles = UserRole.find.all();
-        
+        List<UserRole> roles = UserRole.find.where()
+            .eq("deleted", false).findList();
+
         // DEBUG
         System.out.println("name: " + reportForm.field("name").value());
         System.out.println("descr: " + reportForm.field("description").value());
-        
-        for(UserRole role:UserRole.find.all()) {
-            String currentRole = role.role;
-            System.out.println("role-" + role.role + ": "
-                               + reportForm.field("role-" + role.role).value());
-        }
-        
+
+
         System.out.println("category: " + reportForm.field("categories").value());
-                        
+
         if(reportForm.hasErrors()) {
             System.out.println("FAIL: " + reportForm.errors());
             return badRequest(rep_new.render(cats_list, roles,
                                              reportForm, getCategoryMap()));
         } else {
-            
             System.out.println("SUCCESS!\n");
+
+            Report report = reportForm.get();
+            report.save();
+            System.out.println("new report has id " + report.id);
+            //report.allowed_roles = new LinkedList<UserRole>();
+            System.out.println(reportForm.data().toString());
+            for(UserRole role: roles) {
+                System.out.println("  getting "+role.role);
+                String val = reportForm.data().get("role-"+role.role);
+                System.out.println("  VAL: "+val);
+                if ( val != null ) {
+                    //if( ! role.visible_reports.contains(role) ) {
+                        //role.visible_reports.add(report);
+                        report.allowed_roles.add(role);
+                        System.out.println("  "+report.allowed_roles.toString());
+                    //}
+                }
+            }
+            //role.saveManyToManyAssociations("visible_reports");
+            //report.saveManyToManyAssociations("allowed_roles");
+            System.out.println(report.allowed_roles.toString());
+            Ebean.saveManyToManyAssociations(report, "allowed_roles");
             return ok(cat_list.render(cats_list));
-        } 
+        }
     }
-    
+
     /**
      * Displays a form for the removal of the report
      */
     public static Result report_del_pg(Long report_id) {
         Form<Report> repDelForm = form(Report.class).bindFromRequest();
         Report report = Report.find.byId(report_id);
-        
+
         //return ok(report_remove.render(report, repDelForm));
         return TODO;
     }
-    
-    /** 
+
+    /**
      * Process data received from the form and proceed with the cancellation
      */
     public static Result report_del(Long report_id) {
