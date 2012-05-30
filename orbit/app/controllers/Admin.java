@@ -86,7 +86,8 @@ public class Admin extends Controller {
             String name = newCatForm.field("name").value();
             String description = newCatForm.field("description").value();
             newCatForm.get().createCategory(name, description);
-            return ok(cat_list.render(cats_list));
+            //return ok(cat_list.render(cats_list));
+            return redirect(routes.Application.index());
         }
         
     }
@@ -200,12 +201,21 @@ public class Admin extends Controller {
             return ok(report_edit_pg.render(cat, report, stats, reportForm, roles, "success"));
         }        
     }
-    
+
+    private static Map<String, String> getCategoryMap() {
+        Map<String, String> catMap = new HashMap<String, String>();
+        for (Category cat: Category.find.all()) {
+            catMap.put(Long.toString(cat.id), cat.name);
+        }
+        return catMap;
+    }
+
     public static Result report_new_pg() {
         Form<Report> formRepNew = new Form(Report.class);
         List<Category> cats_list = Category.find.all();        
         List<UserRole> roles = UserRole.find.all();
-        return ok(rep_new.render(cats_list, roles, formRepNew));
+        return ok(rep_new.render(cats_list, roles,
+                                 formRepNew, getCategoryMap()));
     }
     
     
@@ -220,7 +230,7 @@ public class Admin extends Controller {
         
         for(UserRole role:UserRole.find.all()) {
             String currentRole = role.role;
-            System.out.println("role-" + role.role + ": " 
+            System.out.println("role-" + role.role + ": "
                                + reportForm.field("role-" + role.role).value());
         }
         
@@ -228,12 +238,13 @@ public class Admin extends Controller {
                         
         if(reportForm.hasErrors()) {
             System.out.println("FAIL: " + reportForm.errors());
-            return badRequest(rep_new.render(cats_list, roles, reportForm));
+            return badRequest(rep_new.render(cats_list, roles,
+                                             reportForm, getCategoryMap()));
         } else {
             
             System.out.println("SUCCESS!\n");
             return ok(cat_list.render(cats_list));
-        }        
+        } 
     }
     
     /**
