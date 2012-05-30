@@ -217,14 +217,15 @@ public class Admin extends Controller {
         // DEBUG
         System.out.println("name: " + reportForm.field("name").value());
         System.out.println("descr: " + reportForm.field("description").value());
-        System.out.println("role_admin: " + reportForm.field("role").value());
-        System.out.println("category: " + reportForm.field("categories").value());
         
-        // Checks if name is empty
-        if(reportForm.field("name").valueOr("").isEmpty()) {
-            reportForm.reject("name", "Cannot be empty!");
+        for(UserRole role:UserRole.find.all()) {
+            String currentRole = role.role;
+            System.out.println("role-" + role.role + ": " 
+                               + reportForm.field("role-" + role.role).value());
         }
-                
+        
+        System.out.println("category: " + reportForm.field("categories").value());
+                        
         if(reportForm.hasErrors()) {
             System.out.println("FAIL: " + reportForm.errors());
             return badRequest(rep_new.render(cats_list, roles, reportForm));

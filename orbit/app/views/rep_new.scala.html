@@ -35,12 +35,12 @@
 
     <fieldset>
         <legend>Set visibility</legend>
-        @for(role <- userRole) {                
+        @for(role <- userRole) {
             <label class="inline"><!-- force inline -->
                 @checkbox(
-                    rep_form("role"),
+                    rep_form("role-" + role.role),
                     '_label -> role.role,
-                    'id -> role.role,
+                    'id -> ("role-" + role.role),
                     'class -> "inline"
                 )
                 &nbsp;

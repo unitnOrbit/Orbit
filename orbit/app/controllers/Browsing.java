@@ -25,7 +25,7 @@ public class Browsing extends Controller {
         User user = Secured.user();
         List<Category> ret = new LinkedList<Category>();
         for (Category c:cats) {
-            if (c.allowed_reports(user).size() > 0)
+            if (c.allowed_reports(user).size() > 0 || user.isAdmin())
                 ret.add(c);
         }
     	return ok(cat_list.render(ret));

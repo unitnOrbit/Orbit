@@ -164,7 +164,7 @@
                         <li id="cats-side-nav" class="nav-header">Categories</li>
                         @for(cat <- controllers.Browsing.get_cat_list() ) {
                           @defining(cat.allowed_reports(user)){reports =>
-                            @if(reports.size() > 0) {
+                            @if(reports.size() > 0 || user.isAdmin()) {
                               <li class="sidebar sidebar-cat-@cat.id">
                                 <a href="@routes.Browsing.cat_by_id(cat.id)">
                                   <i class="icon-list-alt"></i> @cat.name
