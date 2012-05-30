@@ -1,4 +1,4 @@
-@(cats_list: List[models.statistics.Category], userRole: List[models.global.UserRole], rep_form: Form[models.statistics.Report])
+@(cats_list: List[models.statistics.Category], userRole: List[models.global.UserRole], rep_form: Form[models.statistics.Report], cat_map: Map[String,String])
 
 @import helper._
 @import helper.twitterBootstrap._
@@ -24,12 +24,12 @@
             'placeholder -> "Enter the name for the new report"
         )
         @textarea(
-            rep_form("description"), 
+            rep_form("description"),
             '_label -> "Report Description",
-            'rows -> 8, 
-            'class -> "span6", 
+            'rows -> 8,
+            'class -> "span6",
             '_showConstraints -> false,
-            'placeholder -> "Enter the description for the new report"        
+            'placeholder -> "Enter the description for the new report"
         )
     </fieldset>
 
@@ -50,11 +50,14 @@
 
     <fieldset>
         <legend>Select Category</legend>
-        <select name="categories">
+        <!--select name="categories">
             @for(cat <- cats_list) {
                 <option value="@cat.id">@cat.name</option>
             }
-        </select>
+        </select-->
+        @select(
+          field = rep_form("categories"),
+          options = options(cat_map))
     </fieldset>
     <br/>
 
