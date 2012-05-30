@@ -85,6 +85,10 @@ public class AvgMonthAbroadByCycleFor5Cycles
                 .raw("(phd_cycle + course_year - 1) >= ?", cycle)
                 .findRowCount()
                 ;
+            //System.out.println("cycle "+cycle
+            //                   +", "+num_students
+            //                   +" students, totalling "
+            //                   +daysAbroad+" days.");
 
             if (num_students > 0)
                 row.add(new Double( (((double)daysAbroad)/num_students)/30 ));

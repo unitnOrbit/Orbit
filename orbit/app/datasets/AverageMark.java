@@ -49,7 +49,7 @@ public class AverageMark
         List<String> col;
         col = new LinkedList<String>();
         col.add(DataSet.ColTypes.STRING);
-        col.add("Academic Years");
+        col.add("Academic Year");
         cols.add(col);
 
         for (FundingInstitution institutions: this.institutions) {
