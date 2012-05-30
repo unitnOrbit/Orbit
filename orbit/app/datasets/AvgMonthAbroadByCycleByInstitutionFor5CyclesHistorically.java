@@ -6,7 +6,6 @@ import models.global.*;
 /**
  * Class for building the statistic representing
  * Students grouped by nationality.
- * 
  *
  * Builds the data table as follows:
  *   Year   |  Fund.Inst1  | ... | Fund.InstN
@@ -83,7 +82,7 @@ public class AvgMonthAbroadByCycleByInstitutionFor5CyclesHistorically
                                 tr.actualEndDateTime
                             );
                         daysAbroad += tripRange.daysDiff();
-                        System.out.println("  " + daysAbroad);
+                        //System.out.println("  " + daysAbroad);
                     }
                 }
                 // count students

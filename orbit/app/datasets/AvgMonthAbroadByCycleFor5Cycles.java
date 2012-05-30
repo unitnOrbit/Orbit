@@ -66,7 +66,7 @@ public class AvgMonthAbroadByCycleFor5Cycles
                         new SchoolCalendar.CalendarRange(tr.actualBeginDateTime,
                                                          tr.actualEndDateTime);
                     daysAbroad += tripRange.daysDiff();
-                    System.out.println("  " + daysAbroad);
+                    //System.out.println("  " + daysAbroad);
                 }
             }
             // count students

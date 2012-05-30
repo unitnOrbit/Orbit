@@ -48,7 +48,7 @@ public class Category extends Model {
         this.name = name;
         this.description = descr;
         this.save();
-        System.out.println("New Category: "+ name + ", " + descr);
+        //System.out.println("New Category: "+ name + ", " + descr);
         //save();
     }
     

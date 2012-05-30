@@ -91,8 +91,6 @@ public class Report extends Model {
      */
     public boolean is_authorized(UserRole role) {
         for (UserRole allowed: this.allowed_roles) {
-            if (allowed == role)
-                System.out.println("Si`");
             if (allowed.userrolID == role.userrolID)
                 return true;
         }
