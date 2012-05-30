@@ -9,6 +9,8 @@ import play.db.ebean.*;
 import play.data.format.*;
 import play.data.validation.*;
 
+import com.avaje.ebean.Ebean;
+
 @Entity
 public class Category extends Model {
 
@@ -18,7 +20,7 @@ public class Category extends Model {
     public String name;
 
     public String description;
-
+    
     @ManyToMany(mappedBy="categories")
     public List<Report> reports;
 
@@ -82,12 +84,8 @@ public class Category extends Model {
      * @param id    The unique id of the category
      */    
     public void deleteCategory(Long id) {
-        Category category = Category.find.byId(id);        
-        /*
-        for (Report r:category.reports) {
-            find.ref(r.id).delete();
-        }
-        */
+        Category category = Category.find.byId(id);
+        Ebean.deleteManyToManyAssociations(category, "reports");
         find.ref(id).delete();
     }
 }
