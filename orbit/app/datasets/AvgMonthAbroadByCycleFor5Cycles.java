@@ -27,19 +27,19 @@ public class AvgMonthAbroadByCycleFor5Cycles
     }
 
     public List<List<String>> getColumns() {
-	List<List<String>> cols = new LinkedList<List<String>>();
-                List<String> col;
-	col = new LinkedList<String>();
-	col.add(DataSet.ColTypes.STRING);
-	col.add("Academic Year");
-	cols.add(col);
+        List<List<String>> cols = new LinkedList<List<String>>();
+        List<String> col;
+        col = new LinkedList<String>();
+        col.add(DataSet.ColTypes.STRING);
+        col.add("Academic Year");
+        cols.add(col);
 
-	col = new LinkedList<String>();
-	col.add(DataSet.ColTypes.NUMBER);
-	col.add("Avg months spent abroad");
-	cols.add(col);
+        col = new LinkedList<String>();
+        col.add(DataSet.ColTypes.NUMBER);
+        col.add("Avg months spent abroad");
+        cols.add(col);
 
-	return cols;
+        return cols;
     }
 
     public List<List> getData() {
@@ -56,6 +56,7 @@ public class AvgMonthAbroadByCycleFor5Cycles
             int daysAbroad = 0;
             List<Trip> trips = Trip.find
                 .where()
+                .raw("actual_begin_date_time < actual_end_date_time")
                 .ge("actual_begin_date_time", cyclebounds.start.getTime())
                 .le("actual_begin_date_time", cyclebounds.end.getTime())
                 .findList();
@@ -69,8 +70,9 @@ public class AvgMonthAbroadByCycleFor5Cycles
                 }
             }
             // count students
-            System.out.println("cycle: "+ cycle);
             int num_students =
+                // note that MySQL automatically converts phd_cycle
+                // to integer when needed
                 Student.find.where()
                 .le("phd_cycle", cycle)
                 .eq("is_graduated", true)
@@ -83,6 +85,7 @@ public class AvgMonthAbroadByCycleFor5Cycles
                 .raw("(phd_cycle + course_year - 1) >= ?", cycle)
                 .findRowCount()
                 ;
+
             if (num_students > 0)
                 row.add(new Double( (((double)daysAbroad)/num_students)/30 ));
             else

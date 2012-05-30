@@ -182,8 +182,9 @@ public class Student extends Model {
             if (m.find()) {
                 int mark = Integer
                     .parseInt(c.qualification.substring(m.start(), m.end()));
-                if (mark >= 18 && mark <= 30) {
+                if (mark >= 6 && mark <= 31) {
                     // out of this range, marks are out of scale, thus ignored
+                    // support marks in 6-11 or 18-31 (11 or 31 = lode)
                     count ++;
                     sum += mark;
                 }

@@ -70,11 +70,19 @@ public class SchoolCalendar {
             this.end = end;
         }
 
+        /**
+         * Returns the difference in days between end and start.
+         */
         public int daysDiff(){
-            return
-                Days.daysBetween(new DateTime(this.start),
-                                 new DateTime(this.end))
-                .getDays() ;
+            if (this.start.equals(this.end)) {
+                return 0;
+            }
+            else {
+                return
+                    Days.daysBetween(new DateTime(this.start),
+                                     new DateTime(this.end))
+                    .getDays() ;
+            }
         }
     }
 
