@@ -10,13 +10,15 @@
 </script>
 
 <div class="alert alert-info">
-    Reports
     @if(user.isAdmin()) {
+        Admin tools
        <div class="btn-group" style="float:right;">
            <a class="btn btn-mini" rel="tooltip" title="Edit category" href="@routes.Admin.cat_edit_pg(cat.id)"><i class="icon-edit"></i> Edit</a>
            <a class="btn btn-mini" rel="tooltip" title="Delete category" href="@routes.Admin.cat_del_pg(cat.id)"><i class="icon-trash"></i> Delete</a>
        </div><!--/btn-group-->
        <div style="clear:both;"></div>
+    } else {
+        Reports
     }
 </div>
 
