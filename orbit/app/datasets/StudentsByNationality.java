@@ -47,51 +47,10 @@ public class StudentsByNationality
 	cols.add(col);
 	return cols;
     }
-    /*
-    @Entity
-    @Sql
-    public static class CountriesAggregate {
 
-	@OneToOne  
-	public Country country;
-
-	public Long number;
-
-	public CountriesAggregate() { super(); }
-	public String toString() {
-	    return this.country.toString() + ": " + this.number.toString();
-	}
-	public Country getCountry() { return this.country; }
-	public void setCountry(Country c) { this.country = c; }
-	public Long getNumber() { return this.number; }
-	public void setNumber(Long n) { this.number = n; }
-    }
-    */
     public List<List> getData() {
 	List<List> data = new ArrayList<List>();
-	/*
-	List row = new LinkedList();
-	row.add("Italy");
-	row.add(new Integer(123));
-    
-	data.add(row);
-	*/
-	/*
-	String sql = 
-	    "SELECT c.id as country, count(*) as number " +
-	    "FROM students s" +
-	    "LEFT JOIN countries c ON s.citizenship = c.country_id" ;
-
-	List<CountriesAggregate> l = 
-	    Ebean.find(CountriesAggregate.class)
-	    .setRawSql( RawSqlBuilder  
-			.parse(sql)  
-			.columnMapping("country",  "country.id")
-			.create() )
-	    .findList();
-	*/
 	
-	// e` sporchissimo, ma qui sopra sopra non va un cazzo
 	Map <String, Integer> map = new LinkedHashMap<String, Integer>();
 	for ( Student stud: Student.allActive().findList() ) {
 	    String countryName = stud.citizenship.name;
