@@ -132,6 +132,8 @@ public class Report extends Model {
     public void deleteReport(Long id){
         Report report = Report.find.byId(id);
 	Ebean.deleteManyToManyAssociations(report, "categories");
+        Ebean.deleteManyToManyAssociations(report, "statistics");
+        Ebean.deleteManyToManyAssociations(report, "allowed_roles");
         find.ref(id).delete();
     }
 }

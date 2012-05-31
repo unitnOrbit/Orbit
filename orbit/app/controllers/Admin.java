@@ -132,13 +132,10 @@ public class Admin extends Controller {
     
     public static Result report_edit_pg(Long report_id) {
         Report report = Report.find.byId(report_id);
-        List<Long> stats = new LinkedList<Long>();
-        List<UserRole> roles = report.allowed_roles;
-        
-        for (Statistic stat: report.statistics) {
-            stats.add(stat.id);
-        }
-        
+        List<Category> cats = Category.find.all();
+        List<UserRole> roles = UserRole.find.where()
+            .eq("deleted", false).findList();
+
         Category cat = null;
         try {
             cat = Category.find.byId(Long.parseLong(request().queryString().get("category")[0]));
@@ -151,27 +148,21 @@ public class Admin extends Controller {
         }
 
         Form<Report> formRepEdit = new Form(Report.class).fill(report);
-        for(UserRole role:report.allowed_roles) {
-            String currentRole = role.role;
-            // TODO: fill checkbox
-        }
-        
-        return ok(report_edit_pg.render(cat, report, stats, formRepEdit, roles, "edit"));
+
+        return ok(report_edit.render(cat, report, formRepEdit, cats, roles));
     }
-    
+
     public static Result report_edit(Long report_id) {
         Form<Report> reportForm = form(Report.class).bindFromRequest();
         Report report = Report.find.byId(report_id);
-        List<Long> stats = new LinkedList<Long>();
-        List<UserRole> roles = report.allowed_roles;
-        
-        for (Statistic stat: report.statistics) {
-            stats.add(stat.id);
-        }
-        
+        List<Category> cats = Category.find.all();
+        List<UserRole> roles = UserRole.find.where()
+            .eq("deleted", false).findList();
+
         Category cat = null;
         try {
-            cat = Category.find.byId(Long.parseLong(request().queryString().get("category")[0]));
+            cat = Category.find.byId(Long.parseLong(request().queryString()
+                                                    .get("category")[0]));
         }
         catch (NullPointerException e) {
             cat = report.categories.get(0);
@@ -179,35 +170,46 @@ public class Admin extends Controller {
         catch (NumberFormatException e) {
             cat = report.categories.get(0);
         }
-        
-        // Debug msg
-        System.out.println(">\treport_edit(" + report_id + ")");
-        
-        // Checks if name is empty
-        if(reportForm.field("name").valueOr("").isEmpty()) {
-            reportForm.reject("name", "Cannot be empty!");
-        }
-        
-        if(reportForm.hasErrors()) {
-            System.out.println("FAIL: " + reportForm.errors());
-            return badRequest(report_edit_pg.render(cat, report, stats, reportForm, roles, "error"));
-        } else {
-            System.out.println("\tSUCCESS!\n");
-            
-            reportForm.get().updateName(report_id, reportForm.get().name);
-            reportForm.get().updateDescription(report_id, reportForm.get().description);
-            reportForm.get().updateVisibility(report_id, reportForm.get().allowed_roles);
-            
-            return ok(report_edit_pg.render(cat, report, stats, reportForm, roles, "success"));
-        }        
-    }
 
-    private static Map<String, String> getCategoryMap() {
-        Map<String, String> catMap = new HashMap<String, String>();
-        for (Category cat: Category.find.all()) {
-            catMap.put(Long.toString(cat.id), cat.name);
+        if(reportForm.hasErrors()) {
+            return badRequest(report_edit.render(cat, report, reportForm,
+                                                 cats, roles));
         }
-        return catMap;
+        else {
+            report = reportForm.get();
+            report.save();
+
+            System.out.println("old report,  id="+report.id);
+            //System.out.println(reportForm.data().toString());
+            for(UserRole role: roles) {
+                /*
+                String val = reportForm.data().get("role-"+role.userrolID);
+                System.out.println("  VAL: "+val);
+                if ( val != null ) {
+                    if( ! role.visible_reports.contains(role) ) {
+                        report.allowed_roles.add(role);
+                    }
+                }
+                */
+            }
+            //role.saveManyToManyAssociations("visible_reports");
+            //report.saveManyToManyAssociations("allowed_roles");
+            //System.out.println(report.allowed_roles.toString());
+            Ebean.saveManyToManyAssociations(report, "allowed_roles");
+
+            for(Category c: cats) {
+                String val = reportForm.data().get("cat-"+c.id);
+                System.out.println("  VAL: "+val);
+                if ( val != null ) {
+                    if( ! report.categories.contains(c) ) {
+                        report.categories.add(c);
+                    }
+                }
+            }
+            Ebean.saveManyToManyAssociations(report, "categories");
+
+            return redirect(routes.Application.index());
+        }
     }
 
     public static Result report_new_pg() {
@@ -215,8 +217,7 @@ public class Admin extends Controller {
         List<Category> cats_list = Category.find.all();
         List<UserRole> roles = UserRole.find.where()
             .eq("deleted", false).findList();
-        return ok(rep_new.render(cats_list, roles,
-                                 formRepNew, getCategoryMap()));
+        return ok(rep_new.render(formRepNew, cats_list, roles));
     }
 
     public static Result report_new() {
@@ -225,41 +226,45 @@ public class Admin extends Controller {
         List<UserRole> roles = UserRole.find.where()
             .eq("deleted", false).findList();
 
-        // DEBUG
-        System.out.println("name: " + reportForm.field("name").value());
-        System.out.println("descr: " + reportForm.field("description").value());
-
-
-        System.out.println("category: " + reportForm.field("categories").value());
-
         if(reportForm.hasErrors()) {
-            System.out.println("FAIL: " + reportForm.errors());
-            return badRequest(rep_new.render(cats_list, roles,
-                                             reportForm, getCategoryMap()));
-        } else {
-            System.out.println("SUCCESS!\n");
-
+            //System.out.println("FAIL: " + reportForm.errors());
+            return badRequest(rep_new.render(reportForm, cats_list, roles));
+        }
+        else {
             Report report = reportForm.get();
             report.save();
-            System.out.println("new report has id " + report.id);
-            //report.allowed_roles = new LinkedList<UserRole>();
-            System.out.println(reportForm.data().toString());
+
+            //System.out.println("new report has id " + report.id);
+            //System.out.println(reportForm.data().toString());
             for(UserRole role: roles) {
-                System.out.println("  getting "+role.role);
-                String val = reportForm.data().get("role-"+role.role);
+                String val = reportForm.data().get("role-"+role.userrolID);
                 System.out.println("  VAL: "+val);
                 if ( val != null ) {
                     //if( ! role.visible_reports.contains(role) ) {
-                        //role.visible_reports.add(report);
-                        report.allowed_roles.add(role);
-                        System.out.println("  "+report.allowed_roles.toString());
+                    //role.visible_reports.add(report);
+                    report.allowed_roles.add(role);
+                    System.out.println("  "+report.allowed_roles.toString());
                     //}
                 }
             }
             //role.saveManyToManyAssociations("visible_reports");
             //report.saveManyToManyAssociations("allowed_roles");
-            System.out.println(report.allowed_roles.toString());
+            //System.out.println(report.allowed_roles.toString());
             Ebean.saveManyToManyAssociations(report, "allowed_roles");
+
+            for(Category cat: cats_list) {
+                String val = reportForm.data().get("cat-"+cat.id);
+                System.out.println("  VAL: "+val);
+                if ( val != null ) {
+                    //if( ! role.visible_reports.contains(role) ) {
+                    //role.visible_reports.add(report);
+                    report.categories.add(cat);
+                    System.out.println("  "+report.allowed_roles.toString());
+                    //}
+                }
+            }
+            Ebean.saveManyToManyAssociations(report, "categories");
+
             return redirect(routes.Application.index());
         }
     }
@@ -304,12 +309,23 @@ public class Admin extends Controller {
         if(repDelForm.hasErrors()) {
             System.err.println("\tFAIL: " + repDelForm.errors());
             return badRequest(report_remove.render(report, repDelForm));
-        } else {
+        }
+        else {
             repDelForm.get().deleteReport(report_id);
-            
-            System.out.println("\tSUCCESS!\n");
+
+            //System.out.println("\tSUCCESS!\n");
             //return ok(cat_list.render(cats_list));
-            return redirect(routes.Application.index());            
+            return redirect(routes.Application.index());
         }
     }
 }
+
+/*
+TODO:
+
+use update instead of save for saving after report_edit
+
+see how manytomany work when updating.
+if needed, delete all manytomany before updating(thus recreating them from scratch)
+
+*/
