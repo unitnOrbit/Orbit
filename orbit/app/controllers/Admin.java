@@ -48,8 +48,8 @@ public class Admin extends Controller {
             return(badRequest(cat_edit_pg.render(category, category.reports, 
                                                  categoryForm, "error")));
         } else {
-            System.out.println("Cat name: " + categoryForm.get().name);
-            System.out.println("Cat descr: " + categoryForm.get().description);
+            //System.out.println("Cat name: " + categoryForm.get().name);
+            //System.out.println("Cat descr: " + categoryForm.get().description);
             
             categoryForm.get().updateName(cat_id, categoryForm.get().name);
             categoryForm.get().updateDescription(cat_id, categoryForm.get().description);
@@ -80,7 +80,7 @@ public class Admin extends Controller {
         }
         
         if(newCatForm.hasErrors()) {
-            System.err.println("\tFAIL: " + newCatForm.errors());
+            //System.err.println("\tFAIL: " + newCatForm.errors());
             return badRequest(cat_new.render(newCatForm));
         } else {
             String name = newCatForm.field("name").value();
@@ -110,8 +110,8 @@ public class Admin extends Controller {
         List<Category> cats_list = Category.find.all();
         
         // Debug msg
-        System.out.println(">\tcat_del(" + cat_id + ")");
-        System.out.println("\tname: " + category.name);
+        //System.out.println(">\tcat_del(" + cat_id + ")");
+        //System.out.println("\tname: " + category.name);
         
         // Checks if the confirmation is true
         if(catDelForm.field("confirmation").value() == null) {
@@ -119,12 +119,12 @@ public class Admin extends Controller {
         }
         
         if(catDelForm.hasErrors()) {
-            System.err.println("\tFAIL: " + catDelForm.errors());
+            //System.err.println("\tFAIL: " + catDelForm.errors());
             return badRequest(cat_remove.render(category, catDelForm));
         } else {
             catDelForm.get().deleteCategory(cat_id);
             
-            System.out.println("\tSUCCESS!\n");
+            //System.out.println("\tSUCCESS!\n");
             //return ok(cat_list.render(cats_list));
             return redirect(routes.Application.index());
         }
@@ -179,12 +179,12 @@ public class Admin extends Controller {
             Report newreport = reportForm.get();
             newreport.update(report.id); //.save();
 
-            System.out.println("old report,  id="+report.id);
+            //System.out.println("old report,  id="+report.id);
             //System.out.println(reportForm.data().toString());
             Ebean.deleteManyToManyAssociations(newreport, "allowed_roles");
             for(UserRole role: roles) {
                 String val = reportForm.data().get("role-"+role.userrolID);
-                System.out.println("  VAL: "+val);
+                //System.out.println("  VAL: "+val);
                 if ( val != null ) {
                     if( ! role.visible_reports.contains(role) ) {
                         newreport.allowed_roles.add(role);
@@ -199,7 +199,7 @@ public class Admin extends Controller {
             Ebean.deleteManyToManyAssociations(newreport, "categories");
             for(Category c: cats) {
                 String val = reportForm.data().get("cat-"+c.id);
-                System.out.println("  VAL: "+val);
+                //System.out.println("  VAL: "+val);
                 if ( val != null ) {
                     if( ! newreport.categories.contains(c) ) {
                         newreport.categories.add(c);
@@ -238,12 +238,12 @@ public class Admin extends Controller {
             //System.out.println(reportForm.data().toString());
             for(UserRole role: roles) {
                 String val = reportForm.data().get("role-"+role.userrolID);
-                System.out.println("  VAL: "+val);
+                //System.out.println("  VAL: "+val);
                 if ( val != null ) {
                     //if( ! role.visible_reports.contains(role) ) {
                     //role.visible_reports.add(report);
                     report.allowed_roles.add(role);
-                    System.out.println("  "+report.allowed_roles.toString());
+                    //System.out.println("  "+report.allowed_roles.toString());
                     //}
                 }
             }
@@ -254,12 +254,12 @@ public class Admin extends Controller {
 
             for(Category cat: cats_list) {
                 String val = reportForm.data().get("cat-"+cat.id);
-                System.out.println("  VAL: "+val);
+                //System.out.println("  VAL: "+val);
                 if ( val != null ) {
                     //if( ! role.visible_reports.contains(role) ) {
                     //role.visible_reports.add(report);
                     report.categories.add(cat);
-                    System.out.println("  "+report.allowed_roles.toString());
+                    //System.out.println("  "+report.allowed_roles.toString());
                     //}
                 }
             }
@@ -298,8 +298,8 @@ public class Admin extends Controller {
         List<Category> cats_list = Category.find.all();
         
         // Debug msg
-        System.out.println(">\trep_del(" + report_id + ")");
-        System.out.println("\tname: " + repDelForm.field("name").value());
+        //System.out.println(">\trep_del(" + report_id + ")");
+        //System.out.println("\tname: " + repDelForm.field("name").value());
         
         // Checks if the confirmation is true
         if(repDelForm.field("confirmation").value() == null) {
@@ -307,7 +307,7 @@ public class Admin extends Controller {
         }
  
         if(repDelForm.hasErrors()) {
-            System.err.println("\tFAIL: " + repDelForm.errors());
+            //System.err.println("\tFAIL: " + repDelForm.errors());
             return badRequest(report_remove.render(report, repDelForm));
         }
         else {

@@ -1,0 +1,85 @@
+@(form: Form[models.statistics.Report], report: models.statistics.Report, cats: List[models.statistics.Category], roles: List[models.global.UserRole], form_action: play.api.mvc.Call )
+
+@*@import helper._
+@import helper.twitterBootstrap._*@
+
+@if(form.hasGlobalErrors()) {
+<div class="alert alert-error">
+    <button class="close" data-dismiss="alert">x</button>
+    <p><strong>Error:</strong> @form.globalError.message</p>
+</div>
+}
+
+@helper.form(form_action, 'class -> "well form-inline") {
+    <fieldset>
+        <legend>Create report</legend>
+        @helper.textarea(
+            form("name"),
+            '_label -> "Report Name",
+            'rows -> 2,
+            'class -> "span6",
+            '_showConstraints -> false,
+            'placeholder -> "Enter the name for the new report"
+        )
+        @helper.textarea(
+            form("description"),
+            '_label -> "Report Description",
+            'rows -> 8,
+            'class -> "span6",
+            '_showConstraints -> false,
+            'placeholder -> "Enter the description for the new report"
+        )
+    </fieldset>
+
+
+    <fieldset>
+        <legend>Set Category</legend>
+        @for(cat <- cats) {
+            <label class="inline span1"><!-- force inline -->
+            @helper.input(form("cat-" + cat.id), '_label -> cat.name) {(id, name, value, args) =>
+              @if(report == null) {
+                <input id="@id" name="@name" type="checkbox" />
+              }else{
+                 @if(report.categories.contains(cat)){
+                   <input id="@id" name="@name" type="checkbox" checked="" />
+                 }else{
+                   <input id="@id" name="@name" type="checkbox" />
+                 }
+              }
+            }
+            </label>
+        }
+    </fieldset>
+    <br/>
+
+    <fieldset>
+        <legend>Set visibility</legend>
+        <label class="inline span1"><!-- force inline -->
+            @helper.checkbox(
+                form("is_public"),
+                '_label -> Html("<b>Is Public</b>")
+            )
+        </label>
+
+        @for(role <- roles) {
+          <label class="inline span1"><!-- force inline -->
+            @helper.input(form("role-" + role.userrolID), '_label -> role.role) {(id, name, value, args) =>
+              @if(report == null) {
+                <input id="@id" name="@name" type="checkbox" />
+              }else{
+                 @if(report.allowed_roles.contains(role)){
+                   <input id="@id" name="@name" type="checkbox" checked="" />
+                 }else{
+                   <input id="@id" name="@name" type="checkbox" />
+                 }
+              }
+            }
+          </label>
+        }
+    </fieldset>
+    <br/>
+
+    <div class="actions">
+        <button type="submit" class="btn">Complete</button>
+    </div>
+}
