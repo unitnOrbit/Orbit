@@ -1,6 +1,6 @@
 @(cat: models.statistics.Category, report: models.statistics.Report, form: Form[models.statistics.Report], cats: List[models.statistics.Category], roles: List[models.global.UserRole])
 
-@main(Html(report.name + ""), nav = "cat-" + cat.id, nav2 = "report-" + report.id, null) {
+@main(Html("Edit: "+report.name), nav = "cat-" + cat.id, nav2 = "report-" + report.id, null) {
 
   @rep_form(form, report, cats, roles, routes.Admin.report_edit(report.id))
 

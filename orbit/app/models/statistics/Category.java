@@ -82,7 +82,7 @@ public class Category extends Model {
      * Remove the selected category.
      *
      * @param id    The unique id of the category
-     */    
+     */ 
     public void deleteCategory(Long id) {
         Category category = Category.find.byId(id);
         Ebean.deleteManyToManyAssociations(category, "reports");

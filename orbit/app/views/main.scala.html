@@ -153,13 +153,6 @@
                         <li class="sidebar-about"><a href="@routes.Application.aboutPage()"><i class="icon-question-sign"></i> About</a></li>
                         <li class="sidebar-school"><a href="http://ict.unitn.it/" target="_blank"><i class="icon-share-alt"></i> School website</a></li>
                         
-                        @* Checks if user is ADMIN *@
-                        @if(user.isAdmin()) {
-                            <li class="nav-header">Administration</li>                            
-                            <li class="sidebar-createcategory"><a href="@routes.Admin.cat_new_pg()"><i class="icon-pencil"></i> Create Category</a></li>                        
-                            <li class="sidebar-createreport"><a href="@routes.Admin.report_new_pg()"><i class="icon-pencil"></i> Create Report</a></li>
-                        }
-                                                
                         <!-- Categories block -->
                         <li id="cats-side-nav" class="nav-header">Categories</li>
                         @for(cat <- controllers.Browsing.get_cat_list() ) {
@@ -198,6 +191,14 @@
                           }
                         }
                             
+                        @* Checks if user is ADMIN *@
+                        @if(user.isAdmin()) {
+                            <li class="nav-header">Administration</li>                            
+                            <li class="sidebar-createcategory"><a href="@routes.Admin.cat_new_pg()"><i class="icon-pencil"></i> Create Category</a></li>                        
+                            <li class="sidebar-createreport"><a href="@routes.Admin.report_new_pg()"><i class="icon-pencil"></i> Create Report</a></li>
+                        }
+
+                        
                         <li class="nav-header">Tools</li>
                         <li class="sidebar-print"><a href="#" onclick="window.print();return false;"><i class="icon-print"></i> Print</a></li>
 

@@ -12,7 +12,11 @@
 
 @helper.form(form_action, 'class -> "well form-inline") {
     <fieldset>
-        <legend>Create report</legend>
+        @if(report == null){
+          <legend>Create report</legend>
+        }else{
+          <legend>Edit report - @report.name</legend>
+        }
         @helper.textarea(
             form("name"),
             '_label -> "Report Name",
@@ -81,5 +85,10 @@
 
     <div class="actions">
         <button type="submit" class="btn">Complete</button>
+        @if(report != null){
+          <a href="@routes.Browsing.report_by_id(report.id)" class="btn">
+            Cancel
+          </a>
+        }
     </div>
 }
