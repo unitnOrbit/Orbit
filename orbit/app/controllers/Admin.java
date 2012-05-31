@@ -176,37 +176,37 @@ public class Admin extends Controller {
                                                  cats, roles));
         }
         else {
-            report = reportForm.get();
-            report.save();
+            Report newreport = reportForm.get();
+            newreport.update(report.id); //.save();
 
             System.out.println("old report,  id="+report.id);
             //System.out.println(reportForm.data().toString());
+            Ebean.deleteManyToManyAssociations(newreport, "allowed_roles");
             for(UserRole role: roles) {
-                /*
                 String val = reportForm.data().get("role-"+role.userrolID);
                 System.out.println("  VAL: "+val);
                 if ( val != null ) {
                     if( ! role.visible_reports.contains(role) ) {
-                        report.allowed_roles.add(role);
+                        newreport.allowed_roles.add(role);
                     }
                 }
-                */
             }
             //role.saveManyToManyAssociations("visible_reports");
-            //report.saveManyToManyAssociations("allowed_roles");
+            //newreport.saveManyToManyAssociations("allowed_roles");
             //System.out.println(report.allowed_roles.toString());
-            Ebean.saveManyToManyAssociations(report, "allowed_roles");
+            Ebean.saveManyToManyAssociations(newreport, "allowed_roles");
 
+            Ebean.deleteManyToManyAssociations(newreport, "categories");
             for(Category c: cats) {
                 String val = reportForm.data().get("cat-"+c.id);
                 System.out.println("  VAL: "+val);
                 if ( val != null ) {
-                    if( ! report.categories.contains(c) ) {
-                        report.categories.add(c);
+                    if( ! newreport.categories.contains(c) ) {
+                        newreport.categories.add(c);
                     }
                 }
             }
-            Ebean.saveManyToManyAssociations(report, "categories");
+            Ebean.saveManyToManyAssociations(newreport, "categories");
 
             return redirect(routes.Application.index());
         }
@@ -319,13 +319,3 @@ public class Admin extends Controller {
         }
     }
 }
-
-/*
-TODO:
-
-use update instead of save for saving after report_edit
-
-see how manytomany work when updating.
-if needed, delete all manytomany before updating(thus recreating them from scratch)
-
-*/
