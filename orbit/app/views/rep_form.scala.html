@@ -58,13 +58,13 @@
 
     <fieldset>
         <legend>Set visibility</legend>
-        <label class="inline span1"><!-- force inline -->
+        <label class="inline span1 is_public-checkbox"><!-- force inline -->
             @helper.checkbox(
                 form("is_public"),
                 '_label -> Html("<b>Is Public</b>")
             )
         </label>
-
+        <div class="roles-choosing">
         @for(role <- roles) {
           <label class="inline span1"><!-- force inline -->
             @helper.input(form("role-" + role.userrolID), '_label -> role.role) {(id, name, value, args) =>
@@ -80,8 +80,28 @@
             }
           </label>
         }
+        </div>
+
     </fieldset>
     <br/>
+    <script type="text/javascript">
+      function checkable_roles() {
+        var val = $(".is_public-checkbox").find("input").prop("checked");
+        //console.log(val);
+        if(val) {
+          //$(".roles-choosing").find("input").prop("readonly", true);
+          $(".roles-choosing").find("input").prop("disabled", true);
+        }
+        else {
+          //$(".roles-choosing").find("input").prop("readonly", false);
+          $(".roles-choosing").find("input").prop("disabled", false);
+        }
+      }
+      $(function(){
+        $(".is_public-checkbox").find("input").change(checkable_roles);
+        $(".is_public-checkbox").find("input").change();
+      });
+    </script>
 
     <div class="actions">
         <button type="submit" class="btn">Complete</button>
