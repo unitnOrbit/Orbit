@@ -7,11 +7,12 @@ Error reading annotations
 
 You can not mix enhancement in a single hierarchy
 	- stop play
-	- drop and create the database (obtain an empty db)
 	- comment out "ebean.default..." line in conf/application.conf
+        - drop and recreate database
 	- start play
+        - load a page from your browser (you'll get DataSource user is null)
 
-DataSource is null (this is actually supposed to happen)
+DataSource user is null (this is actually supposed to happen)
 	- stop play
 	- uncomment "ebean.default..." line in conf/application.conf
 	- start play
