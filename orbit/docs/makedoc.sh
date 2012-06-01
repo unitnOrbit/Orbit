@@ -7,7 +7,8 @@ fi
 
 mkdir $DIR/api
 javadoc -sourcepath $DIR/../app:$PLAY_HOME/src -d $DIR/api \
-    -subpackages play `ls --indicator-style=none $DIR/../app` \
+    -subpackages play `ls --indicator-style=none $DIR/../app`  \
+    models.global models.statistics \
     -link http://www.playframework.org/documentation/api/2.0/java/package-list \
     2>/dev/null
 
