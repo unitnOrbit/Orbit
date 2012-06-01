@@ -1,0 +1,17 @@
+During the developement of this project, we encountered some problems.
+They might be bugs in the ORM itself, or bugs in our code, but they
+come and go here are the workarounds:
+
+Error reading annotations
+	- restart play
+
+You can not mix enhancement in a single hierarchy
+	- stop play
+	- drop and create the database (obtain an empty db)
+	- comment out "ebean.default..." line in conf/application.conf
+	- start play
+
+DataSource is null (this is actually supposed to happen)
+	- stop play
+	- uncomment "ebean.default..." line in conf/application.conf
+	- start play
